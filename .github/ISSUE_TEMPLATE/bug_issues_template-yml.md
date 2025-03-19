@@ -1,14 +1,5 @@
----
-name: bug_issues_template.yml
-about: Describe this issue template's purpose here.
-title: 'bug:'
-labels: ''
-assignees: ''
-
----
-
 name: "bug_issues_template"
-title: "fix:"
+title: "bug:"
 description: "버그 이슈를 작성하는 템플릿입니다."
 labels: []
 assignees: []
