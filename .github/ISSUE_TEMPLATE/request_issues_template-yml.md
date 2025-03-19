@@ -1,12 +1,3 @@
----
-name: request_issues_template.yml
-about: Describe this issue template's purpose here.
-title: 'request:'
-labels: ''
-assignees: ''
-
----
-
 name: "request_issues_template"
 description: "요청 사항을 작성하는 템플릿입니다."
 title: "request:"
