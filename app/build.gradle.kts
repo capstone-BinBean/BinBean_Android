@@ -40,6 +40,10 @@ android {
 dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
+    implementation(project(":presentation:user:bookmark"))
+    implementation(project(":presentation:user:userMain"))
+    implementation(project(":presentation:user:map"))
+    implementation(project(":presentation:user:mypage"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
