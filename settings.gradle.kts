@@ -22,6 +22,5 @@ dependencyResolutionManagement {
 rootProject.name = "BinBean_Android"
 include(":app")
 include(":data")
-include(":presentation")
 include(":domain")
  
