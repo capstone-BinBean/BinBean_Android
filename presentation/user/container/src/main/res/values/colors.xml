@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFF</color>
+    <color name="navi_no_focused">#cbcbcb</color>
+    <color name="navi_focused">#373324</color>
+</resources>

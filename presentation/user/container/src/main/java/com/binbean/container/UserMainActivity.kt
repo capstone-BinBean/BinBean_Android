@@ -3,10 +3,12 @@ package com.binbean.container
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.binbean.bookmark.BookMarkFragment
 import com.binbean.container.databinding.ActivityUserMainBinding
 import com.binbean.map.MapFragment
 import com.binbean.mypage.MyInfoFragment
+import androidx.core.view.size
 
 class UserMainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserMainBinding
@@ -17,6 +19,7 @@ class UserMainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setBottomNavigationView()
+        setIndicatorView()
 
         // 앱 초기 실행 시 홈 화면 설정
         if (savedInstanceState == null) { binding.bottomNavigationView.selectedItemId = R.id.fragment_home }
@@ -24,30 +27,24 @@ class UserMainActivity : AppCompatActivity() {
 
     private fun setBottomNavigationView() {
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
+            val index = when (item.itemId) {
                 R.id.fragment_home -> {
-                    val fragment = MapFragment()
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, fragment)
-                        .commit()
-                    return@setOnItemSelectedListener true
+                    switchToFragment(MapFragment())
+                    0
                 }
                 R.id.fragment_favorite -> {
-                    val fragment = BookMarkFragment()
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, fragment)
-                        .commit()
-                    return@setOnItemSelectedListener true
+                    switchToFragment(BookMarkFragment())
+                    1
                 }
                 R.id.fragment_mypage -> {
-                    val fragment = MyInfoFragment()
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, fragment)
-                        .commit()
-                    return@setOnItemSelectedListener true
+                    switchToFragment(MyInfoFragment())
+                    2
                 }
+                else -> return@setOnItemSelectedListener false
             }
-            false
+
+            moveIndicatorToPosition(index)
+            true
         }
     }
 
@@ -57,5 +54,37 @@ class UserMainActivity : AppCompatActivity() {
 
     fun showNavigation() {
         binding.bottomNavigationView.visibility = View.VISIBLE
+    }
+
+    private fun switchToFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
+    }
+
+    private fun setIndicatorView() {
+        binding.bottomNavigationView.post {
+            val itemCount = binding.bottomNavigationView.menu.size
+            val itemWidth = binding.bottomNavigationView.width / itemCount
+
+            val params = binding.indicatorView.layoutParams
+            params.width = itemWidth - dpToPx(50)
+            binding.indicatorView.layoutParams = params
+        }
+    }
+
+    private fun moveIndicatorToPosition(index: Int) {
+        val itemCount = binding.bottomNavigationView.menu.size
+        val itemWidth = binding.bottomNavigationView.width / itemCount
+        val targetX = index * itemWidth + dpToPx(25)
+
+        binding.indicatorView.animate()
+            .x(targetX.toFloat())
+            .setDuration(200)
+            .start()
+    }
+
+    private fun dpToPx(dp: Int): Int {
+        return (dp * resources.displayMetrics.density).toInt()
     }
 }

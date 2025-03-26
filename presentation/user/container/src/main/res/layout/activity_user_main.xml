@@ -19,10 +19,23 @@
         android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_bottom_nav"
         app:labelVisibilityMode="labeled"
-        app:itemTextColor="@color/material_dynamic_neutral_variant30" />
+        app:itemTextColor="@color/bottom_nav_text_color_selector"
+        app:itemIconTint="@color/bottom_nav_text_color_selector"
+        app:itemActiveIndicatorStyle="@null"/>
+    
+    <View
+        android:id="@+id/indicator_view"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/indicator_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
