@@ -1,10 +1,18 @@
 package com.binbean.map
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.binbean.map.databinding.FragmentMapBinding
+import com.kakao.vectormap.KakaoMap
+import com.kakao.vectormap.KakaoMapReadyCallback
+import com.kakao.vectormap.MapLifeCycleCallback
+import com.kakao.vectormap.MapReadyCallback
+import com.kakao.vectormap.MapView
+import java.lang.Exception
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +28,7 @@ class MapFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var binding: FragmentMapBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +43,26 @@ class MapFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_map, container, false)
+        binding = FragmentMapBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.mapView.start(object : MapLifeCycleCallback() {
+            override fun onMapDestroy() {
+                Log.d("kakaoMap", "카카오맵 정상종료")
+            }
+
+            override fun onMapError(p0: Exception?) {
+                Log.d("kakaoMap", p0.toString())
+            }
+        }, object : KakaoMapReadyCallback() {
+            override fun onMapReady(p0: KakaoMap) {
+                Log.d("kakaoMap", "카카오맵 정상실행")
+            }
+        })
     }
 
     companion object {
