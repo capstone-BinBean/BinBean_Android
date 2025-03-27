@@ -49,14 +49,16 @@ class MapFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupMapView()
+    }
 
+    private fun setupMapView(){
         binding.mapView.start(object : MapLifeCycleCallback() {
             override fun onMapDestroy() {
                 Log.d("kakaoMap", "카카오맵 정상종료")
             }
-
             override fun onMapError(p0: Exception?) {
-                Log.d("kakaoMap", p0.toString())
+                p0.let { Log.e("kakaoMap", p0.toString()) }
             }
         }, object : KakaoMapReadyCallback() {
             override fun onMapReady(p0: KakaoMap) {
