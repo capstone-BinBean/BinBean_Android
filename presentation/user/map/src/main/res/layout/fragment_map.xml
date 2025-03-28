@@ -9,6 +9,18 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        
+        <TextView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@drawable/search_view_background"
+            android:hint="빈자리를 확인하고 싶은 카페를 검색해보세요"
+            android:padding="12dp"
+            android:layout_margin="16dp"
+            android:textColorHint="@color/hint_text"
+            android:gravity="left|center"
+            android:elevation="10dp"/>
 
         <com.kakao.vectormap.MapView
             android:id="@+id/map_view"
