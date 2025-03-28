@@ -1,11 +1,10 @@
-package com.example.main
+package com.binbean.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.example.main.databinding.ActivityAdminMainBinding
+import com.binbean.main.databinding.ActivityAdminMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 

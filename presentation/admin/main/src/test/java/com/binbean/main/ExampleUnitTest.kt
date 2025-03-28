@@ -1,4 +1,4 @@
-package com.example.main
+package com.binbean.main
 
 import org.junit.Test
 

@@ -3,7 +3,7 @@ package com.binbean.binbean_android
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.main.AdminMainActivity
+import com.binbean.main.AdminMainActivity
 
 
 class MainActivity : AppCompatActivity() {
