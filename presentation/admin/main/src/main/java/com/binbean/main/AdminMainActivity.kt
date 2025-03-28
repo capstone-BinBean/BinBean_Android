@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.binbean.home.AdminHomeFragment
 import com.binbean.main.databinding.ActivityAdminMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -16,16 +18,23 @@ class AdminMainActivity : AppCompatActivity() {
         binding = ActivityAdminMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setIndicatorBar()
+        initBottomNavigation()
+        if (savedInstanceState == null) {
+            switchFragment(AdminHomeFragment())
+        }
     }
 
 
-    private fun setIndicatorBar() {
+    /**
+     * 하단 네비게이션바 초기화
+     */
+    private fun initBottomNavigation() {
         val bottomNavigationView = binding.bottomNavigationView
         val indicatorBar = binding.indicatorBar
 
         // 첫 번째 아이템에 대한 초기 설정
-        initialIndicatorPosition(bottomNavigationView, indicatorBar)
+        initIndicatorPosition(bottomNavigationView, indicatorBar)
+        setBottomNavigation(bottomNavigationView)
 
         // 아이템 선택 시 위치 업데이트
         bottomNavigationView.setOnItemSelectedListener { item ->
@@ -36,9 +45,42 @@ class AdminMainActivity : AppCompatActivity() {
 
 
     /**
+     * 하단 네비게이션바 설정
+     */
+    private fun setBottomNavigation(bottomNavigationView: BottomNavigationView) {
+        binding.bottomNavigationView.setOnItemSelectedListener { item ->
+            val index = when (item.itemId) {
+                R.id.navi_home -> {
+                    switchFragment(AdminHomeFragment())
+                }
+
+                R.id.navi_registration -> {
+                }
+
+                R.id.navi_my -> {
+                }
+
+                else -> return@setOnItemSelectedListener false
+            }
+            true
+        }
+    }
+
+
+    /**
+     * 프래그먼트 전환
+     */
+    private fun switchFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
+    }
+
+
+    /**
      * 첫 번째 아이템의 인디케이터 위치 설정
      */
-    private fun initialIndicatorPosition(
+    private fun initIndicatorPosition(
         bottomNavigationView: BottomNavigationView,
         indicatorBar: View
     ) {

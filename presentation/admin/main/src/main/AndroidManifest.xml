@@ -4,6 +4,7 @@
     <application>
         <activity
             android:name=".AdminMainActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
     </application>
 

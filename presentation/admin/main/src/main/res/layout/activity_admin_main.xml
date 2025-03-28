@@ -20,7 +20,7 @@
         android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        app:background="@drawable/navi_item_background"
+        android:background="@android:color/white"
         app:itemActiveIndicatorStyle="@android:color/transparent"
         app:itemIconSize="30dp"
         app:itemIconTint="@drawable/navi_item_color"
