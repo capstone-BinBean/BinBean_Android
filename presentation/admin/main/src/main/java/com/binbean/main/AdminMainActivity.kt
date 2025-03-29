@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.binbean.home.AdminHomeFragment
 import com.binbean.main.databinding.ActivityAdminMainBinding
+import com.binbean.register.AdminRegisterFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -34,35 +35,38 @@ class AdminMainActivity : AppCompatActivity() {
 
         // 첫 번째 아이템에 대한 초기 설정
         initIndicatorPosition(bottomNavigationView, indicatorBar)
-        setBottomNavigation(bottomNavigationView)
-
-        // 아이템 선택 시 위치 업데이트
-        bottomNavigationView.setOnItemSelectedListener { item ->
-            updateIndicatorPosition(item, bottomNavigationView, indicatorBar)
-            true
-        }
+        setBottomNavigation(bottomNavigationView, indicatorBar)
     }
 
 
     /**
      * 하단 네비게이션바 설정
      */
-    private fun setBottomNavigation(bottomNavigationView: BottomNavigationView) {
-        binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            val index = when (item.itemId) {
-                R.id.navi_home -> {
-                    switchFragment(AdminHomeFragment())
-                }
+    private fun setBottomNavigation(
+        bottomNavigationView: BottomNavigationView,
+        indicatorBar: View
+    ) {
+        bottomNavigationView.run {
+            setOnItemSelectedListener {
+                updateIndicatorPosition(it, bottomNavigationView, indicatorBar)
+                when (it.itemId) {
+                    R.id.navi_home -> {
+                        switchFragment(AdminHomeFragment())
+                        true
+                    }
 
-                R.id.navi_registration -> {
-                }
+                    R.id.navi_registration -> {
+                        switchFragment(AdminRegisterFragment())
+                        true
+                    }
 
-                R.id.navi_my -> {
-                }
+                    R.id.navi_my -> {
+                    }
 
-                else -> return@setOnItemSelectedListener false
+                    else -> false
+                }
+                true
             }
-            true
         }
     }
 

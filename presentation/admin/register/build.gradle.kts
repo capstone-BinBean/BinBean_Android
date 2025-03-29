@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.binbean.main"
+    namespace = "com.binbean.register"
     compileSdk = 35
 
     defaultConfig {
@@ -24,26 +24,22 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "11"
     }
-
     buildFeatures {
         viewBinding = true
     }
 }
 
 dependencies {
-    implementation(project(":presentation:admin:home"))
-    implementation(project(":presentation:admin:register"))
+    implementation(project(":common:resource"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -1,0 +1,5 @@
+<resources>
+    <string name="register_modify">등록 / 수정</string>
+    <string name="register_cafe">카페 등록하기</string>
+    <string name="wait_for_your_cafe">10명의 손님이 당신의 카페를 기다리고있어요!</string>
+</resources>
