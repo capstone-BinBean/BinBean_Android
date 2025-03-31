@@ -1,17 +1,23 @@
 package com.binbean.map
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import com.binbean.map.databinding.FragmentMapBinding
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import com.kakao.vectormap.KakaoMap
 import com.kakao.vectormap.KakaoMapReadyCallback
+import com.kakao.vectormap.LatLng
 import com.kakao.vectormap.MapLifeCycleCallback
-import com.kakao.vectormap.MapReadyCallback
-import com.kakao.vectormap.MapView
+import com.kakao.vectormap.camera.CameraUpdateFactory
 import java.lang.Exception
 
 // TODO: Rename parameter arguments, choose names that match
@@ -29,6 +35,15 @@ class MapFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var binding: FragmentMapBinding
+
+    private val locationPermissionRequest =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            val fineGranted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false
+            val coarseGranted = permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false
+
+            if (fineGranted || coarseGranted) { setupMapView() }
+            else { Toast.makeText(requireContext(), "위치 권한이 필요합니다", Toast.LENGTH_SHORT).show() }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +64,16 @@ class MapFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupMapView()
+        checkLocationPermission()
+    }
+
+    private fun checkLocationPermission(){
+        locationPermissionRequest.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        )
     }
 
     private fun setupMapView(){
@@ -63,8 +87,25 @@ class MapFragment : Fragment() {
         }, object : KakaoMapReadyCallback() {
             override fun onMapReady(p0: KakaoMap) {
                 Log.d("kakaoMap", "카카오맵 정상실행")
+                moveMapToCurrentLocation(p0)
             }
         })
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun moveMapToCurrentLocation(map: KakaoMap){
+        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
+        fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null).addOnSuccessListener {
+            val location = it
+            if (location != null) {
+                val currentLatLng = LatLng.from(location.latitude, location.longitude)
+                map.moveCamera(CameraUpdateFactory.newCenterPosition(currentLatLng))
+                Log.d("kakaoMap", "현재 위치로 이동: ${location.latitude}, ${location.longitude}")
+            } else {
+                Log.e("kakaoMap", "현재 위치 정보 없음")
+            }
+        }
     }
 
     companion object {
@@ -85,5 +126,15 @@ class MapFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.mapView.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.mapView.pause()
     }
 }
