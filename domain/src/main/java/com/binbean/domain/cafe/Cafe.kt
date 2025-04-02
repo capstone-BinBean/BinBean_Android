@@ -1,4 +1,4 @@
-package com.binbean.data.cafe
+package com.binbean.domain.cafe
 
 data class Cafe(
     val name: String,

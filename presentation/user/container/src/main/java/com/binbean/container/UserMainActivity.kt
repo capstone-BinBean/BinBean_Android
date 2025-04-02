@@ -9,7 +9,9 @@ import com.binbean.container.databinding.ActivityUserMainBinding
 import com.binbean.map.MapFragment
 import com.binbean.mypage.MyInfoFragment
 import androidx.core.view.size
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class UserMainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserMainBinding
 

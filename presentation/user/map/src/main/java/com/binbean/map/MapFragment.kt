@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.viewModels
 import com.binbean.map.databinding.FragmentMapBinding
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
@@ -18,6 +19,7 @@ import com.kakao.vectormap.KakaoMapReadyCallback
 import com.kakao.vectormap.LatLng
 import com.kakao.vectormap.MapLifeCycleCallback
 import com.kakao.vectormap.camera.CameraUpdateFactory
+import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
 
 // TODO: Rename parameter arguments, choose names that match
@@ -30,11 +32,13 @@ private const val ARG_PARAM2 = "param2"
  * Use the [MapFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 class MapFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var binding: FragmentMapBinding
+    private val viewModel: MapViewModel by viewModels()
 
     private val locationPermissionRequest =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -102,6 +106,7 @@ class MapFragment : Fragment() {
                 val currentLatLng = LatLng.from(location.latitude, location.longitude)
                 map.moveCamera(CameraUpdateFactory.newCenterPosition(currentLatLng))
                 Log.d("kakaoMap", "현재 위치로 이동: ${location.latitude}, ${location.longitude}")
+                viewModel.loadCafes(location.latitude, location.longitude)
             } else {
                 Log.e("kakaoMap", "현재 위치 정보 없음")
             }

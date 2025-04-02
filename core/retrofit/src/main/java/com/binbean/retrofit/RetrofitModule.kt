@@ -19,7 +19,14 @@ object RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideDefaultOkHttpClient(): OkHttpClient {
+        return OkHttpClient.Builder().build()
+    }
+
+    @Provides
+    @Singleton
+    @KakaoApi
+    fun provideKakaoOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor { chain ->
                 val request = chain.request().newBuilder()

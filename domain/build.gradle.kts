@@ -11,4 +11,6 @@ kotlin {
         jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }
- 
+dependencies {
+    implementation("javax.inject:javax.inject:1")
+}
