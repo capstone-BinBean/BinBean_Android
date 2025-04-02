@@ -1,4 +1,4 @@
-package com.binbean.core
+package com.binbean.ui
 
 import org.junit.Test
 

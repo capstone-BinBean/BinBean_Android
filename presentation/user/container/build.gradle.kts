@@ -36,7 +36,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core"))
+    implementation(project(":core:ui"))
     implementation(project(":presentation:user:map"))
     implementation(project(":presentation:user:bookmark"))
     implementation(project(":presentation:user:mypage"))

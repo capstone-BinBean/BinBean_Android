@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.binbean.core"
+    namespace = "com.binbean.ui"
     compileSdk = 35
 
     defaultConfig {
