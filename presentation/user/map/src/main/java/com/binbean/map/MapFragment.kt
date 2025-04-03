@@ -10,7 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import com.binbean.domain.cafe.Cafe
 import com.binbean.map.databinding.FragmentMapBinding
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
@@ -19,6 +21,10 @@ import com.kakao.vectormap.KakaoMapReadyCallback
 import com.kakao.vectormap.LatLng
 import com.kakao.vectormap.MapLifeCycleCallback
 import com.kakao.vectormap.camera.CameraUpdateFactory
+import com.kakao.vectormap.label.LabelOptions
+import com.kakao.vectormap.label.LabelStyle
+import com.kakao.vectormap.label.LabelStyles
+import com.kakao.vectormap.label.LabelTextBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
 
@@ -107,9 +113,58 @@ class MapFragment : Fragment() {
                 map.moveCamera(CameraUpdateFactory.newCenterPosition(currentLatLng))
                 Log.d("kakaoMap", "현재 위치로 이동: ${location.latitude}, ${location.longitude}")
                 viewModel.loadCafes(location.latitude, location.longitude)
+                observeCafes(map)
             } else {
                 Log.e("kakaoMap", "현재 위치 정보 없음")
             }
+        }
+    }
+
+    private fun observeCafes(map: KakaoMap){
+        viewModel.cafeList.observe(viewLifecycleOwner) { cafes ->
+            addCafeMarker(map, cafes)
+        }
+    }
+
+    // 카페 마커 추가 함수
+    private fun addCafeMarker(map: KakaoMap, cafes: List<Cafe>) {
+        val myBlack = context?.let { ContextCompat.getColor(it, com.binbean.ui.R.color.black) }
+        val myWhite = context?.let { ContextCompat.getColor(it, com.binbean.ui.R.color.white) }
+
+        val labelManager = map.labelManager
+        val labelLayer = labelManager?.layer
+
+        // labelLayer?.removeAll()
+
+        // 라벨 스타일 정의 (이미지를 마커처럼 사용)
+        val labelStyles = LabelStyles.from(
+            "cafeStyle",
+            LabelStyle.from(R.drawable.marker_unregistered) // 마커 이미지
+                .setTextStyles(20, myBlack!!, 2, myWhite!!) // 텍스트 스타일
+        )
+        // 스타일 등록 (한 번만 하면 좋지만, 여기선 간단히 포함)
+        labelManager?.addLabelStyles(labelStyles)
+
+        cafes.forEach { cafe ->
+            // 카페 위치 설정
+            val cafePosition = LatLng.from(cafe.latitude, cafe.longitude)
+
+            // 라벨 옵션 설정
+            val label = LabelOptions.from(cafePosition)
+                .setTexts(LabelTextBuilder().setTexts(cafe.name))
+                .setStyles(labelStyles) // 위에서 등록한 스타일 ID
+
+            // 라벨 추가
+            labelLayer?.addLabel(label)
+
+            """
+            // 마커 클릭 이벤트 설정  
+            marker.setOnClickListener { selectedMarker ->
+                Log.d("kakaoMap", "마커 클릭: ${cafe.name}")
+                // showCafeInfo(cafe)
+                true
+            }  
+            """
         }
     }
 
