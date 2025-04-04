@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="gs_1">#FBFBFB</color>
+    <color name="gs_2">#F7F7F7</color>
     <color name="gs_3">#EAEAEA</color>
     <color name="gs_5">#202024</color>
     <color name="gs_sub">#CBCBCB</color>

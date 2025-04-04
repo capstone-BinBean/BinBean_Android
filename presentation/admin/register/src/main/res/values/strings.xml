@@ -20,6 +20,18 @@
     <string name="cafe_additional_info">카페 추가 안내 사항</string>
     <string name="eg_cafe_addi_info">예) 저희 카페는 1인 1음료를 꼭 시켜주셔야해요! 😊</string>
     <string name="register_business_hours">영업시간 등록하기\t\t\t\t></string>
+    <string name="register_floor_plan">카페 도면 등록하기\t\t\t\t></string>
     <string name="o">O</string>
     <string name="x">X</string>
+    <string name="register_cafe_business_hours">2. 카페의 영업시간을 알려주세요(2/3)</string>
+    <string name="mon">월</string>
+    <string name="tue">화</string>
+    <string name="wed">수</string>
+    <string name="thu">목</string>
+    <string name="fri">금</string>
+    <string name="sat">토</string>
+    <string name="sun">일</string>
+    <string name="eg_start_hour">09:00</string>
+    <string name="eg_end_hour">18:30</string>
+    <string name="tilde">~</string>
 </resources>
