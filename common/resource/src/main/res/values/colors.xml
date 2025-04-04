@@ -2,6 +2,11 @@
 <resources>
     <color name="gs_1">#FBFBFB</color>
     <color name="gs_3">#EAEAEA</color>
+    <color name="gs_5">#202024</color>
+    <color name="gs_sub">#CBCBCB</color>
+    <color name="gs_sub2">#767676</color>
+    <color name="gs_deactivation">#A5A5A5</color>
     <color name="sub2">#383424</color>
     <color name="main_green">#83AC59</color>
+    <color name="sub_highlight">#F9FFE6</color>
 </resources>
