@@ -53,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="컴포즈커피 춘천점"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -78,7 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4.5"
-                        android:textColor="#7F7F7F"
+                        android:textColor="@color/gray_light"
                         android:layout_marginStart="5dp" />
                 </LinearLayout>
             </LinearLayout>
@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="강원도 춘천시 중앙로 1가 1-16"
-                android:textColor="#666666"
+                android:textColor="@color/gray"
                 android:textSize="14sp"
                 android:layout_marginTop="4dp" />
 
@@ -105,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="영업중"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -114,7 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" 22:00까지"
-                    android:textColor="#000000"
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     android:layout_marginStart="8dp" />
 
@@ -130,7 +130,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="매장상태:"
-                        android:textColor="#666666"
+                        android:textColor="@color/gray"
                         android:textSize="12sp" />
 
                     <TextView
@@ -138,7 +138,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" 보통"
-                        android:textColor="#FF5722"
+                        android:textColor="@color/red"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:layout_marginStart="4dp" />
@@ -162,7 +162,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="매장번호"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -170,8 +170,8 @@
                         android:id="@+id/tvPhoneNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" 033-255-1234"
-                        android:textColor="#000000"
+                        android:text="033-255-1234"
+                        android:textColor="@color/black"
                         android:textSize="14sp"
                         android:layout_marginStart="8dp" />
                 </LinearLayout>
@@ -187,7 +187,7 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="좌석확인"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     android:gravity="center"
@@ -207,9 +207,9 @@
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                app:tabSelectedTextColor="#383424"
-                app:tabIndicatorColor="#383424"
+                android:background="@color/white"
+                app:tabSelectedTextColor="@color/navi_focused"
+                app:tabIndicatorColor="@color/navi_focused"
                 app:tabIndicatorAnimationDuration="1000"
                 android:layout_marginTop="20dp"
                 android:contentDescription="tab layout" />
