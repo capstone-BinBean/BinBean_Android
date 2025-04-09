@@ -21,6 +21,7 @@ import com.kakao.vectormap.KakaoMapReadyCallback
 import com.kakao.vectormap.LatLng
 import com.kakao.vectormap.MapLifeCycleCallback
 import com.kakao.vectormap.camera.CameraUpdateFactory
+import com.kakao.vectormap.label.Label
 import com.kakao.vectormap.label.LabelOptions
 import com.kakao.vectormap.label.LabelStyle
 import com.kakao.vectormap.label.LabelStyles
@@ -28,23 +29,19 @@ import com.kakao.vectormap.label.LabelTextBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MapFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 @AndroidEntryPoint
 class MapFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var binding: FragmentMapBinding
     private val viewModel: MapViewModel by viewModels()
+
+    private lateinit var defaultLabelStyle: LabelStyle
+    private lateinit var selectedLabelStyle: LabelStyle
+    private var lastSelectedLabel: Label? = null
 
     private val locationPermissionRequest =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -67,7 +64,6 @@ class MapFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentMapBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -99,6 +95,7 @@ class MapFragment : Fragment() {
             override fun onMapReady(p0: KakaoMap) {
                 Log.d("kakaoMap", "카카오맵 정상실행")
                 moveMapToCurrentLocation(p0)
+                initMarkerStyles(p0)
                 setupLabelClickListener(p0)
             }
         })
@@ -128,46 +125,56 @@ class MapFragment : Fragment() {
         }
     }
 
-    // 카페 마커 추가 함수
-    private fun addCafeMarker(map: KakaoMap, cafes: List<Cafe>) {
+    private fun initMarkerStyles(map: KakaoMap) {
         val myBlack = context?.let { ContextCompat.getColor(it, com.binbean.ui.R.color.black) }
         val myWhite = context?.let { ContextCompat.getColor(it, com.binbean.ui.R.color.white) }
 
-        val labelManager = map.labelManager
-        val labelLayer = labelManager?.layer
+        defaultLabelStyle = LabelStyle.from(R.drawable.marker_unregistered)
+            .setTextStyles(20, myBlack!!, 2, myWhite!!)
 
-        // labelLayer?.removeAll()
+        selectedLabelStyle = LabelStyle.from(R.drawable.marker_unregistered_focused)
+            .setTextStyles(20, myBlack, 2, myWhite)
 
-        // 라벨 스타일 정의 (이미지를 마커처럼 사용)
-        val labelStyles = LabelStyles.from(
-            "cafeStyle",
-            LabelStyle.from(R.drawable.marker_unregistered) // 마커 이미지
-                .setTextStyles(20, myBlack!!, 2, myWhite!!) // 텍스트 스타일
+        val labelStylesLst = listOf(
+            defaultLabelStyle,
+            selectedLabelStyle
         )
-        // 스타일 등록 (한 번만 하면 좋지만, 여기선 간단히 포함)
-        labelManager?.addLabelStyles(labelStyles)
 
-        cafes.forEach { cafe ->
-            val label = createCafeLabel(cafe, labelStyles)
-            labelLayer?.addLabel(label)
-        }
-
+        val labelStyles = LabelStyles.from("multiStyle", labelStylesLst)
+        map.labelManager?.addLabelStyles(labelStyles)
     }
 
-    private fun createCafeLabel(cafe: Cafe, labelStyles: LabelStyles): LabelOptions {
+    private fun addCafeMarker(map: KakaoMap, cafes: List<Cafe>) {
+        val labelLayer = map.labelManager?.layer
+        // labelLayer?.removeAll()
+
+        cafes.forEach { cafe ->
+            val label = createCafeLabel(cafe)
+            labelLayer?.addLabel(label)
+        }
+    }
+
+    private fun createCafeLabel(cafe: Cafe): LabelOptions {
         val position = LatLng.from(cafe.latitude, cafe.longitude)
         return LabelOptions.from(position)
             .setTexts(LabelTextBuilder().setTexts(cafe.name))
-            .setStyles(labelStyles)
+            .setStyles(defaultLabelStyle)
             .setTag(cafe)
     }
 
     private fun setupLabelClickListener(map: KakaoMap) {
-        map.setOnLabelClickListener { kakaoMap, _, label ->
+        map.setOnLabelClickListener { _, _, label ->
             val clickedCafe = label.tag as? Cafe
-            clickedCafe?.let {
-                viewModel.selectCafe(it)
-            }
+            clickedCafe?.let { viewModel.selectCafe(it) }
+
+            // 이전 선택 라벨 원상복귀
+            lastSelectedLabel?.setStyles(defaultLabelStyle)
+
+            // 현재 선택된 라벨 스타일 변경
+            label.setStyles(selectedLabelStyle)
+            label.show(true, 0)
+            lastSelectedLabel = label
+
             true
         }
     }
@@ -187,15 +194,6 @@ class MapFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MapFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             MapFragment().apply {
