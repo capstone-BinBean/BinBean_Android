@@ -186,7 +186,7 @@ class MapFragment : Fragment() {
         return LabelOptions.from(position)
             .setTexts(LabelTextBuilder().setTexts(cafe.name))
             .setStyles(defaultLabelStyle)
-            .setTag(CAFE_MARKER_TAG)
+            .setTag(cafe)
     }
 
     private fun setupLabelClickListener(map: KakaoMap) {
@@ -224,7 +224,7 @@ class MapFragment : Fragment() {
         val labelLayer = map.labelManager?.layer ?: return
         val labels = labelLayer.allLabels.toList()
         labels.forEach { label ->
-            if (label.tag != CURRENT_LOCATION_MARKER_TAG) {
+            if (label.tag is Cafe) {
                 labelLayer.remove(label)
             }
         }
@@ -232,7 +232,6 @@ class MapFragment : Fragment() {
 
     companion object {
         private const val CURRENT_LOCATION_MARKER_TAG = "currentLocation"
-        private const val CAFE_MARKER_TAG = "cafe"
 
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
