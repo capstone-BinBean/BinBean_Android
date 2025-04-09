@@ -75,6 +75,7 @@ class MapFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkLocationPermission()
+        observeSelectedCafe()
     }
 
     private fun checkLocationPermission(){
@@ -166,7 +167,6 @@ class MapFragment : Fragment() {
             val clickedCafe = label.tag as? Cafe
             clickedCafe?.let {
                 viewModel.selectCafe(it)
-                showCafeBottomSheet(it)
             }
             true
         }
@@ -175,6 +175,15 @@ class MapFragment : Fragment() {
     private fun showCafeBottomSheet(cafe: Cafe) {
         val bottomSheet = CafeBottomSheetFragment.newInstance(cafe)
         bottomSheet.show(parentFragmentManager, "CafeBottomSheetFragment")
+    }
+
+    private fun observeSelectedCafe() {
+        viewModel.selectedCafe.observe(viewLifecycleOwner) { cafe ->
+            cafe?.let {
+                showCafeBottomSheet(it)
+                viewModel.clearSelectedCafe()
+            }
+        }
     }
 
     companion object {

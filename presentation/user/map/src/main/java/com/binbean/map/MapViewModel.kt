@@ -19,6 +19,8 @@ class MapViewModel @Inject constructor(
     private val _cafeList = MutableLiveData<List<Cafe>>()
     val cafeList: LiveData<List<Cafe>> = _cafeList
 
+    private val _selectedCafe = MutableLiveData<Cafe?>()
+    val selectedCafe: LiveData<Cafe?> = _selectedCafe
 
     fun loadCafes(lat: Double, lng: Double) {
         viewModelScope.launch {
@@ -33,7 +35,11 @@ class MapViewModel @Inject constructor(
     }
 
     fun selectCafe(cafe: Cafe) {
-        // 카페 선택 처리
+        _selectedCafe.value = cafe
         Log.d("MapViewModel", "선택된 카페: $cafe")
+    }
+
+    fun clearSelectedCafe() {
+        _selectedCafe.value = null
     }
 }

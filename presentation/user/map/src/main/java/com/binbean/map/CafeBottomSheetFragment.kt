@@ -44,6 +44,15 @@ class CafeBottomSheetFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val cafe = arguments?.getSerializable("cafe") as? Cafe
+        cafe?.let {viewModel.setCafe(it)}
+
+        observeCafeData()
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
 
@@ -53,6 +62,16 @@ class CafeBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         return dialog
+    }
+
+    private fun observeCafeData() {
+        viewModel.cafe.observe(viewLifecycleOwner) { cafe ->
+            cafe?.let {
+                binding.tvStoreName.text = it.name
+                binding.tvAddress.text = it.address
+                binding.tvPhoneNumber.text = it.phone
+            }
+        }
     }
 
     private fun setupViewPager() {
