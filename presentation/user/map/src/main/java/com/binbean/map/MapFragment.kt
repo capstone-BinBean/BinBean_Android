@@ -41,6 +41,7 @@ class MapFragment : Fragment() {
 
     private lateinit var defaultLabelStyle: LabelStyle
     private lateinit var selectedLabelStyle: LabelStyle
+    private lateinit var currentLocationStyle: LabelStyle
     private var lastSelectedLabel: Label? = null
 
     private val locationPermissionRequest =
@@ -111,6 +112,7 @@ class MapFragment : Fragment() {
                 val currentLatLng = LatLng.from(location.latitude, location.longitude)
                 map.moveCamera(CameraUpdateFactory.newCenterPosition(currentLatLng))
                 Log.d("kakaoMap", "현재 위치로 이동: ${location.latitude}, ${location.longitude}")
+                addCurrentLocationMarker(map, currentLatLng)
                 viewModel.loadCafes(location.latitude, location.longitude)
                 observeCafes(map)
             } else {
@@ -135,13 +137,25 @@ class MapFragment : Fragment() {
         selectedLabelStyle = LabelStyle.from(R.drawable.marker_unregistered_focused)
             .setTextStyles(20, myBlack, 2, myWhite)
 
+        currentLocationStyle = LabelStyle.from(R.drawable.marker_user_location)
+
         val labelStylesLst = listOf(
             defaultLabelStyle,
-            selectedLabelStyle
+            selectedLabelStyle,
+            currentLocationStyle
         )
 
         val labelStyles = LabelStyles.from("multiStyle", labelStylesLst)
         map.labelManager?.addLabelStyles(labelStyles)
+    }
+
+    private fun addCurrentLocationMarker(map: KakaoMap, latLng: LatLng) {
+        val labelLayer = map.labelManager?.layer
+        val label = LabelOptions.from(latLng)
+            .setStyles(currentLocationStyle)
+            .setTag("currentLocation")
+
+        labelLayer?.addLabel(label)
     }
 
     private fun addCafeMarker(map: KakaoMap, cafes: List<Cafe>) {
