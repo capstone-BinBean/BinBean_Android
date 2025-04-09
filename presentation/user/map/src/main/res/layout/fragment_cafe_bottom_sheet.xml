@@ -181,7 +181,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:layout_marginStart="135dp"
+                    android:layout_marginStart="145dp"
                     android:padding="12dp"
                     android:background="@drawable/seat_button_bg"
                     android:paddingStart="10dp"
@@ -207,10 +207,10 @@
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                app:tabSelectedTextColor="@color/navi_focused"
-                app:tabIndicatorColor="@color/navi_focused"
-                app:tabIndicatorAnimationDuration="1000"
+                android:background="@drawable/tab_bg"
+                app:tabTextColor="@color/brown"
+                app:tabSelectedTextColor="@color/brown"
+                app:tabIndicatorColor="@color/brown"
                 android:layout_marginTop="20dp"
                 android:contentDescription="tab layout" />
 

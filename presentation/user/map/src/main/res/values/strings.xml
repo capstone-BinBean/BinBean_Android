@@ -1,4 +1,9 @@
 <resources>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="wi_fi">WI-FI</string>
+    <string name="no_kids">노키즈존</string>
+    <string name="charge">충전콘센트</string>
+    <string name="pet">애견동반</string>
+    <string name="admin_msg">사장님의 안내사항</string>
 </resources>

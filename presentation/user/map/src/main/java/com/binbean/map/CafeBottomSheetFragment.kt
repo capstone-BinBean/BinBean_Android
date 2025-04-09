@@ -11,6 +11,7 @@ import com.binbean.map.databinding.FragmentCafeBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.tabs.TabLayoutMediator
 
 class CafeBottomSheetFragment : BottomSheetDialogFragment() {
 
@@ -40,7 +41,6 @@ class CafeBottomSheetFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCafeBottomSheetBinding.inflate(inflater, container, false)
-        setupViewPager()
         return binding.root
     }
 
@@ -48,7 +48,10 @@ class CafeBottomSheetFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val cafe = arguments?.getSerializable("cafe") as? Cafe
-        cafe?.let {viewModel.setCafe(it)}
+        cafe?.let {
+            viewModel.setCafe(it)
+            setupViewPager(it)
+        }
 
         observeCafeData()
     }
@@ -74,8 +77,18 @@ class CafeBottomSheetFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun setupViewPager() {
+    private fun setupViewPager(cafe: Cafe) {
+        val adapter = ViewPagerAdapter(this, cafe)
+        binding.viewPager.adapter = adapter
+        binding.viewPager.isNestedScrollingEnabled = true
 
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> "상세정보"
+                1 -> "리뷰"
+                else -> ""
+            }
+        }.attach()
     }
 
     private fun setupBottomSheet(bottomSheet: View) {
