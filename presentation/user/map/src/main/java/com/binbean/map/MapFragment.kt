@@ -98,6 +98,7 @@ class MapFragment : Fragment() {
                 moveMapToCurrentLocation(p0)
                 initMarkerStyles(p0)
                 setupLabelClickListener(p0)
+                setupCameraMoveEndListener(p0)
             }
         })
     }
@@ -121,8 +122,16 @@ class MapFragment : Fragment() {
         }
     }
 
+    private fun setupCameraMoveEndListener(map: KakaoMap) {
+        map.setOnCameraMoveEndListener { _, cameraPosition, _ ->
+            val center = cameraPosition.position
+            viewModel.loadCafes(center.latitude, center.longitude)
+        }
+    }
+
     private fun observeCafes(map: KakaoMap){
         viewModel.cafeList.observe(viewLifecycleOwner) { cafes ->
+            removeAllCafeMarkers(map)
             addCafeMarker(map, cafes)
         }
     }
@@ -151,11 +160,15 @@ class MapFragment : Fragment() {
 
     private fun addCurrentLocationMarker(map: KakaoMap, latLng: LatLng) {
         val labelLayer = map.labelManager?.layer
-        val label = LabelOptions.from(latLng)
-            .setStyles(currentLocationStyle)
-            .setTag("currentLocation")
 
+        val label = createLocationLabel(latLng)
         labelLayer?.addLabel(label)
+    }
+
+    private fun createLocationLabel(latLng: LatLng): LabelOptions {
+        return LabelOptions.from(latLng)
+            .setStyles(currentLocationStyle)
+            .setTag(CURRENT_LOCATION_MARKER_TAG)
     }
 
     private fun addCafeMarker(map: KakaoMap, cafes: List<Cafe>) {
@@ -173,7 +186,7 @@ class MapFragment : Fragment() {
         return LabelOptions.from(position)
             .setTexts(LabelTextBuilder().setTexts(cafe.name))
             .setStyles(defaultLabelStyle)
-            .setTag(cafe)
+            .setTag(CAFE_MARKER_TAG)
     }
 
     private fun setupLabelClickListener(map: KakaoMap) {
@@ -207,7 +220,20 @@ class MapFragment : Fragment() {
         }
     }
 
+    private fun removeAllCafeMarkers(map: KakaoMap) {
+        val labelLayer = map.labelManager?.layer ?: return
+        val labels = labelLayer.allLabels.toList()
+        labels.forEach { label ->
+            if (label.tag != CURRENT_LOCATION_MARKER_TAG) {
+                labelLayer.remove(label)
+            }
+        }
+    }
+
     companion object {
+        private const val CURRENT_LOCATION_MARKER_TAG = "currentLocation"
+        private const val CAFE_MARKER_TAG = "cafe"
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             MapFragment().apply {
