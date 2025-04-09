@@ -31,4 +31,9 @@ class MapViewModel @Inject constructor(
             }
         }
     }
+
+    fun selectCafe(cafe: Cafe) {
+        // 카페 선택 처리
+        Log.d("MapViewModel", "선택된 카페: $cafe")
+    }
 }

@@ -98,6 +98,7 @@ class MapFragment : Fragment() {
             override fun onMapReady(p0: KakaoMap) {
                 Log.d("kakaoMap", "카카오맵 정상실행")
                 moveMapToCurrentLocation(p0)
+                setupLabelClickListener(p0)
             }
         })
     }
@@ -146,26 +147,34 @@ class MapFragment : Fragment() {
         labelManager?.addLabelStyles(labelStyles)
 
         cafes.forEach { cafe ->
-            // 카페 위치 설정
-            val cafePosition = LatLng.from(cafe.latitude, cafe.longitude)
-
-            // 라벨 옵션 설정
-            val label = LabelOptions.from(cafePosition)
-                .setTexts(LabelTextBuilder().setTexts(cafe.name))
-                .setStyles(labelStyles) // 위에서 등록한 스타일 ID
-
-            // 라벨 추가
+            val label = createCafeLabel(cafe, labelStyles)
             labelLayer?.addLabel(label)
-
-            """
-            // 마커 클릭 이벤트 설정  
-            marker.setOnClickListener { selectedMarker ->
-                Log.d("kakaoMap", "마커 클릭: ${cafe.name}")
-                // showCafeInfo(cafe)
-                true
-            }  
-            """
         }
+
+    }
+
+    private fun createCafeLabel(cafe: Cafe, labelStyles: LabelStyles): LabelOptions {
+        val position = LatLng.from(cafe.latitude, cafe.longitude)
+        return LabelOptions.from(position)
+            .setTexts(LabelTextBuilder().setTexts(cafe.name))
+            .setStyles(labelStyles)
+            .setTag(cafe)
+    }
+
+    private fun setupLabelClickListener(map: KakaoMap) {
+        map.setOnLabelClickListener { kakaoMap, _, label ->
+            val clickedCafe = label.tag as? Cafe
+            clickedCafe?.let {
+                viewModel.selectCafe(it)
+                showCafeBottomSheet(it)
+            }
+            true
+        }
+    }
+
+    private fun showCafeBottomSheet(cafe: Cafe) {
+        val bottomSheet = CafeBottomSheetFragment.newInstance(cafe)
+        bottomSheet.show(parentFragmentManager, "CafeBottomSheetFragment")
     }
 
     companion object {
