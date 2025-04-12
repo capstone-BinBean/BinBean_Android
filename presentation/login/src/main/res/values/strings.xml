@@ -1,0 +1,9 @@
+<resources>
+    <string name="title_binbean">BEAN\nBEAN</string>
+    <string name="introductory_phrase">내가 원하는  카페  자리,\n비어있는지 확인하고 가요</string>
+    <string name="id">아이디</string>
+    <string name="password">비밀번호</string>
+    <string name="login">로그인</string>
+    <string name="login_by_kakao">카카오계정으로 로그인</string>
+    <string name="sign_up"><u>회원가입하기</u></string>
+</resources>
