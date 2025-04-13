@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.binbean.domain.cafe.Cafe
 import com.binbean.map.databinding.FragmentCafeBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -33,6 +34,7 @@ class CafeBottomSheetFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentCafeBottomSheetBinding? = null
     private val binding get() = _binding!!
     private lateinit var behavior: BottomSheetBehavior<View>
+    private lateinit var adapter: CafeInfoImgAdapter
 
     private val viewModel: CafeBottomSheetViewModel by viewModels()
 
@@ -54,6 +56,9 @@ class CafeBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         observeCafeData()
+        initAdapter()
+        observeCafeInfoImg()
+        viewModel.loadCafeInfoImg()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -65,6 +70,18 @@ class CafeBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         return dialog
+    }
+
+    private fun initAdapter() {
+        adapter = CafeInfoImgAdapter()
+        binding.rvCafeImage.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvCafeImage.adapter = adapter
+    }
+
+    private fun observeCafeInfoImg() {
+        viewModel.photoList.observe(viewLifecycleOwner) { list ->
+            adapter.submitList(list)
+        }
     }
 
     private fun observeCafeData() {
