@@ -1,4 +1,4 @@
-package com.binbean.map
+package com.binbean.map.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,9 @@ import com.binbean.domain.cafe.CafeInfoImgItem
 import com.binbean.map.databinding.CafeIntoImgItemBinding
 import com.bumptech.glide.Glide
 
-class CafeInfoImgAdapter : ListAdapter<CafeInfoImgItem, CafeInfoImgAdapter.CafeInfoImgViewHolder>(DiffCallback()) {
+class CafeInfoImgAdapter : ListAdapter<CafeInfoImgItem, CafeInfoImgAdapter.CafeInfoImgViewHolder>(
+    DiffCallback()
+) {
 
     inner class CafeInfoImgViewHolder(private val binding: CafeIntoImgItemBinding) :
         RecyclerView.ViewHolder(binding.root) {

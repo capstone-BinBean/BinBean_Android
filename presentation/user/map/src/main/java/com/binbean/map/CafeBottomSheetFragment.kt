@@ -8,7 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binbean.domain.cafe.Cafe
+import com.binbean.map.adapter.CafeInfoImgAdapter
+import com.binbean.map.adapter.ViewPagerAdapter
 import com.binbean.map.databinding.FragmentCafeBottomSheetBinding
+import com.binbean.map.viewmodel.CafeBottomSheetViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.binbean.domain.cafe.Cafe
 import com.binbean.map.databinding.FragmentCafeDetailedInfoBinding
+import com.binbean.map.viewmodel.CafeDetailedInfoViewModel
 
 class CafeDetailedInfoFragment : Fragment() {
 

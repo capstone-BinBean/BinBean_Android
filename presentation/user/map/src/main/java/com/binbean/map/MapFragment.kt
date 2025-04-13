@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.binbean.domain.cafe.Cafe
 import com.binbean.map.databinding.FragmentMapBinding
+import com.binbean.map.viewmodel.MapViewModel
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.kakao.vectormap.KakaoMap

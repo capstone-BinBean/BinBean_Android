@@ -1,4 +1,4 @@
-package com.binbean.map
+package com.binbean.map.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
