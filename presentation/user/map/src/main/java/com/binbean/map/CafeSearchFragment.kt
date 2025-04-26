@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.binbean.map.databinding.FragmentCafeSearchBinding
 
 class CafeSearchFragment : Fragment() {
+    private lateinit var binding: FragmentCafeSearchBinding
 
     companion object {
         fun newInstance() = CafeSearchFragment()
@@ -17,14 +19,13 @@ class CafeSearchFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_cafe_search, container, false)
+        binding = FragmentCafeSearchBinding.inflate(inflater, container, false)
+        return binding.root
     }
 }

@@ -54,6 +54,8 @@ class MapFragment : Fragment() {
             else { Toast.makeText(requireContext(), "위치 권한이 필요합니다", Toast.LENGTH_SHORT).show() }
         }
 
+    private val cafeSearchFragment = CafeSearchFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -74,6 +76,12 @@ class MapFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         checkLocationPermission()
         observeSelectedCafe()
+        binding.searchView.setOnClickListener {
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.root, cafeSearchFragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
     }
 
     private fun checkLocationPermission(){
