@@ -6,4 +6,12 @@
     <string name="login">로그인</string>
     <string name="login_by_kakao">카카오계정으로 로그인</string>
     <string name="sign_up"><u>회원가입하기</u></string>
+    <string name="what_is_your_purpose">서비스 이용 목적이 무엇인가요?</string>
+    <string name="common_user">일반 이용자</string>
+    <string name="cafe_manager">카페 점장</string>
+    <string name="will_check_my_seat">빈자리를 확인할게요</string>
+    <string name="will_register_my_cafe">카페를 등록할게요</string>
+    <string name="please_sign_up">회원가입을 진행해 주세요</string>
+    <string name="sign_up_by_email">이메일로 회원가입</string>
+    <string name="sign_up_by_kakao">카카오계정으로 회원가입</string>
 </resources>
