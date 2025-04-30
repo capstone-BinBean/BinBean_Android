@@ -14,4 +14,10 @@
     <string name="please_sign_up">회원가입을 진행해 주세요</string>
     <string name="sign_up_by_email">이메일로 회원가입</string>
     <string name="sign_up_by_kakao">카카오계정으로 회원가입</string>
+    <string name="nickname">닉네임</string>
+    <string name="complete">완료</string>
+    <string name="add_profile_photo">프로필 사진 추가</string>
+    <string name="nickname_condition">최소 2자리 이상</string>
+    <string name="id_example">user @ email.com</string>
+    <string name="password_condition">8~12 자리</string>
 </resources>

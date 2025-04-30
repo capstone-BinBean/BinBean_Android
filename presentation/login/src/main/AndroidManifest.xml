@@ -3,6 +3,9 @@
 
     <application>
         <activity
+            android:name=".SignUpDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".SignUpWayActivity"
             android:exported="false" />
         <activity
