@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gs_1"
-    tools:context=".AdminRegisterFragment">
+    tools:context=".AdminRegisterFragment"
+    android:id="@+id/container">
 
     <TextView
         android:id="@+id/register_modify"
