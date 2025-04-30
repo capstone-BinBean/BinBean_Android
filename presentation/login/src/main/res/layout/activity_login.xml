@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gs_1"
+    android:paddingStart="40dp"
+    android:paddingEnd="40dp"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/pretendard_black"
+        android:text="@string/title_binbean"
+        android:textColor="@color/title_color"
+        android:textSize="38sp"
+        app:layout_constraintBottom_toTopOf="@id/introduction"
+        app:layout_constraintStart_toStartOf="@id/introduction" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@id/introduction"
+        app:layout_constraintStart_toEndOf="@+id/title"
+        app:srcCompat="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/introduction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="40dp"
+        android:fontFamily="@font/pretendard_regular"
+        android:letterSpacing="0.05"
+        android:text="@string/introductory_phrase"
+        android:textSize="23sp"
+        app:layout_constraintBottom_toTopOf="@id/id_window"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/id_window"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/login_window_background"
+        android:fontFamily="@font/pretendard_regular"
+        android:hint="@string/id"
+        android:inputType="text"
+        android:padding="12dp"
+        android:textColorHint="@color/block_stroke"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/pw_window"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_window_background"
+        android:fontFamily="@font/pretendard_regular"
+        android:hint="@string/password"
+        android:inputType="text"
+        android:padding="12dp"
+        android:textColorHint="@color/block_stroke"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/id_window" />
+
+    <TextView
+        android:id="@+id/login_buttton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/rounded_gray_background"
+        android:fontFamily="@font/pretendard_bold"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="@string/login"
+        android:textColor="@color/gs_4"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pw_window" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/kakao_login_buttton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/rounded_kakao_background"
+        android:fontFamily="@font/pretendard_bold"
+        android:gravity="center"
+        android:paddingStart="30dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="12dp"
+        android:text="@string/login_by_kakao"
+        android:textColor="@color/gs_5"
+        android:textSize="20sp"
+        app:drawableStartCompat="@drawable/kakao_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_buttton" />
+
+    <TextView
+        android:id="@+id/sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="@string/sign_up"
+        android:textColor="#202024"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/kakao_login_buttton" />
+</androidx.constraintlayout.widget.ConstraintLayout>

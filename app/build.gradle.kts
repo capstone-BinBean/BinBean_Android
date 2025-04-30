@@ -49,7 +49,7 @@ android {
 
 dependencies {
     implementation(project(":data"))
-    implementation(project(":domain"))
+    implementation(project(":domain")
     implementation(project(":presentation:user:container"))
     implementation(project(":presentation:user:map"))
     implementation(project(":presentation:user:bookmark"))
@@ -67,4 +67,5 @@ dependencies {
 
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-compiler:2.51.1")
+    implementation(project(":presentation:admin:main"))
 }

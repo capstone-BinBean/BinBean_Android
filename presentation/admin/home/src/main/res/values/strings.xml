@@ -1,0 +1,5 @@
+<resources>
+    <string name="no_registered_cafe">등록된 카페가 없습니다</string>
+    <string name="please_register_cafe">등록 / 수정페이지에서 카페를 등록해주세요</string>
+    <string name="my_cafe">나의 카페</string>
+</resources>
