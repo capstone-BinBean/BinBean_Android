@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gs_1"
+    android:orientation="vertical"
+    tools:context=".RegisterHoursFragment">
+
+    <TextView
+        android:id="@+id/register_cafe_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="@string/register_cafe_business_hours"
+        android:textColor="@color/gs_5"
+        android:textSize="20sp" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/gs_3" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp">
+
+        <TextView
+            android:id="@+id/mon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="@string/mon"
+            android:textColor="@color/gs_5"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/mon_start"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/hour_check_background"
+            android:drawableEnd="@drawable/down_arrow"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/eg_start_hour"
+            android:textColor="@color/gs_5"
+            android:textSize="17sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/tilde"
+            android:textColor="@color/gs_5"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/mon_end"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/hour_check_background"
+            android:drawableEnd="@drawable/down_arrow"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/eg_end_hour"
+            android:textColor="@color/gs_5"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp">
+
+        <TextView
+            android:id="@+id/tue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="@string/tue"
+            android:textColor="@color/gs_5"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/tue_start"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/hour_check_background"
+            android:drawableEnd="@drawable/down_arrow"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/eg_start_hour"
+            android:textColor="@color/gs_5"
+            android:textSize="17sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/tilde"
+            android:textColor="@color/gs_5"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tue_end"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/hour_check_background"
+            android:drawableEnd="@drawable/down_arrow"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/eg_end_hour"
+            android:textColor="@color/gs_5"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp">
+
+        <TextView
+            android:id="@+id/wed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="@string/wed"
+            android:textColor="@color/gs_5"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/wed_start"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/hour_check_background"
+            android:drawableEnd="@drawable/down_arrow"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/eg_start_hour"
+            android:textColor="@color/gs_5"
+            android:textSize="17sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/tilde"
+            android:textColor="@color/gs_5"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/wed_end"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/hour_check_background"
+            android:drawableEnd="@drawable/down_arrow"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/eg_end_hour"
+            android:textColor="@color/gs_5"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp">
+
+        <TextView
+            android:id="@+id/thu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="@string/thu"
+            android:textColor="@color/gs_5"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/thu_start"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/hour_check_background"
+            android:drawableEnd="@drawable/down_arrow"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/eg_start_hour"
+            android:textColor="@color/gs_5"
+            android:textSize="17sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/tilde"
+            android:textColor="@color/gs_5"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/thu_end"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/hour_check_background"
+            android:drawableEnd="@drawable/down_arrow"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/eg_end_hour"
+            android:textColor="@color/gs_5"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp">
+
+        <TextView
+            android:id="@+id/fri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="@string/fri"
+            android:textColor="@color/gs_5"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/fri_start"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/hour_check_background"
+            android:drawableEnd="@drawable/down_arrow"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/eg_start_hour"
+            android:textColor="@color/gs_5"
+            android:textSize="17sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="~"
+            android:textColor="@color/gs_5"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/fri_end"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/hour_check_background"
+            android:drawableEnd="@drawable/down_arrow"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/eg_end_hour"
+            android:textColor="@color/gs_5"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp">
+
+        <TextView
+            android:id="@+id/sat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="@string/sat"
+            android:textColor="@color/gs_5"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/sat_start"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/hour_check_background"
+            android:drawableEnd="@drawable/down_arrow"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/eg_start_hour"
+            android:textColor="@color/gs_5"
+            android:textSize="17sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/tilde"
+            android:textColor="@color/gs_5"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/sat_end"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/hour_check_background"
+            android:drawableEnd="@drawable/down_arrow"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/eg_end_hour"
+            android:textColor="@color/gs_5"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp">
+
+        <TextView
+            android:id="@+id/sun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="@string/sun"
+            android:textColor="@color/gs_5"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/sun_start"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/hour_check_background"
+            android:drawableEnd="@drawable/down_arrow"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/eg_start_hour"
+            android:textColor="@color/gs_5"
+            android:textSize="17sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/tilde"
+            android:textColor="@color/gs_5"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/sun_end"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/hour_check_background"
+            android:drawableEnd="@drawable/down_arrow"
+            android:fontFamily="@font/pretendard_regular"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="@string/eg_end_hour"
+            android:textColor="@color/gs_5"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/register_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/green_button"
+        android:fontFamily="@font/pretendard_bold"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="@string/register_floor_plan"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="176dp"
+        tools:layout_editor_absoluteY="504dp" />
+
+</LinearLayout>

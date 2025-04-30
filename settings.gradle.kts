@@ -23,4 +23,9 @@ rootProject.name = "BinBean_Android"
 include(":app")
 include(":data")
 include(":domain")
- 
+include(":presentation")
+include(":presentation:admin:main")
+include(":presentation:admin:home")
+include(":common:resource")
+include(":presentation:admin:register")
+include(":presentation:login")
