@@ -74,6 +74,17 @@ class MapFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        
+        parentFragmentManager.setFragmentResultListener(
+            "cafe_marker_request", viewLifecycleOwner
+        ) { _, bundle ->
+            val name = bundle.getString("cafeName") ?: return@setFragmentResultListener
+            val lat = bundle.getDouble("latitude")
+            val lng = bundle.getDouble("longitude")
+
+            // showMarkerOnMap(name, lat, lng)
+        }
+        
         checkLocationPermission()
         observeSelectedCafe()
         binding.searchView.setOnClickListener {

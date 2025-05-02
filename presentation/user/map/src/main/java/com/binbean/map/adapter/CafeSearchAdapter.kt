@@ -11,6 +11,7 @@ import com.binbean.map.databinding.SearchCafeItemBinding
 class CafeSearchAdapter : ListAdapter<Cafe, CafeSearchAdapter.CafeViewHolder>(
     DiffCallback()
 ){
+    var onItemClick: ((Cafe) -> Unit)? = null
 
     inner class CafeViewHolder(private val binding: SearchCafeItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -19,6 +20,9 @@ class CafeSearchAdapter : ListAdapter<Cafe, CafeSearchAdapter.CafeViewHolder>(
             binding.apply {
                 binding.cafeName.text = item.name
                 binding.cafeAddress.text = item.address
+                binding.root.setOnClickListener {
+                    onItemClick?.invoke(item)
+                }
             }
         }
     }

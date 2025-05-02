@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -39,6 +40,7 @@ class CafeSearchFragment : Fragment() {
         setupRecyclerView()
         setupEditTextListener()
         observeSearchResult()
+        setupRecyclerViewItemClick()
     }
 
     private fun setupRecyclerView() {
@@ -68,6 +70,18 @@ class CafeSearchFragment : Fragment() {
             binding.searchResultRecycler.isVisible = hasResult
             binding.emptyText.isVisible = !hasResult
             cafeAdapter.submitList(result)
+        }
+    }
+
+    private fun setupRecyclerViewItemClick() {
+        cafeAdapter.onItemClick = { cafe ->
+            val bundle = bundleOf(
+                "cafeName" to cafe.name,
+                "latitude" to cafe.latitude,
+                "longitude" to cafe.longitude
+            )
+            parentFragmentManager.setFragmentResult("cafe_marker_request", bundle)
+            parentFragmentManager.popBackStack()
         }
     }
 }
