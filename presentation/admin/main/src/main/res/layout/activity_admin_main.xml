@@ -35,8 +35,8 @@
         android:id="@+id/indicatorBar"
         android:layout_width="0dp"
         android:layout_height="3dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/navi_selected"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
-        android:background="@color/navi_selected" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

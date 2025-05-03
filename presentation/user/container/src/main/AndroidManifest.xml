@@ -4,7 +4,7 @@
     <application>
         <activity
             android:name=".UserMainActivity"
-            android:exported="true">
+            android:exported="false">
         </activity>
     </application>
 

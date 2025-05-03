@@ -1,14 +1,18 @@
 package com.binbean.main
 
 import android.os.Bundle
+import android.os.Looper
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewTreeObserver
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.binbean.home.AdminHomeFragment
 import com.binbean.main.databinding.ActivityAdminMainBinding
 import com.binbean.register.AdminRegisterFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.logging.Handler
 
 
 class AdminMainActivity : AppCompatActivity() {
@@ -88,23 +92,32 @@ class AdminMainActivity : AppCompatActivity() {
         bottomNavigationView: BottomNavigationView,
         indicatorBar: View
     ) {
-        bottomNavigationView.post {
-            val firstItem = bottomNavigationView.findViewById<View>(R.id.navi_home)
-            val itemWidth = firstItem.width
-            val itemXPosition = firstItem.left
+        val firstItem = bottomNavigationView.menu.findItem(R.id.navi_home)
+        val firstItemView = bottomNavigationView.findViewById<View>(firstItem.itemId)
 
-            // indicatorBar의 크기 설정
-            val indicatorWidth = (itemWidth * 0.7).toInt()
-            val params = indicatorBar.layoutParams
-            params.width = indicatorWidth
-            indicatorBar.layoutParams = params
+        firstItemView?.viewTreeObserver?.addOnPreDrawListener(object :
+            ViewTreeObserver.OnPreDrawListener {
+            override fun onPreDraw(): Boolean {
+                firstItemView.viewTreeObserver.removeOnPreDrawListener(this)
+                val itemWidth = firstItemView.width
+                val itemXPosition = firstItemView.left
 
-            // 첫 번째 아이템의 중앙 위치 계산
-            val centerXPosition = calculateCenterPosition(itemXPosition, itemWidth, indicatorWidth)
+                // indicatorBar의 크기 설정
+                val indicatorWidth = (itemWidth * 0.7).toInt()
+                val params = indicatorBar.layoutParams
+                params.width = indicatorWidth
+                indicatorBar.layoutParams = params
 
-            // indicatorBar의 위치 설정
-            indicatorBar.translationX = centerXPosition.toFloat()
-        }
+                // 첫 번째 아이템의 중앙 위치 계산
+                val centerXPosition =
+                    calculateCenterPosition(itemXPosition, itemWidth, indicatorWidth)
+
+                // indicatorBar의 위치 설정
+                indicatorBar.translationX = centerXPosition.toFloat()
+
+                return true
+            }
+        })
     }
 
 
@@ -123,10 +136,12 @@ class AdminMainActivity : AppCompatActivity() {
         val itemWidth = selectedItem.width
 
         // 아이템 중앙 위치 계산
-        val centerXPosition = calculateCenterPosition(xPosition, itemWidth, indicatorBar.width)
+        val centerXPosition =
+            calculateCenterPosition(xPosition, itemWidth, indicatorBar.width)
 
         // indicatorBar의 위치 애니메이션
-        indicatorBar.animate().translationX(centerXPosition.toFloat()).setDuration(300).start()
+        indicatorBar.animate().translationX(centerXPosition.toFloat()).setDuration(300)
+            .start()
     }
 
 
