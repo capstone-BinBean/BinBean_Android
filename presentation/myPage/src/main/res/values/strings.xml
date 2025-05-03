@@ -5,4 +5,11 @@
     <string name="nickname">닉네임</string>
     <string name="my_review">나의 리뷰</string>
     <string name="logout">로그아웃</string>
+    <string name="existing_password">기존 비밀번호</string>
+    <string name="changing_password">변경 비밀번호</string>
+    <string name="check_password">확인 비밀번호</string>
+    <string name="example_existing_password">12345678</string>
+    <string name="enter_changing_password">변경할 비밀번호를 입력해주세요</string>
+    <string name="check_your_password">비밀번호를 확인해주세요</string>
+    <string name="complete">완료</string>
 </resources>

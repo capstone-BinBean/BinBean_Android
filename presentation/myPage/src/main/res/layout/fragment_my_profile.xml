@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gs_1"
     tools:context=".MyProfileFragment">
 
     <TextView
@@ -31,7 +32,7 @@
         android:id="@+id/profile"
         android:layout_width="130dp"
         android:layout_height="120dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="35dp"
         android:background="@drawable/profile_background"
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
