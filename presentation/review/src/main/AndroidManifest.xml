@@ -3,6 +3,9 @@
 
     <application>
         <activity
+            android:name=".ReviewModifyActivity"
+            android:exported="false" />
+        <activity
             android:name=".ReviewDetailActivity"
             android:exported="false" />
     </application>
