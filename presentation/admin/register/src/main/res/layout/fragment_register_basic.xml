@@ -67,7 +67,7 @@
                     app:layout_constraintStart_toEndOf="@id/cafe_address"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/address_window"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -75,6 +75,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/rounded_shadow_background"
+                    android:drawableEnd="@drawable/icon_search_place"
                     android:elevation="3dp"
                     android:fontFamily="@font/pretendard_regular"
                     android:hint="@string/search_address"
