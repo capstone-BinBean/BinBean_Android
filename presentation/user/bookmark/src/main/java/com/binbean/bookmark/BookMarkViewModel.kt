@@ -6,8 +6,11 @@ import androidx.lifecycle.ViewModel
 import com.binbean.domain.cafe.Cafe
 import com.binbean.domain.cafe.CongestionStatus
 import com.binbean.domain.cafe.Seat
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class BookMarkViewModel: ViewModel() {
+@HiltViewModel
+class BookMarkViewModel @Inject constructor(): ViewModel() {
     private val _bookmarkedCafes = MutableLiveData<List<Cafe>>()
     val bookmarkedCafes: LiveData<List<Cafe>> = _bookmarkedCafes
 
