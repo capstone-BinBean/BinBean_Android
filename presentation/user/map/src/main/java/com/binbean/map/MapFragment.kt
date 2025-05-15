@@ -49,6 +49,8 @@ class MapFragment : Fragment() {
             else { Toast.makeText(requireContext(), "위치 권한이 필요합니다", Toast.LENGTH_SHORT).show() }
         }
 
+    private val cafeSearchFragment = CafeSearchFragment()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,8 +61,25 @@ class MapFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        
+        parentFragmentManager.setFragmentResultListener(
+            "cafe_marker_request", viewLifecycleOwner
+        ) { _, bundle ->
+            val name = bundle.getString("cafeName") ?: return@setFragmentResultListener
+            val lat = bundle.getDouble("latitude")
+            val lng = bundle.getDouble("longitude")
+
+            // showMarkerOnMap(name, lat, lng)
+        }
+        
         checkLocationPermission()
         observeSelectedCafe()
+        binding.searchView.setOnClickListener {
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.root, cafeSearchFragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
     }
 
     private fun checkLocationPermission(){
