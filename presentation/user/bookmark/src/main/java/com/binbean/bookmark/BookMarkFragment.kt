@@ -5,55 +5,74 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.binbean.bookmark.databinding.FragmentBookMarkBinding
+import com.binbean.domain.cafe.Cafe
+import com.binbean.domain.cafe.CongestionStatus
+import com.binbean.domain.cafe.Seat
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [BookMarkFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class BookMarkFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var binding: FragmentBookMarkBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var adapter: BookmarkedCafeListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_book_mark, container, false)
+        binding = FragmentBookMarkBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment BookMarkFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            BookMarkFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupCafeItemRecyclerView()
+    }
+
+    private fun setupCafeItemRecyclerView() {
+        adapter = BookmarkedCafeListAdapter()
+        binding.rvCafeList.adapter = adapter
+
+        val dummyData = listOf(
+            Cafe(
+                id = "1",
+                name = "컴포즈커피 춘천점",
+                address = "강원도 춘천시 중앙로 1-16 1층",
+                status = CongestionStatus.FREE,
+                seats = listOf(
+                    Seat(35, true, true),
+                    Seat(25, false, false),
+                    Seat(20, true, false),
+                    Seat(21, false, false),
+                    Seat(3, false, false),
+                    Seat(4, false, false),
+                    Seat(11, false, false),
+                    Seat(23, false, false)
+                )
+            ),
+            Cafe(
+                id = "2",
+                name = "스타벅스 춘천 퇴계 DT점",
+                address = "춘천시 연미로 95",
+                status = CongestionStatus.BUSY,
+                seats = listOf(
+                    Seat(41, true, false),
+                    Seat(7, false, true)
+                )
+            ),
+            Cafe(
+                id = "3",
+                name = "커피통 우두점",
+                address = "춘천시 사우로 32",
+                status = CongestionStatus.NORMAL,
+                seats = listOf(
+                    Seat(1, true, false),
+                    Seat(2, true, true),
+                    Seat(3, true, true)
+                )
+            )
+        )
+
+        adapter.submitList(dummyData)
     }
 }
