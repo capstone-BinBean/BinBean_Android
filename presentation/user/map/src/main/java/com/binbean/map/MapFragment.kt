@@ -30,13 +30,8 @@ import com.kakao.vectormap.label.LabelTextBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 @AndroidEntryPoint
 class MapFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
     private lateinit var binding: FragmentMapBinding
     private val viewModel: MapViewModel by viewModels()
 
@@ -53,14 +48,6 @@ class MapFragment : Fragment() {
             if (fineGranted || coarseGranted) { setupMapView() }
             else { Toast.makeText(requireContext(), "위치 권한이 필요합니다", Toast.LENGTH_SHORT).show() }
         }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -100,6 +87,7 @@ class MapFragment : Fragment() {
                 initMarkerStyles(p0)
                 setupLabelClickListener(p0)
                 setupCameraMoveEndListener(p0)
+                observeCafes(p0)
             }
         })
     }
@@ -116,7 +104,6 @@ class MapFragment : Fragment() {
                 Log.d("kakaoMap", "현재 위치로 이동: ${location.latitude}, ${location.longitude}")
                 addCurrentLocationMarker(map, currentLatLng)
                 viewModel.loadCafes(location.latitude, location.longitude)
-                observeCafes(map)
             } else {
                 Log.e("kakaoMap", "현재 위치 정보 없음")
             }
@@ -132,8 +119,10 @@ class MapFragment : Fragment() {
 
     private fun observeCafes(map: KakaoMap){
         viewModel.cafeList.observe(viewLifecycleOwner) { cafes ->
-            removeAllCafeMarkers(map)
-            addCafeMarker(map, cafes)
+            map.let { map ->
+                removeAllCafeMarkers(map)
+                addCafeMarker(map, cafes)
+            }
         }
     }
 
@@ -233,15 +222,6 @@ class MapFragment : Fragment() {
 
     companion object {
         private const val CURRENT_LOCATION_MARKER_TAG = "currentLocation"
-
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MapFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 
     override fun onResume() {
