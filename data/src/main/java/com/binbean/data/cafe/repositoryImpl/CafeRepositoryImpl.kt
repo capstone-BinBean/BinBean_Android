@@ -25,4 +25,15 @@ class CafeRepositoryImpl @Inject constructor(
             throw Exception("API 오류")
         }
     }
+
+    override suspend fun searchCafesByKeyword(keyword: String): List<Cafe> {
+        val response = cafeRetrofitService.searchKeyword(keyword, "")
+        if (response.isSuccessful) {
+            return response.body()?.documents?.map {
+                it.toCafe()
+            } ?: emptyList()
+        } else {
+            throw Exception("API 오류")
+        }
+    }
 }

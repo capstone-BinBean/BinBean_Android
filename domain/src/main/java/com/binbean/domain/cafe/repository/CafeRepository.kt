@@ -7,4 +7,8 @@ interface CafeRepository {
         latitude: Double,
         longitude: Double
     ): List<Cafe>
+
+    suspend fun searchCafesByKeyword(
+        keyword: String
+    ): List<Cafe>
 }
