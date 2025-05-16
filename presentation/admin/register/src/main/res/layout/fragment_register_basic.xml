@@ -267,6 +267,7 @@
                     android:textSize="17sp" />
 
                 <RadioGroup
+                    android:id="@+id/radio_wifi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
@@ -328,6 +329,7 @@
                     android:textSize="17sp" />
 
                 <RadioGroup
+                    android:id="@+id/radio_charging"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
@@ -388,6 +390,7 @@
                     android:textSize="17sp" />
 
                 <RadioGroup
+                    android:id="@+id/radio_kids"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
@@ -448,6 +451,7 @@
                     android:textSize="17sp" />
 
                 <RadioGroup
+                    android:id="@+id/radio_pets"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
