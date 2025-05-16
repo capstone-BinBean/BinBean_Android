@@ -15,4 +15,6 @@
     <color name="block_stroke">#ADB1BA</color>
     <color name="kakao_yellow">#F6E550</color>
     <color name="profile_background">#DFDFDF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 </resources>

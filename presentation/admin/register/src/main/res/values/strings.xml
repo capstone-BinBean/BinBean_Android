@@ -34,4 +34,5 @@
     <string name="eg_start_hour">09:00</string>
     <string name="eg_end_hour">18:30</string>
     <string name="tilde">~</string>
+    <string name="register_cafe_floor_plan">3. 카페의 도면을 등록해주세요(3/3)</string>
 </resources>
