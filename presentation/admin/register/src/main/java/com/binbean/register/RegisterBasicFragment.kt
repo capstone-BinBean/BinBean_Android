@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.binbean.register.databinding.FragmentRegisterBasicBinding
 
 class RegisterBasicFragment : Fragment() {
@@ -27,6 +28,10 @@ class RegisterBasicFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         radioButtonControl()
+
+        val recyclerView = binding.photoRcv
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+//        recyclerView.adapter = myAdapter
 
         binding.registerButton.setOnClickListener {
             val action = RegisterBasicFragmentDirections.actionRegistrationToHours()
