@@ -1,0 +1,22 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navi_home">
+
+    <fragment
+        android:id="@+id/navi_home"
+        android:name="com.binbean.home.AdminHomeFragment"
+        tools:layout="@layout/fragment_admin_home"
+        android:label="Home" />
+
+    <fragment
+        android:id="@+id/navi_registration"
+        android:name="com.binbean.register.AdminRegisterFragment"
+        android:label="Register" />
+
+    <fragment
+        android:id="@+id/navi_my"
+        android:name="com.binbean.mypage.MyProfileFragment"
+        android:label="MyPage" />
+</navigation>

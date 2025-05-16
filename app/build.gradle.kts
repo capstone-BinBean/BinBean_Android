@@ -60,6 +60,7 @@ dependencies {
     implementation(project(":presentation:user:map"))
     implementation(project(":presentation:user:bookmark"))
     implementation(project(":presentation:user:mypage"))
+    implementation(project(":presentation:admin:main"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
