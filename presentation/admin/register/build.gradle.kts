@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.navigation.safe.args)
+    id("kotlin-kapt")
 }
 
 android {
@@ -40,6 +41,8 @@ dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:resource"))
     implementation(project(":domain"))
+    implementation(libs.glide)
+    kapt(libs.glide.compiler)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.core.ktx)
