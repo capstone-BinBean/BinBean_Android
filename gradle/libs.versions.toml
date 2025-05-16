@@ -19,6 +19,7 @@ lifecycleViewmodelKtx = "2.8.7"
 fragmentKtx = "1.8.6"
 navigationFragmentKtx = "2.9.0"
 navigationUiKtx = "2.9.0"
+navigationSafeArgs = "2.9.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,4 +45,5 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+navigation-safe-args = { id = "androidx.navigation.safeargs", version.ref = "navigationSafeArgs" }
 

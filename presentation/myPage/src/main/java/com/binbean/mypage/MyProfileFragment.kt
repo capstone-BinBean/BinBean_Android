@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.binbean.mypage.databinding.FragmentMyProfileBinding
 
 class MyProfileFragment : Fragment() {
@@ -20,5 +21,15 @@ class MyProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.review.setOnClickListener {
+            val action = MyProfileFragmentDirections.actionMypageToReview()
+            findNavController().navigate(action)
+        }
+
+        binding.changePassword.setOnClickListener {
+            val action = MyProfileFragmentDirections.actionMypageToPassword()
+            findNavController().navigate(action)
+        }
     }
 }
