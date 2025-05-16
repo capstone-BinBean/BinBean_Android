@@ -53,12 +53,13 @@
         android:id="@+id/existing_pw_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/pretendard_bold"
         android:text="@string/existing_password"
         android:textColor="@color/gs_5"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/existing_window"
-        app:layout_constraintStart_toStartOf="@+id/changing_pw_text" />
+        app:layout_constraintStart_toStartOf="@+id/changing_pw_text"
+        app:layout_constraintTop_toBottomOf="@id/profile" />
 
     <EditText
         android:id="@+id/existing_window"
@@ -74,22 +75,22 @@
         android:padding="10dp"
         android:textColorHint="@color/gs_sub"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/changing_pw_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/changing_window" />
+        app:layout_constraintStart_toStartOf="@+id/changing_window"
+        app:layout_constraintTop_toBottomOf="@id/existing_pw_text" />
 
     <TextView
         android:id="@+id/changing_pw_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/pretendard_bold"
         android:text="@string/changing_password"
         android:textColor="@color/gs_5"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/existing_window" />
 
     <EditText
         android:id="@+id/changing_window"
@@ -142,8 +143,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="35dp"
-        android:layout_marginTop="90dp"
         android:background="@drawable/green_button"
         android:fontFamily="@font/pretendard_bold"
         android:gravity="center"
