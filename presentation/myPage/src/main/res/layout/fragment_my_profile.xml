@@ -28,17 +28,26 @@
         android:background="@color/gs_3"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
-    <ImageView
-        android:id="@+id/profile"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/profile_window"
         android:layout_width="130dp"
         android:layout_height="120dp"
         android:layout_marginTop="35dp"
-        android:background="@drawable/profile_background"
-        android:padding="20dp"
+        app:cardBackgroundColor="@color/profile_background"
+        app:cardCornerRadius="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line1"
-        app:srcCompat="@drawable/profile_chair_icon" />
+        app:layout_constraintTop_toBottomOf="@+id/line1">
+
+        <ImageView
+            android:id="@+id/profile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/profile_chair_icon" />
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/nickname"
@@ -51,7 +60,7 @@
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_window" />
 
     <ImageView
         android:id="@+id/edit_icon"

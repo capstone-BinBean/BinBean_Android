@@ -3,12 +3,12 @@ package com.binbean.container
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import com.binbean.bookmark.BookMarkFragment
 import com.binbean.container.databinding.ActivityUserMainBinding
 import com.binbean.map.MapFragment
 import com.binbean.mypage.MyInfoFragment
-import androidx.core.view.size
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
