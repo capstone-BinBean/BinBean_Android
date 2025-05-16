@@ -2,10 +2,7 @@ package com.binbean.login
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.binbean.container.UserMainActivity
 import com.binbean.login.databinding.ActivitySignUpWayBinding
 import com.binbean.main.AdminMainActivity
