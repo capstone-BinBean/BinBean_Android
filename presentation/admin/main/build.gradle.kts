@@ -37,8 +37,12 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:navigation"))
     implementation(project(":presentation:admin:home"))
     implementation(project(":presentation:admin:register"))
+    implementation(project(":presentation:myPage"))
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
