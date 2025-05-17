@@ -67,7 +67,7 @@
                     app:layout_constraintStart_toEndOf="@id/cafe_address"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/address_window"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -75,6 +75,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/rounded_shadow_background"
+                    android:drawableEnd="@drawable/icon_search_place"
                     android:elevation="3dp"
                     android:fontFamily="@font/pretendard_regular"
                     android:hint="@string/search_address"
@@ -198,6 +199,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/photo_rcv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                tools:listitem="@layout/add_photo_item"
+                tools:visibility="visible" />
+
             <FrameLayout
                 android:id="@+id/upload_photo_window"
                 android:layout_width="match_parent"
@@ -266,6 +277,7 @@
                     android:textSize="17sp" />
 
                 <RadioGroup
+                    android:id="@+id/radio_wifi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
@@ -327,6 +339,7 @@
                     android:textSize="17sp" />
 
                 <RadioGroup
+                    android:id="@+id/radio_charging"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
@@ -387,6 +400,7 @@
                     android:textSize="17sp" />
 
                 <RadioGroup
+                    android:id="@+id/radio_kids"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
@@ -447,6 +461,7 @@
                     android:textSize="17sp" />
 
                 <RadioGroup
+                    android:id="@+id/radio_pets"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
@@ -515,15 +530,14 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="35dp"
                 android:layout_marginEnd="40dp"
+                android:layout_marginBottom="50dp"
                 android:background="@drawable/green_button"
                 android:fontFamily="@font/pretendard_bold"
                 android:gravity="center"
                 android:padding="15dp"
                 android:text="@string/register_business_hours"
                 android:textColor="@android:color/white"
-                android:textSize="20sp"
-                tools:layout_editor_absoluteX="176dp"
-                tools:layout_editor_absoluteY="504dp" />
+                android:textSize="20sp" />
 
         </LinearLayout>
     </ScrollView>

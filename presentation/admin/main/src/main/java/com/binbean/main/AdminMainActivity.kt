@@ -1,144 +1,141 @@
 package com.binbean.main
 
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import com.binbean.home.AdminHomeFragment
+import androidx.core.view.get
+import androidx.core.view.size
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.binbean.main.databinding.ActivityAdminMainBinding
-import com.binbean.register.AdminRegisterFragment
+import com.binbean.navigation.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class AdminMainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAdminMainBinding
+    private val INDICATOR_WIDTH_RATIO = 0.7
+
+    // 네비게이션을 숨기는 프래그먼트
+    private val hideNavDestinations = setOf(
+        R.id.register_basic,
+        R.id.register_hours,
+        R.id.register_drawing,
+        R.id.my_page_password
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAdminMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initBottomNavigation()
-        if (savedInstanceState == null) {
-            switchFragment(AdminHomeFragment())
+        initNavigation()
+    }
+
+    /**
+     * 네비게이션 초기화
+     */
+    private fun initNavigation() {
+        val navController =
+            binding.fragmentContainer.getFragment<NavHostFragment>().navController
+        binding.bottomNavigationView.setupWithNavController(navController)
+        val nav = binding.bottomNavigationView
+        val itemCount = nav.menu.size
+
+        initIndicatorPosition(nav, itemCount)
+        setUpNaviagtion(nav, itemCount, navController)
+        hideBottomNavigation(navController)
+    }
+
+    /**
+     * 네비게이션 작동 함수
+     */
+    private fun setUpNaviagtion(
+        nav: BottomNavigationView,
+        itemCount: Int,
+        navController: NavController
+    ) {
+        nav.setOnItemSelectedListener {
+            // 1. Indicator 이동
+            val selectedIndex = getMenuItemIndex(nav.menu, it)
+            val (itemWidth, indicatorWidth) = getItemAndIndicatorWidth(nav, itemCount)
+            moveIndicatorTo(selectedIndex, itemWidth, indicatorWidth)
+
+            // 2. 네비게이션 이동 (백스택 비우기)
+            navController.popBackStack(navController.graph.startDestinationId, false)
+            navController.navigate(it.itemId)
+            true
         }
     }
 
-
     /**
-     * 하단 네비게이션바 초기화
+     * 인디케이터 위치를 초기화 하는 함수
      */
-    private fun initBottomNavigation() {
-        val bottomNavigationView = binding.bottomNavigationView
-        val indicatorBar = binding.indicatorBar
+    private fun initIndicatorPosition(nav: BottomNavigationView, itemCount: Int) {
+        nav.post {
+            val (itemWidth, indicatorWidth) = getItemAndIndicatorWidth(nav, itemCount)
+            val selectedIndex = getMenuItemIndexById(nav.menu, nav.selectedItemId).coerceAtLeast(0)
 
-        // 첫 번째 아이템에 대한 초기 설정
-        initIndicatorPosition(bottomNavigationView, indicatorBar)
-        setBottomNavigation(bottomNavigationView, indicatorBar)
-    }
+            val indicatorParams = binding.indicatorBar.layoutParams
+            indicatorParams.width = indicatorWidth
+            binding.indicatorBar.layoutParams = indicatorParams
 
-
-    /**
-     * 하단 네비게이션바 설정
-     */
-    private fun setBottomNavigation(
-        bottomNavigationView: BottomNavigationView,
-        indicatorBar: View
-    ) {
-        bottomNavigationView.run {
-            setOnItemSelectedListener {
-                updateIndicatorPosition(it, bottomNavigationView, indicatorBar)
-                when (it.itemId) {
-                    R.id.navi_home -> {
-                        switchFragment(AdminHomeFragment())
-                        true
-                    }
-
-                    R.id.navi_registration -> {
-                        switchFragment(AdminRegisterFragment())
-                        true
-                    }
-
-                    R.id.navi_my -> {
-                    }
-
-                    else -> false
-                }
-                true
-            }
+            moveIndicatorTo(selectedIndex, itemWidth, indicatorWidth)
         }
     }
 
-
     /**
-     * 프래그먼트 전환
+     * 바텀 네비게이션을 숨기는 함수
      */
-    private fun switchFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .commit()
-    }
-
-
-    /**
-     * 첫 번째 아이템의 인디케이터 위치 설정
-     */
-    private fun initIndicatorPosition(
-        bottomNavigationView: BottomNavigationView,
-        indicatorBar: View
-    ) {
-        bottomNavigationView.post {
-            val firstItem = bottomNavigationView.findViewById<View>(R.id.navi_home)
-            val itemWidth = firstItem.width
-            val itemXPosition = firstItem.left
-
-            // indicatorBar의 크기 설정
-            val indicatorWidth = (itemWidth * 0.7).toInt()
-            val params = indicatorBar.layoutParams
-            params.width = indicatorWidth
-            indicatorBar.layoutParams = params
-
-            // 첫 번째 아이템의 중앙 위치 계산
-            val centerXPosition = calculateCenterPosition(itemXPosition, itemWidth, indicatorWidth)
-
-            // indicatorBar의 위치 설정
-            indicatorBar.translationX = centerXPosition.toFloat()
+    private fun hideBottomNavigation(navController: NavController) {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            binding.bottomNavigationView.visibility =
+                if (destination.id in hideNavDestinations) View.GONE else View.VISIBLE
         }
     }
 
-
     /**
-     * 아이템 선택 시 인디케이터 위치 업데이트
+     * 메뉴 아이템으로 인덱스를 찾는 함수
      */
-    private fun updateIndicatorPosition(
-        item: MenuItem,
-        bottomNavigationView: BottomNavigationView,
-        indicatorBar: View
-    ) {
-        val selectedItem = bottomNavigationView.findViewById<View>(item.itemId)
-        val location = IntArray(2)
-        selectedItem.getLocationOnScreen(location)
-        val xPosition = location[0]
-        val itemWidth = selectedItem.width
-
-        // 아이템 중앙 위치 계산
-        val centerXPosition = calculateCenterPosition(xPosition, itemWidth, indicatorBar.width)
-
-        // indicatorBar의 위치 애니메이션
-        indicatorBar.animate().translationX(centerXPosition.toFloat()).setDuration(300).start()
+    private fun getMenuItemIndex(menu: Menu, menuItem: MenuItem): Int {
+        for (i in 0 until menu.size) {
+            if (menu[i].itemId == menuItem.itemId) return i
+        }
+        return -1
     }
 
+    /**
+     * 메뉴 아이템의 아이디로 인덱스를 찾는 함수
+     */
+    private fun getMenuItemIndexById(menu: Menu, itemId: Int): Int {
+        for (i in 0 until menu.size) {
+            if (menu[i].itemId == itemId) return i
+        }
+        return -1
+    }
 
     /**
-     * 인디케이터 중앙 위치 계산 함수
+     * 아이템의 크기로 인디케이터의 크기를 계산하는 함수
      */
-    private fun calculateCenterPosition(
-        itemXPosition: Int,
-        itemWidth: Int,
-        indicatorWidth: Int
-    ): Int {
-        return itemXPosition + itemWidth / 2 - indicatorWidth / 2
+    private fun getItemAndIndicatorWidth(nav: BottomNavigationView, itemCount: Int): Pair<Int, Int> {
+        val itemWidth = nav.width / itemCount
+        val indicatorWidth = (itemWidth * INDICATOR_WIDTH_RATIO).toInt()
+        return Pair(itemWidth, indicatorWidth)
+    }
+
+    /**
+     * 인디케이터를 이동시키는 함수
+     */
+    private fun moveIndicatorTo(selectedIndex: Int, itemWidth: Int, indicatorWidth: Int) {
+        // 한 아이템의 시작 위치 + (한 칸의 (1-0.7)/2) 만큼 이동 = 가운데 정렬
+        val leftMargin = selectedIndex * itemWidth + ((itemWidth - indicatorWidth) / 2)
+        binding.indicatorBar.animate()
+            .translationX(leftMargin.toFloat())
+            .setDuration(300)
+            .start()
     }
 
 }

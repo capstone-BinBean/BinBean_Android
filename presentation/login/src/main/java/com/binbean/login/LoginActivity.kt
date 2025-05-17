@@ -1,10 +1,8 @@
 package com.binbean.login
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.binbean.login.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -14,5 +12,13 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.signUp.setOnClickListener {
+            val intent = Intent(
+                this,
+                SignUpWayActivity::class.java
+            )
+            startActivity(intent)
+        }
     }
 }

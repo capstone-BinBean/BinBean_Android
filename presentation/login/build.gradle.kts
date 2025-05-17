@@ -37,6 +37,8 @@ android {
 
 dependencies {
     implementation(project(":core:resource"))
+    implementation(project(":presentation:user:container"))
+    implementation(project(":presentation:admin:main"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

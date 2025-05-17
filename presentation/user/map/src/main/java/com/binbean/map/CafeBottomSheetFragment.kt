@@ -1,11 +1,11 @@
 package com.binbean.map
 
 import android.app.Dialog
-import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binbean.domain.cafe.Cafe
 import com.binbean.map.adapter.CafeInfoImgAdapter

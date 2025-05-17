@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gs_1"
+    tools:context=".ChangePwFragment">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="@string/change_password"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/gs_3"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/profile_window"
+        android:layout_width="130dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="35dp"
+        app:cardBackgroundColor="@color/profile_background"
+        app:cardCornerRadius="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line1">
+
+        <ImageView
+            android:id="@+id/profile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/profile_chair_icon" />
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:src="@drawable/back_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/existing_pw_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="@string/existing_password"
+        android:textColor="@color/gs_5"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/changing_pw_text"
+        app:layout_constraintTop_toBottomOf="@id/profile_window" />
+
+    <EditText
+        android:id="@+id/existing_window"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/rounded_shadow_background"
+        android:elevation="2dp"
+        android:fontFamily="@font/pretendard_semibold"
+        android:hint="@string/example_existing_password"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColorHint="@color/gs_sub"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/changing_window"
+        app:layout_constraintTop_toBottomOf="@id/existing_pw_text" />
+
+    <TextView
+        android:id="@+id/changing_pw_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="@string/changing_password"
+        android:textColor="@color/gs_5"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/existing_window" />
+
+    <EditText
+        android:id="@+id/changing_window"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/rounded_shadow_background"
+        android:elevation="2dp"
+        android:fontFamily="@font/pretendard_semibold"
+        android:hint="@string/enter_changing_password"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColorHint="@color/gs_sub"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/changing_pw_text"
+        app:layout_constraintTop_toBottomOf="@+id/changing_pw_text" />
+
+    <TextView
+        android:id="@+id/check_pw_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="@string/check_password"
+        android:textColor="@color/gs_5"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/changing_pw_text"
+        app:layout_constraintTop_toBottomOf="@+id/changing_window" />
+
+    <EditText
+        android:id="@+id/check_window"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/rounded_shadow_background"
+        android:elevation="2dp"
+        android:fontFamily="@font/pretendard_semibold"
+        android:hint="@string/check_your_password"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColorHint="@color/gs_sub"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/changing_pw_text"
+        app:layout_constraintTop_toBottomOf="@+id/check_pw_text" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/complete_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/green_button"
+        android:fontFamily="@font/pretendard_bold"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="@string/complete"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/check_window" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
