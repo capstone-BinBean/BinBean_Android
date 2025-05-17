@@ -1,4 +1,4 @@
-package com.arieum.review
+package com.binbean.review
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

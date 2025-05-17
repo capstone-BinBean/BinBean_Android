@@ -244,7 +244,11 @@ class MapFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        binding.mapView.resume()
+        try {
+            binding.mapView.resume()
+        } catch (e: NullPointerException) {
+            Log.w("MapFragment", "MapView resume 실패 - 아직 초기화되지 않음")
+        }
     }
 
     override fun onPause() {
