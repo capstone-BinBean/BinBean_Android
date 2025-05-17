@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomDialog" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- 다이얼로그 전체 배경 -->
+        <item name="android:windowBackground">@android:color/white</item>
+
+        <!-- 전체화면 설정 -->
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+</resources>

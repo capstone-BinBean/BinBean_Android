@@ -1,7 +1,7 @@
-package com.arieum.review
+package com.binbean.review
 
 import androidx.lifecycle.ViewModel
 
-class CafeReviewViewModel : ViewModel() {
+class CafeReviewWriteViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }

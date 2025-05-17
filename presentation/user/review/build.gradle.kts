@@ -40,6 +40,10 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":core:ui"))
+    implementation(project(":core:resource"))
+    implementation(libs.glide)
+    kapt(libs.glide.compiler)
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
