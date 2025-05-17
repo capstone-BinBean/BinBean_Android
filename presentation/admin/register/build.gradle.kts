@@ -40,6 +40,7 @@ android {
 dependencies {
     implementation(project(":core:navigation"))
     implementation(project(":core:resource"))
+    implementation(project(":core:ui"))
     implementation(project(":domain"))
     implementation(libs.glide)
     kapt(libs.glide.compiler)

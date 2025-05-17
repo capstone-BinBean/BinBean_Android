@@ -1,4 +1,4 @@
-package com.binbean.register.drawing
+package com.binbean.ui
 
 import android.content.Context
 import android.graphics.Canvas

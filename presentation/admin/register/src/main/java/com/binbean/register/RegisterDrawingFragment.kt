@@ -15,14 +15,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binbean.domain.cafe.ObjectItem
 import com.binbean.register.databinding.FragmentRegisterDrawingBinding
-import com.binbean.register.drawing.CanvasView
+import com.binbean.ui.CanvasView
 import com.binbean.register.drawing.ObjectListAdapter
 import com.binbean.register.drawing.RecyclerViewDecoration
 
 class RegisterDrawingFragment : Fragment() {
     private lateinit var binding: FragmentRegisterDrawingBinding
 
-    private val floorViews = mutableMapOf<Int, CanvasView>()
+    private val floorViews = mutableMapOf<Int, com.binbean.ui.CanvasView>()
     private var currentFloor = 1
 
     override fun onCreateView(
