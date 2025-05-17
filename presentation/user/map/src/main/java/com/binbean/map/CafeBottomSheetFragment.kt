@@ -62,6 +62,19 @@ class CafeBottomSheetFragment : BottomSheetDialogFragment() {
         initAdapter()
         observeCafeInfoImg()
         viewModel.loadCafeInfoImg()
+        binding.btnSeatCheck.setOnClickListener {
+            val fragment = CafeDrawingFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable("cafe", cafe)  // 필요 시 전달
+                }
+            }
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit()
+
+            dismiss() // BottomSheet는 닫아줘야 함
+        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
