@@ -17,6 +17,10 @@ object RetrofitModule {
     @Retention(AnnotationRetention.BINARY)
     annotation class KakaoApi
 
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class ServiceApi
+
     @Provides
     @Singleton
     fun provideDefaultOkHttpClient(): OkHttpClient {
@@ -39,10 +43,28 @@ object RetrofitModule {
 
     @Provides
     @Singleton
+    @ServiceApi
+    fun provideServiceOkHttpClient(): OkHttpClient {
+        return OkHttpClient.Builder().build()
+    }
+
+    @Provides
+    @Singleton
     @KakaoApi
     fun provideKakaoApiRetrofitBuilder(@KakaoApi client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.KAKAO_BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    @ServiceApi
+    fun provideServiceApiRetrofit(@ServiceApi client: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BuildConfig.SERVICE_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
