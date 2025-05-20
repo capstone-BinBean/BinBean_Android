@@ -1,5 +1,6 @@
 package com.binbean.data.cafe.di
 
+import com.binbean.data.cafe.remote.CafeRetrofitServerService
 import com.binbean.data.cafe.remote.CafeRetrofitService
 import com.binbean.retrofit.RetrofitModule
 import dagger.Module
@@ -16,5 +17,11 @@ object CafeRetrofitModule {
     @Singleton
     fun provideKakaoApiService(@RetrofitModule.KakaoApi retrofit: Retrofit): CafeRetrofitService {
         return retrofit.create(CafeRetrofitService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideServiceApiService(@RetrofitModule.ServiceApi retrofit: Retrofit): CafeRetrofitServerService {
+        return retrofit.create(CafeRetrofitServerService::class.java)
     }
 }
