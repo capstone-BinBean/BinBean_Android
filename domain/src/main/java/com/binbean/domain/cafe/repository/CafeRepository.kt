@@ -1,6 +1,8 @@
 package com.binbean.domain.cafe.repository
 
 import com.binbean.domain.cafe.Cafe
+import com.binbean.domain.cafe.CafeDetail
+import com.binbean.domain.cafe.ServerCafe
 
 interface CafeRepository {
     suspend fun searchCafesInBounds(
@@ -8,7 +10,16 @@ interface CafeRepository {
         longitude: Double
     ): List<Cafe>
 
+    suspend fun searchServerCafesInBounds(
+        latitude: Double,
+        longitude: Double
+    ): List<ServerCafe>
+
     suspend fun searchCafesByKeyword(
         keyword: String
     ): List<Cafe>
+
+    suspend fun getCafeDetail(
+        cafeId: Int
+    ): CafeDetail
 }

@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.binbean.domain.cafe.Cafe
+import com.binbean.domain.cafe.ServerCafe
 import com.binbean.map.databinding.FragmentMapBinding
 import com.binbean.map.viewmodel.MapViewModel
 import com.google.android.gms.location.LocationServices
@@ -37,6 +38,7 @@ class MapFragment : Fragment() {
     private lateinit var defaultLabelStyle: LabelStyle
     private lateinit var selectedLabelStyle: LabelStyle
     private lateinit var currentLocationStyle: LabelStyle
+    private lateinit var serverLabelStyle: LabelStyle
     private var lastSelectedLabel: Label? = null
 
     private val locationPermissionRequest =
@@ -49,6 +51,8 @@ class MapFragment : Fragment() {
         }
 
     private val cafeSearchFragment = CafeSearchFragment()
+
+    private var lastRequestedLatLng: LatLng? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,6 +83,13 @@ class MapFragment : Fragment() {
             transaction.addToBackStack(null)
             transaction.commit()
         }
+
+        viewModel.cafeDetail.observe(viewLifecycleOwner) { detail ->
+            detail?.let {
+                Toast.makeText(requireContext(), "카페 이름: ${it.cafeName}", Toast.LENGTH_SHORT).show()
+                Log.d("MapFragment", "카페 상세: $it")
+            }
+        }
     }
 
     private fun checkLocationPermission(){
@@ -106,6 +117,7 @@ class MapFragment : Fragment() {
                 setupLabelClickListener(p0)
                 setupCameraMoveEndListener(p0)
                 observeCafes(p0)
+                observeServerCafes(p0)
             }
         })
     }
@@ -121,7 +133,8 @@ class MapFragment : Fragment() {
                 map.moveCamera(CameraUpdateFactory.newCenterPosition(currentLatLng))
                 Log.d("kakaoMap", "현재 위치로 이동: ${location.latitude}, ${location.longitude}")
                 addCurrentLocationMarker(map, currentLatLng)
-                viewModel.loadCafes(location.latitude, location.longitude)
+                // viewModel.loadCafes(location.latitude, location.longitude)
+                viewModel.loadServerCafes(location.latitude, location.longitude)
             } else {
                 Log.e("kakaoMap", "현재 위치 정보 없음")
             }
@@ -131,7 +144,16 @@ class MapFragment : Fragment() {
     private fun setupCameraMoveEndListener(map: KakaoMap) {
         map.setOnCameraMoveEndListener { _, cameraPosition, _ ->
             val center = cameraPosition.position
-            viewModel.loadCafes(center.latitude, center.longitude)
+
+            // 동일 좌표 중복 요청 방지
+            if (lastRequestedLatLng != null &&
+                lastRequestedLatLng!!.latitude == center.latitude &&
+                lastRequestedLatLng!!.longitude == center.longitude) return@setOnCameraMoveEndListener
+
+            lastRequestedLatLng = center
+
+            // viewModel.loadCafes(center.latitude, center.longitude)
+            viewModel.loadServerCafes(center.latitude, center.longitude)
         }
     }
 
@@ -140,6 +162,15 @@ class MapFragment : Fragment() {
             map.let { map ->
                 removeAllCafeMarkers(map)
                 addCafeMarker(map, cafes)
+            }
+        }
+    }
+
+    private fun observeServerCafes(map: KakaoMap) {
+        viewModel.serverCafeList.observe(viewLifecycleOwner) { serverCafes ->
+            map.let {
+                removeAllServerCafeMarkers(it)
+                addServerCafeMarker(it, serverCafes)
             }
         }
     }
@@ -154,11 +185,15 @@ class MapFragment : Fragment() {
         selectedLabelStyle = LabelStyle.from(R.drawable.marker_unregistered_focused)
             .setTextStyles(20, myBlack, 2, myWhite)
 
+        serverLabelStyle = LabelStyle.from(R.drawable.marker_server)
+            .setTextStyles(20, myBlack, 2, myWhite)
+
         currentLocationStyle = LabelStyle.from(R.drawable.marker_user_location)
 
         val labelStylesLst = listOf(
             defaultLabelStyle,
             selectedLabelStyle,
+            serverLabelStyle,
             currentLocationStyle
         )
 
@@ -189,11 +224,28 @@ class MapFragment : Fragment() {
         }
     }
 
+    private fun addServerCafeMarker(map: KakaoMap, cafes: List<ServerCafe>) {
+        val labelLayer = map.labelManager?.layer
+
+        cafes.forEach { cafe ->
+            val label = createServerCafeLabel(cafe)
+            labelLayer?.addLabel(label)
+        }
+    }
+
     private fun createCafeLabel(cafe: Cafe): LabelOptions {
         val position = LatLng.from(cafe.latitude, cafe.longitude)
         return LabelOptions.from(position)
             .setTexts(LabelTextBuilder().setTexts(cafe.name))
             .setStyles(defaultLabelStyle)
+            .setTag(cafe)
+    }
+
+    private fun createServerCafeLabel(cafe: ServerCafe): LabelOptions {
+        val position = LatLng.from(cafe.latitude, cafe.longitude)
+        return LabelOptions.from(position)
+            .setTexts(LabelTextBuilder().setTexts(cafe.cafeName))
+            .setStyles(serverLabelStyle)
             .setTag(cafe)
     }
 
@@ -228,11 +280,30 @@ class MapFragment : Fragment() {
         }
     }
 
+    private fun observeSelectedServerCafe() {
+        viewModel.selectedServerCafe.observe(viewLifecycleOwner) { cafe ->
+            cafe?.let {
+//                showServerCafeBottomSheet(it)
+//                viewModel.clearSelectedServerCafe()
+            }
+        }
+    }
+
     private fun removeAllCafeMarkers(map: KakaoMap) {
         val labelLayer = map.labelManager?.layer ?: return
         val labels = labelLayer.allLabels.toList()
         labels.forEach { label ->
             if (label.tag is Cafe) {
+                labelLayer.remove(label)
+            }
+        }
+    }
+
+    private fun removeAllServerCafeMarkers(map: KakaoMap) {
+        val labelLayer = map.labelManager?.layer ?: return
+        val labels = labelLayer.allLabels.toList()
+        labels.forEach { label ->
+            if (label.tag is ServerCafe) {
                 labelLayer.remove(label)
             }
         }

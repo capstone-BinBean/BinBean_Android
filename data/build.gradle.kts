@@ -26,6 +26,7 @@ android {
 
         buildConfigField("String", "KAKAO_REST_API_KEY", "\"${localProperties.getProperty("KAKAO_REST_API_KEY")}\"")
         buildConfigField("String", "KAKAO_BASE_URL", "\"${localProperties.getProperty("KAKAO_BASE_URL")}\"")
+        buildConfigField("String", "USER_API_TOKEN", "\"${localProperties.getProperty("USER_API_TOKEN")}\"")
     }
 
     buildTypes {
