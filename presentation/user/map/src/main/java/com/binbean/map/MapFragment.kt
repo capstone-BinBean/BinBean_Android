@@ -41,6 +41,9 @@ class MapFragment : Fragment() {
     private lateinit var serverLabelStyle: LabelStyle
     private var lastSelectedLabel: Label? = null
 
+    /**
+     * 위치 권한 요청
+     */
     private val locationPermissionRequest =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             val fineGranted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false
@@ -75,23 +78,19 @@ class MapFragment : Fragment() {
             // showMarkerOnMap(name, lat, lng)
         }
         
-        checkLocationPermission()
-        observeSelectedCafe()
-        binding.searchView.setOnClickListener {
+        checkLocationPermission() // 위치 권한 요청
+        observeSelectedCafe() // 카페 선택 옵저빙
+        binding.searchView.setOnClickListener {  // 카페 검색 클릭 리스너
             val transaction = parentFragmentManager.beginTransaction()
             transaction.replace(R.id.root, cafeSearchFragment)
             transaction.addToBackStack(null)
             transaction.commit()
         }
-
-        viewModel.cafeDetail.observe(viewLifecycleOwner) { detail ->
-            detail?.let {
-                Toast.makeText(requireContext(), "카페 이름: ${it.cafeName}", Toast.LENGTH_SHORT).show()
-                Log.d("MapFragment", "카페 상세: $it")
-            }
-        }
     }
 
+    /**
+     * 위치 권한 요청
+     */
     private fun checkLocationPermission(){
         locationPermissionRequest.launch(
             arrayOf(
@@ -130,8 +129,10 @@ class MapFragment : Fragment() {
             val location = it
             if (location != null) {
                 val currentLatLng = LatLng.from(location.latitude, location.longitude)
+
                 map.moveCamera(CameraUpdateFactory.newCenterPosition(currentLatLng))
                 Log.d("kakaoMap", "현재 위치로 이동: ${location.latitude}, ${location.longitude}")
+
                 addCurrentLocationMarker(map, currentLatLng)
                 // viewModel.loadCafes(location.latitude, location.longitude)
                 viewModel.loadServerCafes(location.latitude, location.longitude)
@@ -141,6 +142,9 @@ class MapFragment : Fragment() {
         }
     }
 
+    /**
+     * 카메라 이동 리스너 설정
+     */
     private fun setupCameraMoveEndListener(map: KakaoMap) {
         map.setOnCameraMoveEndListener { _, cameraPosition, _ ->
             val center = cameraPosition.position
@@ -157,6 +161,9 @@ class MapFragment : Fragment() {
         }
     }
 
+    /**
+     * 카카오 API 카페 리스트 옵저빙
+     */
     private fun observeCafes(map: KakaoMap){
         viewModel.cafeList.observe(viewLifecycleOwner) { cafes ->
             map.let { map ->
@@ -166,6 +173,9 @@ class MapFragment : Fragment() {
         }
     }
 
+    /**
+     * 서버 API 카페 리스트 옵저빙
+     */
     private fun observeServerCafes(map: KakaoMap) {
         viewModel.serverCafeList.observe(viewLifecycleOwner) { serverCafes ->
             map.let {
@@ -175,6 +185,9 @@ class MapFragment : Fragment() {
         }
     }
 
+    /**
+     * 마커 스타일 초기화
+     */
     private fun initMarkerStyles(map: KakaoMap) {
         val myBlack = context?.let { ContextCompat.getColor(it, com.binbean.ui.R.color.black) }
         val myWhite = context?.let { ContextCompat.getColor(it, com.binbean.ui.R.color.white) }
@@ -201,6 +214,9 @@ class MapFragment : Fragment() {
         map.labelManager?.addLabelStyles(labelStyles)
     }
 
+    /**
+     * 현재 위치 마커 추가
+     */
     private fun addCurrentLocationMarker(map: KakaoMap, latLng: LatLng) {
         val labelLayer = map.labelManager?.layer
 
@@ -208,12 +224,18 @@ class MapFragment : Fragment() {
         labelLayer?.addLabel(label)
     }
 
+    /**
+     * 현재 위치 라벨 생성
+     */
     private fun createLocationLabel(latLng: LatLng): LabelOptions {
         return LabelOptions.from(latLng)
             .setStyles(currentLocationStyle)
             .setTag(CURRENT_LOCATION_MARKER_TAG)
     }
 
+    /**
+     * 카카오 API 카페 마커 추가
+     */
     private fun addCafeMarker(map: KakaoMap, cafes: List<Cafe>) {
         val labelLayer = map.labelManager?.layer
         // labelLayer?.removeAll()
@@ -224,6 +246,9 @@ class MapFragment : Fragment() {
         }
     }
 
+    /**
+     * 서버 API 카페 마커 추가
+     */
     private fun addServerCafeMarker(map: KakaoMap, cafes: List<ServerCafe>) {
         val labelLayer = map.labelManager?.layer
 
@@ -233,6 +258,9 @@ class MapFragment : Fragment() {
         }
     }
 
+    /**
+     * 카카오 API 카페 라벨 생성
+     */
     private fun createCafeLabel(cafe: Cafe): LabelOptions {
         val position = LatLng.from(cafe.latitude, cafe.longitude)
         return LabelOptions.from(position)
@@ -241,6 +269,9 @@ class MapFragment : Fragment() {
             .setTag(cafe)
     }
 
+    /**
+     * 서버 API 카페 라벨 생성
+     */
     private fun createServerCafeLabel(cafe: ServerCafe): LabelOptions {
         val position = LatLng.from(cafe.latitude, cafe.longitude)
         return LabelOptions.from(position)
@@ -249,6 +280,9 @@ class MapFragment : Fragment() {
             .setTag(cafe)
     }
 
+    /**
+     * 카페 라벨 클릭 리스너 설정
+     */
     private fun setupLabelClickListener(map: KakaoMap) {
         map.setOnLabelClickListener { _, _, label ->
             val clickedCafe = label.tag as? Cafe
@@ -266,11 +300,18 @@ class MapFragment : Fragment() {
         }
     }
 
+    /**
+     * BottomSheetFragment 생성
+     */
     private fun showCafeBottomSheet(cafe: Cafe) {
         val bottomSheet = CafeBottomSheetFragment.newInstance(cafe)
         bottomSheet.show(parentFragmentManager, "CafeBottomSheetFragment")
     }
 
+    /**
+     * 선택된 카카오 API 카페 옵저빙
+     * - BottomSheetFragment 호출
+     */
     private fun observeSelectedCafe() {
         viewModel.selectedCafe.observe(viewLifecycleOwner) { cafe ->
             cafe?.let {
@@ -280,6 +321,10 @@ class MapFragment : Fragment() {
         }
     }
 
+    /**
+     * 선택된 서버 API 카페 옵저빙
+     * - BottomSheetFragment 호출
+     */
     private fun observeSelectedServerCafe() {
         viewModel.selectedServerCafe.observe(viewLifecycleOwner) { cafe ->
             cafe?.let {
@@ -289,6 +334,9 @@ class MapFragment : Fragment() {
         }
     }
 
+    /**
+     * 카카오 API 카페 마커 제거
+     */
     private fun removeAllCafeMarkers(map: KakaoMap) {
         val labelLayer = map.labelManager?.layer ?: return
         val labels = labelLayer.allLabels.toList()
@@ -299,6 +347,9 @@ class MapFragment : Fragment() {
         }
     }
 
+    /**
+     * 서버 API 카페 마커 제거
+     */
     private fun removeAllServerCafeMarkers(map: KakaoMap) {
         val labelLayer = map.labelManager?.layer ?: return
         val labels = labelLayer.allLabels.toList()
