@@ -8,7 +8,7 @@
     tools:context=".RegisterHoursFragment">
 
     <TextView
-        android:id="@+id/register_cafe_information"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -421,9 +421,9 @@
         android:id="@+id/register_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="35dp"
         android:layout_marginTop="70dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="35dp"
         android:background="@drawable/green_button"
         android:fontFamily="@font/pretendard_bold"
         android:gravity="center"
@@ -431,7 +431,46 @@
         android:text="@string/register_floor_plan"
         android:textColor="@android:color/white"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="504dp" />
+        tools:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/modfiy_tool"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="50dp"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/modify_complete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/brown_button"
+            android:fontFamily="@font/pretendard_bold"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="@string/complete_modification"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/modify_floor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_weight="1.2"
+            android:background="@drawable/green_button"
+            android:fontFamily="@font/pretendard_bold"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="@string/modify_floor_plan"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+    </LinearLayout>
 
 </LinearLayout>
