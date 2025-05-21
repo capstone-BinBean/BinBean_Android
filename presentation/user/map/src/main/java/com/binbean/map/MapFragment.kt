@@ -100,6 +100,9 @@ class MapFragment : Fragment() {
         )
     }
 
+    /**
+     * 카카오맵 뷰 설정
+     */
     private fun setupMapView(){
         binding.mapView.start(object : MapLifeCycleCallback() {
             override fun onMapDestroy() {
@@ -111,16 +114,19 @@ class MapFragment : Fragment() {
         }, object : KakaoMapReadyCallback() {
             override fun onMapReady(p0: KakaoMap) {
                 Log.d("kakaoMap", "카카오맵 정상실행")
-                moveMapToCurrentLocation(p0)
-                initMarkerStyles(p0)
-                setupLabelClickListener(p0)
-                setupCameraMoveEndListener(p0)
-                observeCafes(p0)
-                observeServerCafes(p0)
+                moveMapToCurrentLocation(p0)    // 현재 위치로 이동
+                initMarkerStyles(p0)            // 마커 스타일 초기화
+                setupLabelClickListener(p0)     // 마커 클릭 리스너 설정
+                setupCameraMoveEndListener(p0)  // 카메라 이동 리스너 설정
+                observeCafes(p0)                // 카카오 API 카페 리스트 옵저빙
+                observeServerCafes(p0)          // 서버 API 카페 리스트 옵저빙
             }
         })
     }
 
+    /**
+     * 현재 위치로 이동
+     */
     @SuppressLint("MissingPermission")
     private fun moveMapToCurrentLocation(map: KakaoMap){
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
@@ -133,9 +139,9 @@ class MapFragment : Fragment() {
                 map.moveCamera(CameraUpdateFactory.newCenterPosition(currentLatLng))
                 Log.d("kakaoMap", "현재 위치로 이동: ${location.latitude}, ${location.longitude}")
 
-                addCurrentLocationMarker(map, currentLatLng)
-                // viewModel.loadCafes(location.latitude, location.longitude)
-                viewModel.loadServerCafes(location.latitude, location.longitude)
+                addCurrentLocationMarker(map, currentLatLng)                        // 현재 위치 마커 추가
+                // viewModel.loadCafes(location.latitude, location.longitude)       // 카카오 API 카페 리스트 요청
+                viewModel.loadServerCafes(location.latitude, location.longitude)    // 서버 API 카페 리스트 요청
             } else {
                 Log.e("kakaoMap", "현재 위치 정보 없음")
             }
@@ -156,8 +162,8 @@ class MapFragment : Fragment() {
 
             lastRequestedLatLng = center
 
-            // viewModel.loadCafes(center.latitude, center.longitude)
-            viewModel.loadServerCafes(center.latitude, center.longitude)
+            // viewModel.loadCafes(center.latitude, center.longitude)       // 카카오 API 카페 리스트 요청
+            viewModel.loadServerCafes(center.latitude, center.longitude)    // 서버 API 카페 리스트 요청
         }
     }
 
