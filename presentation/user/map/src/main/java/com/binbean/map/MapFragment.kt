@@ -80,6 +80,7 @@ class MapFragment : Fragment() {
         
         checkLocationPermission() // 위치 권한 요청
         observeSelectedCafe() // 카페 선택 옵저빙
+        observeSelectedServerCafe()
         binding.searchView.setOnClickListener {  // 카페 검색 클릭 리스너
             val transaction = parentFragmentManager.beginTransaction()
             transaction.replace(R.id.root, cafeSearchFragment)
@@ -291,8 +292,17 @@ class MapFragment : Fragment() {
      */
     private fun setupLabelClickListener(map: KakaoMap) {
         map.setOnLabelClickListener { _, _, label ->
+            // Cafe 마커 처리
             val clickedCafe = label.tag as? Cafe
             clickedCafe?.let { viewModel.selectCafe(it) }
+
+            // ServerCafe 마커 처리
+            val clickedServerCafe = label.tag as? ServerCafe
+            if (clickedServerCafe != null) {
+                viewModel.selectServerCafe(clickedServerCafe)
+            }
+
+            Log.d("MapFragment", "Label clicked: ${label.tag}")
 
             // 이전 선택 라벨 원상복귀
             lastSelectedLabel?.setStyles(defaultLabelStyle)
@@ -311,6 +321,11 @@ class MapFragment : Fragment() {
      */
     private fun showCafeBottomSheet(cafe: Cafe) {
         val bottomSheet = CafeBottomSheetFragment.newInstance(cafe)
+        bottomSheet.show(parentFragmentManager, "CafeBottomSheetFragment")
+    }
+
+    private fun showCafeBottomSheet(serverCafe: ServerCafe) {
+        val bottomSheet = CafeBottomSheetFragment.newInstance(serverCafe)
         bottomSheet.show(parentFragmentManager, "CafeBottomSheetFragment")
     }
 
@@ -334,8 +349,9 @@ class MapFragment : Fragment() {
     private fun observeSelectedServerCafe() {
         viewModel.selectedServerCafe.observe(viewLifecycleOwner) { cafe ->
             cafe?.let {
-//                showServerCafeBottomSheet(it)
-//                viewModel.clearSelectedServerCafe()
+                showCafeBottomSheet(it)
+                viewModel.clearSelectedServerCafe()
+                Log.d("MapFragment", "서버 카페 선택됨: ${cafe?.cafeName}")
             }
         }
     }

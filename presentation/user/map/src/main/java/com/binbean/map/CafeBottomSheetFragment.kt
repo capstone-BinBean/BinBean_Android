@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binbean.domain.cafe.Cafe
+import com.binbean.domain.cafe.ServerCafe
+import com.binbean.domain.cafe.toCafe
 import com.binbean.map.adapter.CafeInfoImgAdapter
 import com.binbean.map.adapter.ViewPagerAdapter
 import com.binbean.map.databinding.FragmentCafeBottomSheetBinding
@@ -20,18 +22,28 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 class CafeBottomSheetFragment : BottomSheetDialogFragment() {
+    private val ARG_CAFE = "cafe"
+    private val ARG_SERVER_CAFE = "serverCafe"
 
     companion object {
         private const val DEFAULT_PEEK_HEIGHT = 650
 
         @JvmStatic
         fun newInstance(cafe: Cafe): CafeBottomSheetFragment {
-            val fragment = CafeBottomSheetFragment()
-            val bundle = Bundle().apply {
-                putSerializable("cafe", cafe)
+            return CafeBottomSheetFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable(ARG_CAFE, cafe)
+                }
             }
-            fragment.arguments = bundle
-            return fragment
+        }
+
+        @JvmStatic
+        fun newInstance(serverCafe: ServerCafe): CafeBottomSheetFragment {
+            return CafeBottomSheetFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable(ARG_SERVER_CAFE, serverCafe)
+                }
+            }
         }
 
     }
@@ -54,7 +66,16 @@ class CafeBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val cafe = arguments?.getSerializable("cafe") as? Cafe
+        val cafe: Cafe? = when {
+            arguments?.containsKey(ARG_CAFE) == true -> {
+                arguments?.getSerializable(ARG_CAFE) as? Cafe
+            }
+            arguments?.containsKey(ARG_SERVER_CAFE) == true -> {
+                val serverCafe = arguments?.getSerializable(ARG_SERVER_CAFE) as? ServerCafe
+                serverCafe?.toCafe()
+            }
+            else -> null
+        }
         cafe?.let {
             viewModel.setCafe(it)
             setupViewPager(it)
@@ -67,7 +88,7 @@ class CafeBottomSheetFragment : BottomSheetDialogFragment() {
         binding.btnSeatCheck.setOnClickListener {
             val fragment = CafeDrawingFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable("cafe", cafe)  // 필요 시 전달
+                    putSerializable(ARG_CAFE, cafe)  // 필요 시 전달
                 }
             }
             requireActivity().supportFragmentManager.beginTransaction()

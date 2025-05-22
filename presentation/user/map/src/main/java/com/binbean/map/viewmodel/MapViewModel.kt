@@ -86,4 +86,8 @@ class MapViewModel @Inject constructor(
     fun clearSelectedCafe() {
         _selectedCafe.value = null
     }
+
+    fun clearSelectedServerCafe() {
+        _selectedServerCafe.value = null
+    }
 }

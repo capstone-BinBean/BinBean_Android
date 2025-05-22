@@ -6,8 +6,8 @@ data class Cafe(
     val name: String,
     val latitude: Double = 0.0,
     val longitude: Double = 0.0,
-    val address: String? = null,
-    val phone: String? = null,
+    val address: String = "강원특별자치도 춘천시 강원대학로 1",
+    val phone: String = "033-242-1234",
 
     val id: String? = null,
     val status: CongestionStatus? = null,

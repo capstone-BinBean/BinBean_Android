@@ -21,10 +21,10 @@ data class KakaoPlaceDocument(
     val latitude: String,
 
     @SerializedName("road_address_name")
-    val roadAddressName: String?,
+    val roadAddressName: String,
 
     @SerializedName("phone")
-    val phone: String?,
+    val phone: String,
 
     @SerializedName("place_url")
     val placeUrl: String?
