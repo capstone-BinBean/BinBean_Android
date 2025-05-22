@@ -38,6 +38,14 @@ class BookMarkFragment : Fragment() {
     private fun observeBookmarkedCafes() {
         viewModel.bookmarkedCafes.observe(viewLifecycleOwner) { cafeList ->
             adapter.submitList(cafeList)
+
+            if (cafeList.isNullOrEmpty()) {
+                binding.rvCafeList.visibility = View.GONE
+                binding.tvEmptyBookmark.visibility = View.VISIBLE
+            } else {
+                binding.rvCafeList.visibility = View.VISIBLE
+                binding.tvEmptyBookmark.visibility = View.GONE
+            }
         }
     }
 }

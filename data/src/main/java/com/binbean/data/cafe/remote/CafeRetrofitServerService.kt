@@ -1,5 +1,6 @@
 package com.binbean.data.cafe.remote
 
+import com.binbean.domain.FavoriteCafeResponse
 import com.binbean.domain.cafe.CafeDetail
 import com.binbean.domain.cafe.ServerCafe
 import retrofit2.Response
@@ -21,4 +22,9 @@ interface CafeRetrofitServerService {
         @Header("Authorization") token: String,
         @Path("cafeId") cafeId: Int
     ): Response<CafeDetail>
+
+    @GET("/api/users/favorites")
+    suspend fun getFavoriteCafes(
+        @Header("Authorization") token: String
+    ): Response<List<FavoriteCafeResponse>>
 }
