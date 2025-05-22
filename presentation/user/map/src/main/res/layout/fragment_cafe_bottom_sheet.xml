@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="4dp"
     android:background="@drawable/bottom_sheet_bg"
     tools:context=".CafeBottomSheetFragment">
 
@@ -13,7 +14,8 @@
         android:fillViewport="true"
         android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:orientation="vertical"
@@ -35,12 +37,13 @@
             <ImageButton
                 android:id="@+id/btnBack"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:layout_gravity="start"
+                android:layout_marginBottom="8dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Back"
-                android:src="@drawable/ic_back"
-                android:layout_gravity="start"
-                android:layout_marginBottom="8dp" />
+                android:src="@drawable/ic_back" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -119,32 +122,29 @@
                     android:textSize="14sp"
                     android:layout_marginStart="8dp" />
 
-                <!-- 매장상태 -->
-                <LinearLayout
-                    android:orientation="horizontal"
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+                
+                <TextView
+                    android:id="@+id/tvStoreStatusLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="180dp">
+                    android:text="매장상태:"
+                    android:textColor="@color/gray"
+                    android:textSize="12sp" />
 
-                    <TextView
-                        android:id="@+id/tvStoreStatusLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="매장상태:"
-                        android:textColor="@color/gray"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/tvStoreStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" 보통"
-                        android:textColor="@color/red"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:layout_marginStart="4dp" />
-                </LinearLayout>
-
+                <TextView
+                    android:id="@+id/tvStoreStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" 보통"
+                    android:textColor="@color/red"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="4dp" />
+                
             </LinearLayout>
 
             <!-- 매장번호 + 좌석확인 버튼 -->
@@ -153,36 +153,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp">
-                <LinearLayout
-                    android:orientation="horizontal"
+
+                <TextView
+                    android:id="@+id/tvPhoneNumberLabel"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:text="매장번호"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tvPhoneNumberLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="매장번호"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tvPhoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="033-255-1234"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_marginStart="8dp" />
 
-                    <TextView
-                        android:id="@+id/tvPhoneNumber"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="033-255-1234"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:layout_marginStart="8dp" />
-                </LinearLayout>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnSeatCheck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="145dp"
                     android:padding="12dp"
                     android:background="@drawable/seat_button_bg"
                     android:paddingStart="10dp"
@@ -204,25 +202,26 @@
                 android:padding="5dp"
                 android:contentDescription="recycler view of cafe images" />
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/tab_bg"
-                app:tabTextColor="@color/brown"
-                app:tabSelectedTextColor="@color/brown"
-                app:tabIndicatorColor="@color/brown"
-                android:layout_marginTop="20dp"
-                android:contentDescription="tab layout" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/tab_bg"
+        app:tabTextColor="@color/brown"
+        app:tabSelectedTextColor="@color/brown"
+        app:tabIndicatorColor="@color/brown"
+        android:layout_marginTop="20dp"
+        android:contentDescription="tab layout" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </LinearLayout>
