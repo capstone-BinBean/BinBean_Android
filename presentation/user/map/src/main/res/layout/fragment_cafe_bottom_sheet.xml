@@ -14,7 +14,8 @@
         android:fillViewport="true"
         android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:orientation="vertical"
@@ -36,12 +37,13 @@
             <ImageButton
                 android:id="@+id/btnBack"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:layout_gravity="start"
+                android:layout_marginBottom="8dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Back"
-                android:src="@drawable/ic_back"
-                android:layout_gravity="start"
-                android:layout_marginBottom="8dp" />
+                android:src="@drawable/ic_back" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -200,25 +202,26 @@
                 android:padding="5dp"
                 android:contentDescription="recycler view of cafe images" />
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/tab_bg"
-                app:tabTextColor="@color/brown"
-                app:tabSelectedTextColor="@color/brown"
-                app:tabIndicatorColor="@color/brown"
-                android:layout_marginTop="20dp"
-                android:contentDescription="tab layout" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/tab_bg"
+        app:tabTextColor="@color/brown"
+        app:tabSelectedTextColor="@color/brown"
+        app:tabIndicatorColor="@color/brown"
+        android:layout_marginTop="20dp"
+        android:contentDescription="tab layout" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </LinearLayout>

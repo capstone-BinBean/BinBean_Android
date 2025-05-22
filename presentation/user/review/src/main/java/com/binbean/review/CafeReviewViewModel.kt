@@ -4,8 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.binbean.domain.Review
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class CafeReviewViewModel : ViewModel() {
+@HiltViewModel
+class CafeReviewViewModel @Inject constructor(): ViewModel() {
     private val _reviewList = MutableLiveData<List<Review>>()
     val reviewList: LiveData<List<Review>> = _reviewList
 

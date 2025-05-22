@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.arieum.review.R
 import com.arieum.review.databinding.FragmentCafeReviewWriteBinding
 import com.binbean.domain.cafe.Cafe
+import com.binbean.domain.cafe.CafeDetail
 
 class CafeReviewWriteFragment : DialogFragment() {
 
@@ -24,6 +25,7 @@ class CafeReviewWriteFragment : DialogFragment() {
     private lateinit var starViews: List<AppCompatButton>
     private var rating: Int = 0
     private var cafe: Cafe? = null
+    private var cafeDetail: CafeDetail? = null
 
     private val photoList = mutableListOf<Uri>()
     private lateinit var adapter: PhotoAdapter
@@ -47,6 +49,15 @@ class CafeReviewWriteFragment : DialogFragment() {
                 }
             }
         }
+
+        fun newInstance(detail: CafeDetail, rating: Int): CafeReviewWriteFragment {
+            return CafeReviewWriteFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable("cafeDetail", detail)
+                    putInt("rating", rating)
+                }
+            }
+        }
     }
 
     override fun onStart() {
@@ -64,6 +75,7 @@ class CafeReviewWriteFragment : DialogFragment() {
         arguments?.let {
             rating = it.getInt("rating")
             cafe = it.getSerializable("cafe") as? Cafe
+            cafeDetail = it.getSerializable("cafeDetail") as? CafeDetail
         }
     }
 
@@ -81,8 +93,8 @@ class CafeReviewWriteFragment : DialogFragment() {
         starViews = listOf(binding.star1, binding.star2, binding.star3, binding.star4, binding.star5)
         setInitStarUI(rating)
 
-        binding.tvCafeName.text = cafe?.name ?: ""
-        binding.tvAddress.text = cafe?.address ?: ""
+        binding.tvCafeName.text = cafeDetail?.cafeName.orEmpty() ?: cafe?.name.orEmpty()
+        binding.tvAddress.text = cafeDetail?.cafeAddress.orEmpty() ?: cafe?.address.orEmpty()
 
         binding.btnClose.setOnClickListener { dismiss() }
 

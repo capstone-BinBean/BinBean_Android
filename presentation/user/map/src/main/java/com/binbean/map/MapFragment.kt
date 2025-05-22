@@ -41,6 +41,8 @@ class MapFragment : Fragment() {
     private lateinit var serverLabelStyle: LabelStyle
     private var lastSelectedLabel: Label? = null
 
+    private var isMapViewStarted = false
+
     /**
      * 위치 권한 요청
      */
@@ -121,6 +123,7 @@ class MapFragment : Fragment() {
                 setupCameraMoveEndListener(p0)  // 카메라 이동 리스너 설정
                 observeCafes(p0)                // 카카오 API 카페 리스트 옵저빙
                 observeServerCafes(p0)          // 서버 API 카페 리스트 옵저빙
+                isMapViewStarted = true         // 카카오맵 뷰 시작 완료
             }
         })
     }
@@ -325,7 +328,7 @@ class MapFragment : Fragment() {
     }
 
     private fun showCafeBottomSheet(serverCafe: ServerCafe) {
-        val bottomSheet = CafeBottomSheetFragment.newInstance(serverCafe)
+        val bottomSheet = CafeBottomSheetFragment.newInstance(serverCafe.cafeId)
         bottomSheet.show(parentFragmentManager, "CafeBottomSheetFragment")
     }
 
@@ -388,15 +391,19 @@ class MapFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        try {
+        if (isMapViewStarted) {
             binding.mapView.resume()
-        } catch (e: NullPointerException) {
-            Log.w("MapFragment", "MapView resume 실패 - 아직 초기화되지 않음")
+        } else {
+            Log.d("MapFragment", "MapView resume 생략 - 아직 start되지 않음")
         }
     }
 
     override fun onPause() {
         super.onPause()
-        binding.mapView.pause()
+        if (isMapViewStarted) {
+            binding.mapView.pause()
+        } else {
+            Log.d("MapFragment", "MapView pause 생략 - 아직 start되지 않음")
+        }
     }
 }

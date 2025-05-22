@@ -2,15 +2,14 @@ package com.binbean.map
 
 import android.app.Dialog
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binbean.domain.cafe.Cafe
-import com.binbean.domain.cafe.ServerCafe
+import com.binbean.domain.cafe.CafeDetail
+import com.binbean.domain.cafe.CafeInfoImgItem
 import com.binbean.domain.cafe.toCafe
 import com.binbean.map.adapter.CafeInfoImgAdapter
 import com.binbean.map.adapter.ViewPagerAdapter
@@ -20,13 +19,15 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CafeBottomSheetFragment : BottomSheetDialogFragment() {
-    private val ARG_CAFE = "cafe"
-    private val ARG_SERVER_CAFE = "serverCafe"
 
     companion object {
         private const val DEFAULT_PEEK_HEIGHT = 650
+        private val ARG_CAFE = "cafe"
+        private const val ARG_CAFE_ID = "cafeId"
 
         @JvmStatic
         fun newInstance(cafe: Cafe): CafeBottomSheetFragment {
@@ -38,10 +39,10 @@ class CafeBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         @JvmStatic
-        fun newInstance(serverCafe: ServerCafe): CafeBottomSheetFragment {
+        fun newInstance(cafeId: Int): CafeBottomSheetFragment {
             return CafeBottomSheetFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(ARG_SERVER_CAFE, serverCafe)
+                    putSerializable(ARG_CAFE_ID, cafeId)
                 }
             }
         }
@@ -66,29 +67,31 @@ class CafeBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val cafe: Cafe? = when {
-            arguments?.containsKey(ARG_CAFE) == true -> {
-                arguments?.getSerializable(ARG_CAFE) as? Cafe
-            }
-            arguments?.containsKey(ARG_SERVER_CAFE) == true -> {
-                val serverCafe = arguments?.getSerializable(ARG_SERVER_CAFE) as? ServerCafe
-                serverCafe?.toCafe()
-            }
-            else -> null
-        }
-        cafe?.let {
-            viewModel.setCafe(it)
-            setupViewPager(it)
+        val cafe: Cafe? = arguments?.getSerializable(ARG_CAFE) as? Cafe
+        val cafeId: Int? = arguments?.getInt(ARG_CAFE_ID)
+
+        if (cafe != null) {
+            // 카카오 API 마커에서 클릭한 경우
+            viewModel.setCafe(cafe)
+            observeKakaoCafeData()
+            setupViewPager(cafe)
+        } else if (cafeId != null && cafeId > 0) {
+            // 서버 API 마커에서 클릭한 경우
+            viewModel.loadCafeDetail(cafeId)
+            observeServerCafeData()
         }
 
-        observeCafeData()
         initAdapter()
         observeCafeInfoImg()
         viewModel.loadCafeInfoImg()
         binding.btnSeatCheck.setOnClickListener {
             val fragment = CafeDrawingFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(ARG_CAFE, cafe)  // 필요 시 전달
+                    if (cafeId != null && cafeId > 0) {
+                        putInt(ARG_CAFE_ID, cafeId)
+                    } else if (cafe != null) {
+                        putSerializable(ARG_CAFE, cafe)
+                    }
                 }
             }
             requireActivity().supportFragmentManager.beginTransaction()
@@ -97,6 +100,10 @@ class CafeBottomSheetFragment : BottomSheetDialogFragment() {
                 .commit()
 
             dismiss() // BottomSheet는 닫아줘야 함
+        }
+
+        binding.btnBack.setOnClickListener {
+            behavior.state = BottomSheetBehavior.STATE_COLLAPSED
         }
     }
 
@@ -123,7 +130,7 @@ class CafeBottomSheetFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun observeCafeData() {
+    private fun observeKakaoCafeData() {
         viewModel.cafe.observe(viewLifecycleOwner) { cafe ->
             cafe?.let {
                 binding.tvStoreName.text = it.name
@@ -133,11 +140,35 @@ class CafeBottomSheetFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun setupViewPager(cafe: Cafe) {
-        val adapter = ViewPagerAdapter(this, cafe)
-        binding.viewPager.adapter = adapter
-        binding.viewPager.isNestedScrollingEnabled = true
+    private fun observeServerCafeData() {
+        viewModel.cafeDetail.observe(viewLifecycleOwner) { detail ->
+            detail?.let {
+                binding.tvStoreName.text = it.cafeName
+                binding.tvAddress.text = it.cafeAddress
+                binding.tvPhoneNumber.text = it.cafePhone
 
+                adapter.submitList(it.cafeImgUrl.map { img -> CafeInfoImgItem(img.url) })
+
+                setupViewPager(detail)
+            }
+        }
+    }
+
+
+    private fun setupViewPager(cafe: Cafe) {
+        val adapter = ViewPagerAdapter(this, cafe = cafe, cafeDetail = null)
+        binding.viewPager.adapter = adapter
+        attachTabs()
+    }
+
+    private fun setupViewPager(detail: CafeDetail) {
+        val adapter = ViewPagerAdapter(this, cafe = null, cafeDetail = detail)
+        binding.viewPager.adapter = adapter
+        attachTabs()
+    }
+
+    private fun attachTabs() {
+        binding.viewPager.isNestedScrollingEnabled = false
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> "상세정보"
