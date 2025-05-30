@@ -1,8 +1,10 @@
 package com.binbean.domain.cafe.repository
 
 import com.binbean.domain.FavoriteCafeResponse
+import com.binbean.domain.cafe.Review
 import com.binbean.domain.cafe.Cafe
 import com.binbean.domain.cafe.CafeDetail
+import com.binbean.domain.cafe.ReviewPostRequest
 import com.binbean.domain.cafe.ServerCafe
 
 interface CafeRepository {
@@ -24,7 +26,13 @@ interface CafeRepository {
         cafeId: Int
     ): CafeDetail
 
+
     suspend fun getFavoriteCafes(
 
     ): List<FavoriteCafeResponse>
+
+    suspend fun postReview(
+        cafeId: Int,
+        review: ReviewPostRequest
+    ): Result<Unit>
 }

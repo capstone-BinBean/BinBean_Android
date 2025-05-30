@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.binbean.domain.cafe.Cafe
 import com.binbean.domain.cafe.CafeDetail
 import com.binbean.domain.cafe.CafeInfoImgItem
-import com.binbean.domain.cafe.toCafe
 import com.binbean.map.adapter.CafeInfoImgAdapter
 import com.binbean.map.adapter.ViewPagerAdapter
 import com.binbean.map.databinding.FragmentCafeBottomSheetBinding
@@ -146,6 +145,7 @@ class CafeBottomSheetFragment : BottomSheetDialogFragment() {
                 binding.tvStoreName.text = it.cafeName
                 binding.tvAddress.text = it.cafeAddress
                 binding.tvPhoneNumber.text = it.cafePhone
+                binding.tvScore.text = String.format("%.1f", it.reviewAvg)
 
                 adapter.submitList(it.cafeImgUrl.map { img -> CafeInfoImgItem(img.url) })
 

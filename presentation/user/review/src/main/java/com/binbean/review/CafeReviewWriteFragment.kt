@@ -6,15 +6,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arieum.review.R
 import com.arieum.review.databinding.FragmentCafeReviewWriteBinding
+import com.binbean.domain.cafe.Review
+import com.binbean.domain.cafe.ReviewImage
 import com.binbean.domain.cafe.Cafe
 import com.binbean.domain.cafe.CafeDetail
+import com.binbean.domain.cafe.ReviewPostRequest
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CafeReviewWriteFragment : DialogFragment() {
 
     private var _binding: FragmentCafeReviewWriteBinding? = null
@@ -100,6 +106,7 @@ class CafeReviewWriteFragment : DialogFragment() {
 
         initClickListener()
         initPhotoRcv()
+        observeViewModel()
     }
 
     private fun setInitStarUI(rating: Int) {
@@ -132,6 +139,29 @@ class CafeReviewWriteFragment : DialogFragment() {
                 updateStarRating(selectedRating)
             }
         }
+
+        binding.btnSubmitReview.setOnClickListener {
+            val reviewText = binding.etReview.text.toString()
+            val reviewScore = rating.toDouble()
+
+            val imageList = photoList.map { uri ->
+                ReviewImage(url = uri.toString())
+            }
+
+            val reviewRequest = ReviewPostRequest(
+                reviewText = reviewText,
+                reviewScore = reviewScore,
+                reviewImgUrlList = imageList
+            )
+
+            val cafeId = cafeDetail?.id ?: cafe?.id
+            if (cafeId != null) {
+                viewModel.postReview(cafeId, reviewRequest)
+            } else {
+                Toast.makeText(requireContext(), "카페 ID를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
     }
 
     /**
@@ -167,6 +197,20 @@ class CafeReviewWriteFragment : DialogFragment() {
     private fun updatePhotoRcvVisibility() {
         binding.photoRcv.visibility = if (photoList.isEmpty()) View.GONE else View.VISIBLE
         binding.uploadPhotoWindow.visibility = if (photoList.isEmpty()) View.VISIBLE else View.GONE
+    }
+
+    /**
+     * 뷰모델 관찰 함수
+     */
+    private fun observeViewModel() {
+        viewModel.reviewPostState.observe(viewLifecycleOwner) { result ->
+            result.onSuccess {
+                Toast.makeText(requireContext(), "리뷰가 성공적으로 등록되었습니다.", Toast.LENGTH_SHORT).show()
+                dismiss()
+            }.onFailure {
+                Toast.makeText(requireContext(), "리뷰 등록에 실패했습니다: ${it.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onDestroyView() {
