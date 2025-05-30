@@ -1,5 +1,6 @@
 package com.binbean.data.cafe.remote
 
+import com.binbean.domain.FavoriteCafeResponse
 import com.binbean.domain.cafe.Review
 import com.binbean.domain.cafe.CafeDetail
 import com.binbean.domain.cafe.ReviewPostRequest
@@ -26,11 +27,15 @@ interface CafeRetrofitServerService {
         @Path("cafeId") cafeId: Int
     ): Response<CafeDetail>
 
+    @GET("/api/users/favorites")
+    suspend fun getFavoriteCafes(
+        @Header("Authorization") token: String
+    ): Response<List<FavoriteCafeResponse>>
+
     @POST("/api/reviews/{cafeId}")
     suspend fun postReview(
         @Header("Authorization") token: String,
         @Path("cafeId") cafeId: Int,
         @Body reviewRequest: ReviewPostRequest
     ): Response<Unit>
-
 }
