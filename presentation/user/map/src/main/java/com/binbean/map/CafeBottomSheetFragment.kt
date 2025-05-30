@@ -145,6 +145,7 @@ class CafeBottomSheetFragment : BottomSheetDialogFragment() {
                 binding.tvStoreName.text = it.cafeName
                 binding.tvAddress.text = it.cafeAddress
                 binding.tvPhoneNumber.text = it.cafePhone
+                binding.tvScore.text = String.format("%.1f", it.reviewAvg)
 
                 adapter.submitList(it.cafeImgUrl.map { img -> CafeInfoImgItem(img.url) })
 
