@@ -11,7 +11,7 @@ data class Cafe(
     val startTime: String? = "09:00",
     val endTime: String? = "22:00",
 
-    val id: String? = null,
+    val id: Int? = null,
     val status: CongestionStatus? = null,
     val seats: List<Seat>? = null,
 

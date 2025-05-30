@@ -21,7 +21,7 @@ data class CafeDetail(
     val cafeImgUrl: List<CafeImage>,
     @SerializedName("reviewAvg")
     val reviewAvgRaw: String? = null,
-    val reviewResponse: List<Any>,
+    val reviewResponse: List<Review>,
     val floorPlanId: List<FloorPlan>
 ): Serializable {
     val reviewAvg: Double?

@@ -21,7 +21,7 @@ class BookMarkViewModel @Inject constructor(): ViewModel() {
     private fun loadDummyData() {
         _bookmarkedCafes.value = listOf(
             Cafe(
-                id = "1",
+                id = 1,
                 name = "컴포즈커피 춘천점",
                 address = "강원도 춘천시 중앙로 1-16 1층",
                 status = CongestionStatus.FREE,
@@ -37,7 +37,7 @@ class BookMarkViewModel @Inject constructor(): ViewModel() {
                 )
             ),
             Cafe(
-                id = "2",
+                id = 2,
                 name = "스타벅스 춘천 퇴계 DT점",
                 address = "춘천시 연미로 95",
                 status = CongestionStatus.BUSY,
@@ -47,7 +47,7 @@ class BookMarkViewModel @Inject constructor(): ViewModel() {
                 )
             ),
             Cafe(
-                id = "3",
+                id = 3,
                 name = "커피통 우두점",
                 address = "춘천시 사우로 32",
                 status = CongestionStatus.NORMAL,

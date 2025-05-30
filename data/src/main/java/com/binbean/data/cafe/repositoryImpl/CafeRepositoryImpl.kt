@@ -5,8 +5,10 @@ import com.binbean.data.BuildConfig
 import com.binbean.data.cafe.remote.CafeRetrofitServerService
 import com.binbean.data.cafe.remote.CafeRetrofitService
 import com.binbean.data.cafe.toCafe
+import com.binbean.domain.cafe.Review
 import com.binbean.domain.cafe.Cafe
 import com.binbean.domain.cafe.CafeDetail
+import com.binbean.domain.cafe.ReviewPostRequest
 import com.binbean.domain.cafe.ServerCafe
 import com.binbean.domain.cafe.repository.CafeRepository
 import javax.inject.Inject
@@ -74,6 +76,24 @@ class CafeRepositoryImpl @Inject constructor(
         } else {
             val error = response.errorBody()?.string()
             throw Exception("상세 조회 실패: ${response.code()} - $error")
+        }
+    }
+
+    override suspend fun postReview(cafeId: Int, review: ReviewPostRequest): Result<Unit> {
+        return try {
+            val response = cafeRetrofitServerService.postReview(
+                token = token,
+                cafeId = cafeId,
+                reviewRequest = review
+            )
+            if (response.isSuccessful) {
+                Result.success(Unit)
+            } else {
+                val error = response.errorBody()?.string()
+                Result.failure(Exception("리뷰 등록 실패: ${response.code()} - $error"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
 }
