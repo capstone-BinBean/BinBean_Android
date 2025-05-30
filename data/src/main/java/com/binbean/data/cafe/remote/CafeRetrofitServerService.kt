@@ -1,7 +1,8 @@
 package com.binbean.data.cafe.remote
 
-import com.binbean.domain.Review
+import com.binbean.domain.cafe.Review
 import com.binbean.domain.cafe.CafeDetail
+import com.binbean.domain.cafe.ReviewPostRequest
 import com.binbean.domain.cafe.ServerCafe
 import retrofit2.Response
 import retrofit2.http.Body
@@ -29,7 +30,7 @@ interface CafeRetrofitServerService {
     suspend fun postReview(
         @Header("Authorization") token: String,
         @Path("cafeId") cafeId: Int,
-        @Body reviewRequest: Review
+        @Body reviewRequest: ReviewPostRequest
     ): Response<Unit>
 
 }

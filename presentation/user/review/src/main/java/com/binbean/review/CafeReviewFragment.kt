@@ -69,12 +69,16 @@ class CafeReviewFragment : Fragment() {
         binding.rvReviews.layoutManager = LinearLayoutManager(requireContext())
         binding.rvReviews.adapter = adapter
 
+        cafeDetail?.let {
+            viewModel.loadReviewsFromDetail(it)
+        }
+
         viewModel.reviewList.observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
         }
 
         // 예시용 더미 리뷰 호출
-        viewModel.loadDummyReviews()
+        // viewModel.loadDummyReviews()
 
         starViews = listOf(
             binding.star1, binding.star2, binding.star3, binding.star4, binding.star5

@@ -3,7 +3,8 @@ package com.binbean.review
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.binbean.domain.Review
+import com.binbean.domain.cafe.Review
+import com.binbean.domain.cafe.CafeDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -11,6 +12,10 @@ import javax.inject.Inject
 class CafeReviewViewModel @Inject constructor(): ViewModel() {
     private val _reviewList = MutableLiveData<List<Review>>()
     val reviewList: LiveData<List<Review>> = _reviewList
+
+    fun loadReviewsFromDetail(detail: CafeDetail) {
+        _reviewList.value = detail.reviewResponse
+    }
 
     fun loadDummyReviews() {
         _reviewList.value = listOf(

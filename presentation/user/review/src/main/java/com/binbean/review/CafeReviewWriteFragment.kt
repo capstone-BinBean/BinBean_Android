@@ -13,10 +13,11 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arieum.review.R
 import com.arieum.review.databinding.FragmentCafeReviewWriteBinding
-import com.binbean.domain.Review
-import com.binbean.domain.ReviewImage
+import com.binbean.domain.cafe.Review
+import com.binbean.domain.cafe.ReviewImage
 import com.binbean.domain.cafe.Cafe
 import com.binbean.domain.cafe.CafeDetail
+import com.binbean.domain.cafe.ReviewPostRequest
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -147,7 +148,7 @@ class CafeReviewWriteFragment : DialogFragment() {
                 ReviewImage(url = uri.toString())
             }
 
-            val reviewRequest = Review(
+            val reviewRequest = ReviewPostRequest(
                 reviewText = reviewText,
                 reviewScore = reviewScore,
                 reviewImgUrlList = imageList

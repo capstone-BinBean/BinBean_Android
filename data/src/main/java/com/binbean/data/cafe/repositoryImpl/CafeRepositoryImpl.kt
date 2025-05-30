@@ -5,9 +5,10 @@ import com.binbean.data.BuildConfig
 import com.binbean.data.cafe.remote.CafeRetrofitServerService
 import com.binbean.data.cafe.remote.CafeRetrofitService
 import com.binbean.data.cafe.toCafe
-import com.binbean.domain.Review
+import com.binbean.domain.cafe.Review
 import com.binbean.domain.cafe.Cafe
 import com.binbean.domain.cafe.CafeDetail
+import com.binbean.domain.cafe.ReviewPostRequest
 import com.binbean.domain.cafe.ServerCafe
 import com.binbean.domain.cafe.repository.CafeRepository
 import javax.inject.Inject
@@ -78,7 +79,7 @@ class CafeRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun postReview(cafeId: Int, review: Review): Result<Unit> {
+    override suspend fun postReview(cafeId: Int, review: ReviewPostRequest): Result<Unit> {
         return try {
             val response = cafeRetrofitServerService.postReview(
                 token = token,

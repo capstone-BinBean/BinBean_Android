@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.binbean.domain.cafe.Cafe
 import com.binbean.domain.cafe.CafeDetail
 import com.binbean.domain.cafe.CafeInfoImgItem
-import com.binbean.domain.cafe.toCafe
 import com.binbean.map.adapter.CafeInfoImgAdapter
 import com.binbean.map.adapter.ViewPagerAdapter
 import com.binbean.map.databinding.FragmentCafeBottomSheetBinding

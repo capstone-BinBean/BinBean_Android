@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.arieum.review.R
 import com.arieum.review.databinding.ReviewItemBinding
-import com.binbean.domain.Review
+import com.binbean.domain.cafe.Review
 
 class CafeReviewAdapter: ListAdapter<Review, CafeReviewAdapter.ReviewViewHolder>(DiffCallback()) {
 

@@ -1,8 +1,9 @@
 package com.binbean.domain.cafe.repository
 
-import com.binbean.domain.Review
+import com.binbean.domain.cafe.Review
 import com.binbean.domain.cafe.Cafe
 import com.binbean.domain.cafe.CafeDetail
+import com.binbean.domain.cafe.ReviewPostRequest
 import com.binbean.domain.cafe.ServerCafe
 
 interface CafeRepository {
@@ -26,6 +27,6 @@ interface CafeRepository {
 
     suspend fun postReview(
         cafeId: Int,
-        review: Review
+        review: ReviewPostRequest
     ): Result<Unit>
 }
