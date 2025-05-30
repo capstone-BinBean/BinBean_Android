@@ -1,10 +1,13 @@
 package com.binbean.data.cafe.remote
 
+import com.binbean.domain.Review
 import com.binbean.domain.cafe.CafeDetail
 import com.binbean.domain.cafe.ServerCafe
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -21,4 +24,12 @@ interface CafeRetrofitServerService {
         @Header("Authorization") token: String,
         @Path("cafeId") cafeId: Int
     ): Response<CafeDetail>
+
+    @POST("/api/reviews/{cafeId}")
+    suspend fun postReview(
+        @Header("Authorization") token: String,
+        @Path("cafeId") cafeId: Int,
+        @Body reviewRequest: Review
+    ): Response<Unit>
+
 }

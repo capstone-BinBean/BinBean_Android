@@ -14,8 +14,8 @@ class CafeReviewViewModel @Inject constructor(): ViewModel() {
 
     fun loadDummyReviews() {
         _reviewList.value = listOf(
-            Review(1, "2025.02.21", "홍길동", 4, "Lorem Ipsum is simply dummy text...", true),
-            Review(2, "2025.02.21", "심청이", 3, "Lorem Ipsum is simply dummy text...", false)
+            Review(1, "2025.02.21", "홍길동", 4.0, "Lorem Ipsum is simply dummy text...", true, emptyList()),
+            Review(2, "2025.02.21", "심청이", 3.0, "Lorem Ipsum is simply dummy text...", false, emptyList())
         )
     }
 }

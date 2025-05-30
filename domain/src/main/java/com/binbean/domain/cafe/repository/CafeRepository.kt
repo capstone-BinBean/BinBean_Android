@@ -1,5 +1,6 @@
 package com.binbean.domain.cafe.repository
 
+import com.binbean.domain.Review
 import com.binbean.domain.cafe.Cafe
 import com.binbean.domain.cafe.CafeDetail
 import com.binbean.domain.cafe.ServerCafe
@@ -22,4 +23,9 @@ interface CafeRepository {
     suspend fun getCafeDetail(
         cafeId: Int
     ): CafeDetail
+
+    suspend fun postReview(
+        cafeId: Int,
+        review: Review
+    ): Result<Unit>
 }
