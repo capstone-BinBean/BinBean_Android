@@ -9,6 +9,7 @@ import com.binbean.domain.FavoriteCafeResponse
 import com.binbean.domain.cafe.Review
 import com.binbean.domain.cafe.Cafe
 import com.binbean.domain.cafe.CafeDetail
+import com.binbean.domain.cafe.FloorPlanResponse
 import com.binbean.domain.cafe.ReviewPostRequest
 import com.binbean.domain.cafe.ServerCafe
 import com.binbean.domain.cafe.repository.CafeRepository
@@ -107,6 +108,21 @@ class CafeRepositoryImpl @Inject constructor(
             }
         } catch (e: Exception) {
             Result.failure(e)
+        }
+    }
+
+    override suspend fun getFloorPlan(floorPlanId: Int): List<FloorPlanResponse> {
+        val response = cafeRetrofitServerService.getFloorPlan(
+            token = token,
+            floorPlanId = floorPlanId
+        )
+
+        if (response.isSuccessful) {
+            return response.body() ?: emptyList()
+        } else {
+            val error = response.errorBody()?.string()
+            Log.e("CafeRepositoryImpl", "도면 조회 실패: $error")
+            throw Exception("도면 조회 실패: ${response.code()} - $error")
         }
     }
 }

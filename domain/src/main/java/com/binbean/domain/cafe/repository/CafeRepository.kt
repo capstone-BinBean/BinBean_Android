@@ -4,6 +4,7 @@ import com.binbean.domain.FavoriteCafeResponse
 import com.binbean.domain.cafe.Review
 import com.binbean.domain.cafe.Cafe
 import com.binbean.domain.cafe.CafeDetail
+import com.binbean.domain.cafe.FloorPlanResponse
 import com.binbean.domain.cafe.ReviewPostRequest
 import com.binbean.domain.cafe.ServerCafe
 
@@ -35,4 +36,8 @@ interface CafeRepository {
         cafeId: Int,
         review: ReviewPostRequest
     ): Result<Unit>
+
+    suspend fun getFloorPlan(
+        floorPlanId: Int
+    ): List<FloorPlanResponse>
 }
