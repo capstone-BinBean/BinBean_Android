@@ -98,7 +98,7 @@ class CafeBottomSheetFragment : BottomSheetDialogFragment() {
                 .addToBackStack(null)
                 .commit()
 
-            dismiss() // BottomSheet는 닫아줘야 함
+            dismiss() // BottomSheet 닫기
         }
 
         binding.btnBack.setOnClickListener {

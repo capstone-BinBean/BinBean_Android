@@ -3,6 +3,7 @@ package com.binbean.data.cafe.remote
 import com.binbean.domain.FavoriteCafeResponse
 import com.binbean.domain.cafe.Review
 import com.binbean.domain.cafe.CafeDetail
+import com.binbean.domain.cafe.FloorPlanResponse
 import com.binbean.domain.cafe.ReviewPostRequest
 import com.binbean.domain.cafe.ServerCafe
 import retrofit2.Response
@@ -38,4 +39,10 @@ interface CafeRetrofitServerService {
         @Path("cafeId") cafeId: Int,
         @Body reviewRequest: ReviewPostRequest
     ): Response<Unit>
+
+    @GET("/api/cafes/floor-plan/{floorPlanId}")
+    suspend fun getFloorPlan(
+        @Header("Authorization") token: String,
+        @Path("floorPlanId") floorPlanId: Int
+    ): Response<List<FloorPlanResponse>>
 }
