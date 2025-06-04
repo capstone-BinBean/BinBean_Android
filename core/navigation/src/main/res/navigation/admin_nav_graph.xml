@@ -1,0 +1,62 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navi_home" >
+
+    <fragment
+        android:id="@+id/navi_home"
+        android:name="com.binbean.home.AdminHomeFragment"
+        tools:layout="@layout/fragment_admin_home" />
+
+    <fragment
+        android:id="@+id/navi_registration"
+        android:name="com.binbean.register.AdminRegisterFragment" >
+        <action
+            android:id="@+id/action_registration_to_basic"
+            app:destination="@id/register_basic" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navi_my"
+        android:name="com.binbean.mypage.MyProfileFragment" >
+        <action
+            android:id="@+id/action_mypage_to_password"
+            app:destination="@id/my_page_password" />
+        <action
+            android:id="@+id/action_mypage_to_review"
+            app:destination="@id/my_page_review" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/register_basic"
+        android:name="com.binbean.register.RegisterBasicFragment" >
+        <action
+            android:id="@+id/action_registration_to_hours"
+            app:destination="@id/register_hours" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/register_hours"
+        android:name="com.binbean.register.RegisterHoursFragment" >
+        <action
+            android:id="@+id/action_registration_to_drawing"
+            app:destination="@id/register_drawing" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/register_drawing"
+        android:name="com.binbean.register.RegisterDrawingFragment" />
+
+    <fragment
+        android:id="@+id/my_page_password"
+        android:name="com.binbean.mypage.ChangePwFragment" >
+        <action
+            android:id="@+id/action_mypage_to_profile"
+            app:destination="@id/navi_my" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/my_page_review"
+        android:name="com.binbean.mypage.MyReviewFragment" />
+</navigation>

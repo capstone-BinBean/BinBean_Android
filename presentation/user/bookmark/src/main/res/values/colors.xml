@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="status_free">#1BC424</color>
+    <color name="status_normal">#F6CC50</color>
+    <color name="status_busy">#D83E3E</color>
+</resources>

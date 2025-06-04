@@ -1,0 +1,137 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/reviewWriteRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:padding="20dp"
+    android:paddingTop="24dp"
+    android:layout_marginTop="24dp">
+
+    <!-- 닫기 버튼 -->
+    <ImageButton
+        android:id="@+id/btnClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_close"
+        android:contentDescription="닫기" />
+
+    <!-- 카페 이름 -->
+    <TextView
+        android:id="@+id/tvCafeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="컴포즈커피 춘천점"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center_horizontal" />
+
+    <!-- 카페 주소 -->
+    <TextView
+        android:id="@+id/tvAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="강원도 춘천시 중앙로 1-16 1층"
+        android:textSize="13sp"
+        android:textColor="@color/gray"
+        android:gravity="center_horizontal" />
+
+    <!-- 별점 -->
+    <LinearLayout
+        android:id="@+id/llStars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp">
+
+        <!-- 별 5개 버튼 -->
+        <androidx.appcompat.widget.AppCompatButton android:id="@+id/star1" android:layout_width="32dp" android:layout_height="32dp" android:background="@drawable/ic_empty_star" />
+        <androidx.appcompat.widget.AppCompatButton android:id="@+id/star2" android:layout_width="32dp" android:layout_height="32dp" android:background="@drawable/ic_empty_star" />
+        <androidx.appcompat.widget.AppCompatButton android:id="@+id/star3" android:layout_width="32dp" android:layout_height="32dp" android:background="@drawable/ic_empty_star" />
+        <androidx.appcompat.widget.AppCompatButton android:id="@+id/star4" android:layout_width="32dp" android:layout_height="32dp" android:background="@drawable/ic_empty_star" />
+        <androidx.appcompat.widget.AppCompatButton android:id="@+id/star5" android:layout_width="32dp" android:layout_height="32dp" android:background="@drawable/ic_empty_star" />
+    </LinearLayout>
+
+    <!-- 안내 문구 -->
+    <TextView
+        android:id="@+id/tvGuide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="방문 후기를 남겨주세요!"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="16dp" />
+
+    <!-- 사진 RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/photo_rcv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        tools:listitem="@layout/add_photo_item"
+        tools:visibility="visible" />
+
+    <!-- 사진 업로드 영역 -->
+    <FrameLayout
+        android:id="@+id/upload_photo_window"
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:layout_marginTop="8dp"
+        android:layout_margin="4dp"
+        android:background="@drawable/rounded_shadow_background"
+        android:elevation="3dp"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/icon_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/icon_add_photo" />
+
+        <TextView
+            android:id="@+id/hint_upload_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="자리, 카페, 분위기, 메뉴 사진 등을 올려보세요"
+            android:textSize="13sp" />
+    </FrameLayout>
+
+    <!-- 리뷰 작성 -->
+    <EditText
+        android:id="@+id/etReview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_stroke_background"
+        android:fontFamily="@font/pretendard_regular"
+        android:gravity="top|start"
+        android:hint="카페 이용팁이나, 좋은 자리를 알려주세요!"
+        android:inputType="textMultiLine"
+        android:padding="12dp" />
+
+    <!-- 등록 버튼 -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSubmitReview"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="리뷰 등록하기"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:background="@drawable/green_button" />
+</LinearLayout>
