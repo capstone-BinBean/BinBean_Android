@@ -1,11 +1,11 @@
-import java.util.Properties
 import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    id("com.google.dagger.hilt.android")
     kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 val localProperties = Properties().apply {

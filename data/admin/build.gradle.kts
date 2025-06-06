@@ -22,7 +22,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-
+        
         buildConfigField(
             "String",
             "ADMIN_API_TOKEN",
@@ -46,10 +46,14 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
 
+    implementation(project(":core:util"))
     implementation(project(":core:retrofit"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

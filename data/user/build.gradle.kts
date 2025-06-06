@@ -35,6 +35,7 @@ android {
 
 dependencies {
 
+    implementation(project(":core:util"))
     implementation(project(":core:retrofit"))
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
@@ -47,4 +48,5 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.gson)
     implementation(libs.retrofit.converter)
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
 }

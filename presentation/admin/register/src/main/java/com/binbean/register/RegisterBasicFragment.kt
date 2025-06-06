@@ -16,11 +16,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.binbean.admin.dto.CafeImageUrl
 import com.binbean.admin.dto.CafeRegisterRequest
 import com.binbean.domain.cafe.Cafe
 import com.binbean.register.databinding.FragmentRegisterBasicBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RegisterBasicFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBasicBinding
     private val photoList = mutableListOf<Uri>()
@@ -64,13 +65,11 @@ class RegisterBasicFragment : Fragment() {
             latitude = 37.0,
             longitude = 127.0,
             cafePhone = binding.phoneWindow.text.toString(),
-            cafeImgUrl = photoList.map { CafeImageUrl(it.toString()) },
             wifiAvailable = binding.radioWifi.getSelectedTagValueAsInt(),
             chargerAvailable = binding.radioCharging.getSelectedTagValueAsInt(),
             kidsAvailable = binding.radioKids.getSelectedTagValueAsInt(),
             petAvailable = binding.radioPets.getSelectedTagValueAsInt(),
-            cafeDescription = binding.cafeAddiInfo.text.toString(),
-            floorList = listOf()
+            cafeDescription = binding.cafeAddiInfo.text.toString()
         )
     }
 
@@ -93,6 +92,7 @@ class RegisterBasicFragment : Fragment() {
             makeBasicRequest()
             Log.d(TAG, baseRequest.toString())
             viewModel.initRequest(baseRequest)
+            viewModel.setImageUris(photoList)
             val action = RegisterBasicFragmentDirections.actionRegistrationToHours()
             findNavController().navigate(action)
         }

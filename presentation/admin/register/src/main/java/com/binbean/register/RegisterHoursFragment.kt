@@ -12,10 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.binbean.register.databinding.FragmentRegisterHoursBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 
 data class DayTime(val start: String?, val end: String?)
 
+@AndroidEntryPoint
 class RegisterHoursFragment : Fragment() {
     private lateinit var binding: FragmentRegisterHoursBinding
     private val viewModel: CafeRegisterViewModel by activityViewModels()
@@ -38,6 +40,7 @@ class RegisterHoursFragment : Fragment() {
             makeWeekTimeList()
             Log.d(TAG, weekTimeList.joinToString(","))
             viewModel.setWeekTimes(weekTimeList)
+            viewModel.registerCafe(requireContext())
             val action = RegisterHoursFragmentDirections.actionRegistrationToDrawing()
             findNavController().navigate(action)
         }

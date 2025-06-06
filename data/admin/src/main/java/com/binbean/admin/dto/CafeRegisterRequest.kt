@@ -1,8 +1,17 @@
 package com.binbean.admin.dto
 
+import com.google.gson.annotations.SerializedName
+
 data class Position(val x: Int, val y: Int)
 
-data class FloorList(
+data class FloorWrapper(
+    @SerializedName("floorList")
+    val floorList: FloorDetail,
+    val floorNumber: Int,
+    val maxSeats: Int
+)
+
+data class FloorDetail(
     val borderPosition: List<Position>,
     val seatPosition: List<Position>,
     val doorPosition: List<Position>,
@@ -11,29 +20,17 @@ data class FloorList(
     val windowPosition: List<Position>
 )
 
-data class Floor(
-    val floorList: FloorList,
-    val floorNumber: Int,
-    val maxSeats: Int
-)
-
-data class CafeImageUrl(
-    val url: String
-)
-
 data class CafeRegisterRequest(
     val cafeName: String,
     val cafeAddress: String,
     val latitude: Double,
     val longitude: Double,
     val cafePhone: String,
-    val cafeImgUrl: List<CafeImageUrl>,
     val wifiAvailable: Int,
     val chargerAvailable: Int,
     val kidsAvailable: Int,
     val petAvailable: Int,
     val cafeDescription: String,
-    val floorList: List<Floor>,
     val monday_start: String? = null,
     val monday_end: String? = null,
     val tuesday_start: String? = null,
