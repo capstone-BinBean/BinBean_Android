@@ -15,9 +15,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binbean.domain.cafe.ObjectItem
 import com.binbean.register.databinding.FragmentRegisterDrawingBinding
-import com.binbean.ui.CanvasView
 import com.binbean.register.drawing.ObjectListAdapter
 import com.binbean.register.drawing.RecyclerViewDecoration
+import com.binbean.ui.CanvasView
 
 class RegisterDrawingFragment : Fragment() {
     private lateinit var binding: FragmentRegisterDrawingBinding
