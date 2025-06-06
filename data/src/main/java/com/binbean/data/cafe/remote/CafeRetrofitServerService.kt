@@ -1,0 +1,24 @@
+package com.binbean.data.cafe.remote
+
+import com.binbean.domain.cafe.CafeDetail
+import com.binbean.domain.cafe.ServerCafe
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Path
+import retrofit2.http.Query
+
+interface CafeRetrofitServerService {
+    @GET("/api/markers")
+    suspend fun searchCafesInBounds(
+        @Header("Authorization") token: String,
+        @Query("latitude") latitude: Double,
+        @Query("longitude") longitude: Double
+    ): Response<List<ServerCafe>>
+
+    @GET("/api/cafes/{cafeId}")
+    suspend fun getCafeDetail(
+        @Header("Authorization") token: String,
+        @Path("cafeId") cafeId: Int
+    ): Response<CafeDetail>
+}

@@ -1,0 +1,17 @@
+<resources>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="my">마이</string>
+    <string name="change_password">비밀번호 변경</string>
+    <string name="nickname">닉네임</string>
+    <string name="my_review">나의 리뷰</string>
+    <string name="logout">로그아웃</string>
+    <string name="existing_password">기존 비밀번호</string>
+    <string name="changing_password">변경 비밀번호</string>
+    <string name="check_password">확인 비밀번호</string>
+    <string name="example_existing_password">12345678</string>
+    <string name="enter_changing_password">변경할 비밀번호를 입력해주세요</string>
+    <string name="check_your_password">비밀번호를 확인해주세요</string>
+    <string name="complete">완료</string>
+    <string name="see_more">더보기</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+</resources>

@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gs_1"
+    android:orientation="vertical"
+    tools:context=".RegisterBasicFragment">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="@string/register_cafe_information"
+        android:textColor="@color/gs_5"
+        android:textSize="20sp" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/gs_3" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/cafe_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:text="@string/cafe_address"
+                    android:textColor="@color/sub2"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/star_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:text="@string/star"
+                    android:textColor="@color/main_green"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toEndOf="@id/cafe_address"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/address_window"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/rounded_shadow_background"
+                    android:drawableEnd="@drawable/icon_search_place"
+                    android:elevation="3dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:hint="@string/search_address"
+                    android:padding="12dp"
+                    android:textColorHint="@color/gs_sub"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/star_address"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/trade_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:text="@string/trade_name"
+                    android:textColor="@color/sub2"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/star_trade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:text="@string/star"
+                    android:textColor="@color/main_green"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toEndOf="@id/trade_name"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/trade_window"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/rounded_shadow_background"
+                    android:elevation="3dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:hint="@string/eg_trade_name"
+                    android:padding="12dp"
+                    android:textColorHint="@color/gs_sub"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/star_trade"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/phone_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:text="@string/phone_number"
+                    android:textColor="@color/sub2"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/star_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:text="@string/star"
+                    android:textColor="@color/main_green"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toEndOf="@id/phone_number"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/phone_window"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/rounded_shadow_background"
+                    android:elevation="3dp"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:hint="@string/eg_phone_number"
+                    android:imeOptions="actionDone"
+                    android:maxLines="1"
+                    android:padding="12dp"
+                    android:singleLine="true"
+                    android:textColorHint="@color/gs_sub"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/star_phone"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/cafe_main_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="@string/cafe_main_photo"
+                android:textColor="@color/sub2"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/photo_rcv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                tools:listitem="@layout/add_photo_item"
+                tools:visibility="visible" />
+
+            <FrameLayout
+                android:id="@+id/upload_photo_window"
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/rounded_shadow_background"
+                android:elevation="3dp"
+                android:padding="20dp">
+
+                <ImageView
+                    android:id="@+id/icon_upload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/icon_add_photo" />
+
+                <TextView
+                    android:id="@+id/hint_upload_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:text="@string/hint_upload_photos"
+                    android:textSize="13sp" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/cafe_detail_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="@string/cafe_detail_info"
+                android:textColor="@color/sub2"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/icon_wifi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:src="@drawable/icon_wifi" />
+
+                <TextView
+                    android:id="@+id/text_wifi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="52dp"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:text="@string/wifi"
+                    android:textColor="@color/sub2"
+                    android:textSize="17sp" />
+
+                <RadioGroup
+                    android:id="@+id/radio_wifi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/wifi_on"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_radio_button"
+                        android:button="@null"
+                        android:checked="true"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:gravity="center"
+                        android:tag="1"
+                        android:text="@string/o"
+                        android:textColor="@drawable/selector_radio_text" />
+
+                    <RadioButton
+                        android:id="@+id/wifi_off"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_radio_button"
+                        android:button="@null"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:gravity="center"
+                        android:tag="0"
+                        android:text="@string/x"
+                        android:textColor="@drawable/selector_radio_text" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/icon_charging"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="15dp"
+                    android:src="@drawable/icon_charging_outlet" />
+
+                <TextView
+                    android:id="@+id/text_charging"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="25dp"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:text="@string/charging_outlets"
+                    android:textColor="@color/sub2"
+                    android:textSize="17sp" />
+
+                <RadioGroup
+                    android:id="@+id/radio_charging"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/charging_on"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_radio_button"
+                        android:button="@null"
+                        android:checked="true"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:gravity="center"
+                        android:tag="1"
+                        android:text="@string/o"
+                        android:textColor="@drawable/selector_radio_text" />
+
+                    <RadioButton
+                        android:id="@+id/charging_off"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_radio_button"
+                        android:button="@null"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:gravity="center"
+                        android:tag="0"
+                        android:text="@string/x"
+                        android:textColor="@drawable/selector_radio_text" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/icon_kids"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:src="@drawable/icon_kids_zone" />
+
+                <TextView
+                    android:id="@+id/text_kids"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="50dp"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:text="@string/kids_zone"
+                    android:textColor="@color/sub2"
+                    android:textSize="17sp" />
+
+                <RadioGroup
+                    android:id="@+id/radio_kids"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/kids_on"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_radio_button"
+                        android:button="@null"
+                        android:checked="true"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:gravity="center"
+                        android:tag="1"
+                        android:text="@string/o"
+                        android:textColor="@drawable/selector_radio_text" />
+
+                    <RadioButton
+                        android:id="@+id/kids_off"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_radio_button"
+                        android:button="@null"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:gravity="center"
+                        android:tag="0"
+                        android:text="@string/x"
+                        android:textColor="@drawable/selector_radio_text" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/icon_pets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:src="@drawable/icon_pets_allowed" />
+
+                <TextView
+                    android:id="@+id/text_pets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="35dp"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:text="@string/pets_allowed"
+                    android:textColor="@color/sub2"
+                    android:textSize="17sp" />
+
+                <RadioGroup
+                    android:id="@+id/radio_pets"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/pets_on"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_radio_button"
+                        android:button="@null"
+                        android:checked="true"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:gravity="center"
+                        android:tag="1"
+                        android:text="@string/o"
+                        android:textColor="@drawable/selector_radio_text" />
+
+                    <RadioButton
+                        android:id="@+id/pets_off"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_radio_button"
+                        android:button="@null"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:gravity="center"
+                        android:tag="0"
+                        android:text="@string/x"
+                        android:textColor="@drawable/selector_radio_text" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/cafe_addi_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="37dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="@string/cafe_additional_info"
+                android:textColor="@color/sub2"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/edit_addi_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/rounded_stroke_background"
+                android:fontFamily="@font/pretendard_regular"
+                android:gravity="top"
+                android:hint="@string/eg_cafe_addi_info"
+                android:inputType="textMultiLine"
+                android:minHeight="150dp"
+                android:padding="25dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/register_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/green_button"
+                android:fontFamily="@font/pretendard_bold"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="@string/register_business_hours"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                tools:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/modfiy_tool"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginBottom="50dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/modify_complete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/brown_button"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="@string/complete_modification"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/modify_hours"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1.1"
+                    android:background="@drawable/green_button"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="@string/modify_business_hours"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
