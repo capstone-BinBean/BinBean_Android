@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="navi_unselected">#CBCBCB</color>
+    <color name="navi_selected">#383424</color>
+</resources>
