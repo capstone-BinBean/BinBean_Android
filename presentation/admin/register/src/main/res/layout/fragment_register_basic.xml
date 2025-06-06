@@ -9,7 +9,7 @@
     tools:context=".RegisterBasicFragment">
 
     <TextView
-        android:id="@+id/register_cafe_information"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -67,7 +67,7 @@
                     app:layout_constraintStart_toEndOf="@id/cafe_address"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/address_window"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -178,7 +178,10 @@
                     android:elevation="3dp"
                     android:fontFamily="@font/pretendard_regular"
                     android:hint="@string/eg_phone_number"
+                    android:imeOptions="actionDone"
+                    android:maxLines="1"
                     android:padding="12dp"
+                    android:singleLine="true"
                     android:textColorHint="@color/gs_sub"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -294,6 +297,7 @@
                         android:checked="true"
                         android:fontFamily="@font/pretendard_bold"
                         android:gravity="center"
+                        android:tag="1"
                         android:text="@string/o"
                         android:textColor="@drawable/selector_radio_text" />
 
@@ -306,6 +310,7 @@
                         android:button="@null"
                         android:fontFamily="@font/pretendard_bold"
                         android:gravity="center"
+                        android:tag="0"
                         android:text="@string/x"
                         android:textColor="@drawable/selector_radio_text" />
                 </RadioGroup>
@@ -356,6 +361,7 @@
                         android:checked="true"
                         android:fontFamily="@font/pretendard_bold"
                         android:gravity="center"
+                        android:tag="1"
                         android:text="@string/o"
                         android:textColor="@drawable/selector_radio_text" />
 
@@ -368,6 +374,7 @@
                         android:button="@null"
                         android:fontFamily="@font/pretendard_bold"
                         android:gravity="center"
+                        android:tag="0"
                         android:text="@string/x"
                         android:textColor="@drawable/selector_radio_text" />
                 </RadioGroup>
@@ -417,6 +424,7 @@
                         android:checked="true"
                         android:fontFamily="@font/pretendard_bold"
                         android:gravity="center"
+                        android:tag="1"
                         android:text="@string/o"
                         android:textColor="@drawable/selector_radio_text" />
 
@@ -429,6 +437,7 @@
                         android:button="@null"
                         android:fontFamily="@font/pretendard_bold"
                         android:gravity="center"
+                        android:tag="0"
                         android:text="@string/x"
                         android:textColor="@drawable/selector_radio_text" />
                 </RadioGroup>
@@ -478,6 +487,7 @@
                         android:checked="true"
                         android:fontFamily="@font/pretendard_bold"
                         android:gravity="center"
+                        android:tag="1"
                         android:text="@string/o"
                         android:textColor="@drawable/selector_radio_text" />
 
@@ -490,6 +500,7 @@
                         android:button="@null"
                         android:fontFamily="@font/pretendard_bold"
                         android:gravity="center"
+                        android:tag="0"
                         android:text="@string/x"
                         android:textColor="@drawable/selector_radio_text" />
                 </RadioGroup>
@@ -527,9 +538,9 @@
                 android:id="@+id/register_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="35dp"
                 android:layout_marginTop="35dp"
-                android:layout_marginEnd="40dp"
+                android:layout_marginEnd="35dp"
                 android:layout_marginBottom="50dp"
                 android:background="@drawable/green_button"
                 android:fontFamily="@font/pretendard_bold"
@@ -537,7 +548,48 @@
                 android:padding="15dp"
                 android:text="@string/register_business_hours"
                 android:textColor="@android:color/white"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/modfiy_tool"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginBottom="50dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/modify_complete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/brown_button"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="@string/complete_modification"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/modify_hours"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1.1"
+                    android:background="@drawable/green_button"
+                    android:fontFamily="@font/pretendard_bold"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="@string/modify_business_hours"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

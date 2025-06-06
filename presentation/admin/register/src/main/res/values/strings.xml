@@ -35,4 +35,9 @@
     <string name="eg_end_hour">18:30</string>
     <string name="tilde">~</string>
     <string name="register_cafe_floor_plan">3. 카페의 도면을 등록해주세요(3/3)</string>
+    <string name="complete_modification">수정완료</string>
+    <string name="modify_business_hours">영업시간 수정\t\t></string>
+    <string name="modify_floor_plan">좌석 도면 수정\t\t\t\t></string>
+    <string name="modify_cafe_basic_info">카페 기본정보 수정</string>
+    <string name="modify_cafe_business_hours">카페 영업시간 수정</string>
 </resources>
