@@ -29,12 +29,13 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"   />
 
-    <Button
-        android:id="@+id/btn_status"
+    <TextView
+        android:id="@+id/status_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="사용가능"
         android:textColor="#000000"
-        android:textSize="12sp"
-        android:backgroundTint="@color/sub_highlight" />
+        android:textSize="15sp"
+        android:padding="16dp"
+        android:background="@drawable/btn_status_selector" />
 </LinearLayout>

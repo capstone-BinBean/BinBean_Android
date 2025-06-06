@@ -36,6 +36,8 @@ class RegisterDrawingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.canvasView.mode = CanvasView.Mode.ADMIN
+
         setupObjectRecyclerView()
         showFloor(currentFloor)
         setupObjectDragAndDrop()
@@ -46,12 +48,12 @@ class RegisterDrawingFragment : Fragment() {
         binding.objectRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.objectRecyclerView.adapter = ObjectListAdapter().apply {
             val objectList = listOf(
-                ObjectItem("chair", "의자", R.drawable.obj_seat),
-                ObjectItem("toilet", "화장실", R.drawable.obj_toilet),
-                ObjectItem("door", "문", R.drawable.obj_door),
-                ObjectItem("window", "창문", R.drawable.obj_window),
-                ObjectItem("counter", "카운터", R.drawable.obj_casher),
-                ObjectItem("table", "테이블", R.drawable.obj_table)
+                ObjectItem("chair", "의자", com.binbean.ui.R.drawable.obj_seat),
+                ObjectItem("toilet", "화장실", com.binbean.ui.R.drawable.obj_toilet),
+                ObjectItem("door", "문", com.binbean.ui.R.drawable.obj_door),
+                ObjectItem("window", "창문", com.binbean.ui.R.drawable.obj_window),
+                ObjectItem("counter", "카운터", com.binbean.ui.R.drawable.obj_casher),
+                ObjectItem("table", "테이블", com.binbean.ui.R.drawable.obj_table)
             )
             submitList(objectList)
         }
@@ -126,12 +128,12 @@ class RegisterDrawingFragment : Fragment() {
 
     private fun getIconByType(type: String): Int {
         return when (type) {
-            "counter" -> R.drawable.obj_casher
-            "chair" -> R.drawable.obj_seat
-            "toilet" -> R.drawable.obj_toilet
-            "door" -> R.drawable.obj_door
-            "table" -> R.drawable.obj_table
-            "window" -> R.drawable.obj_window
+            "counter" -> com.binbean.ui.R.drawable.obj_casher
+            "chair" -> com.binbean.ui.R.drawable.obj_seat
+            "toilet" -> com.binbean.ui.R.drawable.obj_toilet
+            "door" -> com.binbean.ui.R.drawable.obj_door
+            "table" -> com.binbean.ui.R.drawable.obj_table
+            "window" -> com.binbean.ui.R.drawable.obj_window
             else -> android.R.drawable.ic_menu_help
         }
     }
