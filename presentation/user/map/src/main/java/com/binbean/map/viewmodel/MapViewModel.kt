@@ -19,7 +19,6 @@ import javax.inject.Inject
 class MapViewModel @Inject constructor(
     private val searchCafesInBoundsUseCase: SearchCafesInBoundsUseCase,
     private val searchServerCafesInBoundsUseCase: SearchServerCafesInBoundsUseCase,
-    private val getCafeDetailUseCase: GetCafeDetailUseCase
 ): ViewModel(){
 
     private val _cafeList = MutableLiveData<List<Cafe>>()
@@ -33,9 +32,6 @@ class MapViewModel @Inject constructor(
 
     private val _selectedServerCafe = MutableLiveData<ServerCafe?>()
     val selectedServerCafe: LiveData<ServerCafe?> = _selectedServerCafe
-
-    private val _cafeDetail = MutableLiveData<CafeDetail>()
-    val cafeDetail: LiveData<CafeDetail> = _cafeDetail
 
     fun loadCafes(lat: Double, lng: Double) {
         viewModelScope.launch {
@@ -61,18 +57,6 @@ class MapViewModel @Inject constructor(
         }
     }
 
-    fun loadTestCafeDetail(cafeId: Int) {
-        viewModelScope.launch {
-            try {
-                val detail = getCafeDetailUseCase(cafeId)
-                _cafeDetail.value = detail
-                Log.d("MapViewModel", "카페 상세 정보: $detail")
-            } catch (e: Exception) {
-                Log.e("MapViewModel", "카페 상세 불러오기 실패", e)
-            }
-        }
-    }
-
     fun selectCafe(cafe: Cafe) {
         _selectedCafe.value = cafe
         Log.d("MapViewModel", "선택된 카페: $cafe")
@@ -85,5 +69,9 @@ class MapViewModel @Inject constructor(
 
     fun clearSelectedCafe() {
         _selectedCafe.value = null
+    }
+
+    fun clearSelectedServerCafe() {
+        _selectedServerCafe.value = null
     }
 }

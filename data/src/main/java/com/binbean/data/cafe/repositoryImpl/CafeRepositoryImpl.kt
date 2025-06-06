@@ -5,8 +5,12 @@ import com.binbean.data.BuildConfig
 import com.binbean.data.cafe.remote.CafeRetrofitServerService
 import com.binbean.data.cafe.remote.CafeRetrofitService
 import com.binbean.data.cafe.toCafe
+import com.binbean.domain.FavoriteCafeResponse
+import com.binbean.domain.cafe.Review
 import com.binbean.domain.cafe.Cafe
 import com.binbean.domain.cafe.CafeDetail
+import com.binbean.domain.cafe.FloorPlanResponse
+import com.binbean.domain.cafe.ReviewPostRequest
 import com.binbean.domain.cafe.ServerCafe
 import com.binbean.domain.cafe.repository.CafeRepository
 import javax.inject.Inject
@@ -74,6 +78,51 @@ class CafeRepositoryImpl @Inject constructor(
         } else {
             val error = response.errorBody()?.string()
             throw Exception("상세 조회 실패: ${response.code()} - $error")
+        }
+    }
+
+    override suspend fun getFavoriteCafes(): List<FavoriteCafeResponse> {
+        val response = cafeRetrofitServerService.getFavoriteCafes(
+            token
+        )
+        if (response.isSuccessful) {
+            return response.body() ?: emptyList()
+        } else {
+            val error = response.errorBody()?.string()
+            throw Exception("즐겨찾기 조회 실패: ${response.code()} - $error")
+        }
+    }
+
+    override suspend fun postReview(cafeId: Int, review: ReviewPostRequest): Result<Unit> {
+        return try {
+            val response = cafeRetrofitServerService.postReview(
+                token = token,
+                cafeId = cafeId,
+                reviewRequest = review
+            )
+            if (response.isSuccessful) {
+                Result.success(Unit)
+            } else {
+                val error = response.errorBody()?.string()
+                Result.failure(Exception("리뷰 등록 실패: ${response.code()} - $error"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun getFloorPlan(floorPlanId: Int): List<FloorPlanResponse> {
+        val response = cafeRetrofitServerService.getFloorPlan(
+            token = token,
+            floorPlanId = floorPlanId
+        )
+
+        if (response.isSuccessful) {
+            return response.body() ?: emptyList()
+        } else {
+            val error = response.errorBody()?.string()
+            Log.e("CafeRepositoryImpl", "도면 조회 실패: $error")
+            throw Exception("도면 조회 실패: ${response.code()} - $error")
         }
     }
 }
