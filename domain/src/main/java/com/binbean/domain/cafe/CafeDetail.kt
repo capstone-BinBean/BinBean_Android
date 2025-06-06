@@ -1,6 +1,7 @@
 package com.binbean.domain.cafe
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class CafeDetail(
     @SerializedName("cafeId")
@@ -18,15 +19,19 @@ data class CafeDetail(
     val kidsAvailable: Int,
     val cafeDescription: String,
     val cafeImgUrl: List<CafeImage>,
-    val reviewAvg: String,
-    val reviewResponse: List<Any>,
+    @SerializedName("reviewAvg")
+    val reviewAvgRaw: String? = null,
+    val reviewResponse: List<Review>,
     val floorPlanId: List<FloorPlan>
-)
+): Serializable {
+    val reviewAvg: Double?
+        get() = reviewAvgRaw?.toDoubleOrNull()
+}
 
 data class CafeImage(
     val url: String
-)
+): Serializable
 
 data class FloorPlan(
     val id: Int
-)
+): Serializable

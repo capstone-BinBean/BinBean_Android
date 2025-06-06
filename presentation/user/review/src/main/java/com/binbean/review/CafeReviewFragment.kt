@@ -13,7 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.arieum.review.R
 import com.arieum.review.databinding.FragmentCafeReviewBinding
 import com.binbean.domain.cafe.Cafe
+import com.binbean.domain.cafe.CafeDetail
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CafeReviewFragment : Fragment() {
 
     private var _binding: FragmentCafeReviewBinding? = null
@@ -21,18 +24,35 @@ class CafeReviewFragment : Fragment() {
 
     private lateinit var starViews: List<AppCompatButton>
 
+    private var cafe: Cafe? = null
+    private var cafeDetail: CafeDetail? = null
+
     companion object {
         fun newInstance(cafe: Cafe): CafeReviewFragment {
-            val fragment = CafeReviewFragment()
-            val bundle = Bundle().apply {
-                putSerializable("cafe", cafe)
+            return CafeReviewFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable("cafe", cafe)
+                }
             }
-            fragment.arguments = bundle
-            return fragment
+        }
+
+        fun newInstance(detail: CafeDetail): CafeReviewFragment {
+            return CafeReviewFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable("cafeDetail", detail)
+                }
+            }
         }
     }
 
     private val viewModel: CafeReviewViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        cafe = arguments?.getSerializable("cafe") as? Cafe
+        cafeDetail = arguments?.getSerializable("cafeDetail") as? CafeDetail
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,12 +69,16 @@ class CafeReviewFragment : Fragment() {
         binding.rvReviews.layoutManager = LinearLayoutManager(requireContext())
         binding.rvReviews.adapter = adapter
 
+        cafeDetail?.let {
+            viewModel.loadReviewsFromDetail(it)
+        }
+
         viewModel.reviewList.observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
         }
 
         // 예시용 더미 리뷰 호출
-        viewModel.loadDummyReviews()
+        // viewModel.loadDummyReviews()
 
         starViews = listOf(
             binding.star1, binding.star2, binding.star3, binding.star4, binding.star5
@@ -67,9 +91,13 @@ class CafeReviewFragment : Fragment() {
 
                 // 300ms 후 CafeReviewWriteFragment로 이동
                 Handler(Looper.getMainLooper()).postDelayed({
-                    val cafe = arguments?.getSerializable("cafe") as? Cafe ?: return@postDelayed
-                    val dialog = CafeReviewWriteFragment.newInstance(cafe, selectedRating)
-                    dialog.show(childFragmentManager, "ReviewWriteDialog")
+                    cafe?.let {
+                        CafeReviewWriteFragment.newInstance(it, selectedRating)
+                            .show(childFragmentManager, "ReviewWriteDialog")
+                    } ?: cafeDetail?.let {
+                        CafeReviewWriteFragment.newInstance(it, selectedRating)
+                            .show(childFragmentManager, "ReviewWriteDialog")
+                    }
                 }, 300)
             }
         }
