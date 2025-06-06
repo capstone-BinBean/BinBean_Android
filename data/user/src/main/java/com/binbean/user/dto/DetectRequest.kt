@@ -8,6 +8,5 @@ data class DetectRequest(
     val doorPosition: List<Position>,
     val counterPosition: List<Position>,
     val toiletPosition: List<Position>,
-    val windowPosition: List<Position>,
-    val floorNumber: Int
+    val windowPosition: List<Position>
 )
