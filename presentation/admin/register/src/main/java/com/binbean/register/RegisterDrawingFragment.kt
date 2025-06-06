@@ -105,18 +105,6 @@ class RegisterDrawingFragment : Fragment() {
         canvasView.addInteractiveObject(gridX, gridY, objectType)
     }
 
-    private fun getIconByType(type: String): Int {
-        return when (type) {
-            "counter" -> com.binbean.ui.R.drawable.obj_casher
-            "chair" -> com.binbean.ui.R.drawable.obj_seat
-            "toilet" -> com.binbean.ui.R.drawable.obj_toilet
-            "door" -> com.binbean.ui.R.drawable.obj_door
-            "table" -> com.binbean.ui.R.drawable.obj_table
-            "window" -> com.binbean.ui.R.drawable.obj_window
-            else -> android.R.drawable.ic_menu_help
-        }
-    }
-
     private fun showFloor(floor: Int) {
         binding.drawingContainer.removeAllViews()
 
