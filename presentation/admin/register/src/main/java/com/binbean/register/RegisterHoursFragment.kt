@@ -3,17 +3,23 @@ package com.binbean.register
 import android.app.TimePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.binbean.register.databinding.FragmentRegisterHoursBinding
 
 
+data class DayTime(val start: String?, val end: String?)
+
 class RegisterHoursFragment : Fragment() {
     private lateinit var binding: FragmentRegisterHoursBinding
+    private val viewModel: CafeRegisterViewModel by activityViewModels()
+    private lateinit var weekTimeList: List<DayTime>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,8 +35,32 @@ class RegisterHoursFragment : Fragment() {
         setHours()
 
         binding.registerButton.setOnClickListener {
+            makeWeekTimeList()
+            Log.d(TAG, weekTimeList.joinToString(","))
+            viewModel.setWeekTimes(weekTimeList)
             val action = RegisterHoursFragmentDirections.actionRegistrationToDrawing()
             findNavController().navigate(action)
+        }
+    }
+
+    /**
+     * 요일들을 리스트로 정리하는 함수
+     */
+    private fun makeWeekTimeList() {
+        val startFields = listOf(
+            binding.monStart, binding.tueStart, binding.wedStart,
+            binding.thuStart, binding.friStart, binding.satStart, binding.sunStart
+        )
+
+        val endFields = listOf(
+            binding.monEnd, binding.tueEnd, binding.wedEnd,
+            binding.thuEnd, binding.friEnd, binding.satEnd, binding.sunEnd
+        )
+
+        weekTimeList = startFields.zip(endFields).map { (startView, endView) ->
+            val start = startView.text.toString().ifBlank { null }
+            val end = endView.text.toString().ifBlank { null }
+            DayTime(start, end)
         }
     }
 
@@ -77,6 +107,10 @@ class RegisterHoursFragment : Fragment() {
         }
 
         TimePickerDialog(requireContext(), listener, hour, minute, true).show()
+    }
+
+    companion object {
+        private const val TAG = "RegisterHoursFragment"
     }
 
 }
