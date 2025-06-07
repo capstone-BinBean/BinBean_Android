@@ -11,11 +11,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.binbean.admin.model.DayTime
 import com.binbean.register.databinding.FragmentRegisterHoursBinding
 import dagger.hilt.android.AndroidEntryPoint
-
-
-data class DayTime(val start: String?, val end: String?)
 
 @AndroidEntryPoint
 class RegisterHoursFragment : Fragment() {

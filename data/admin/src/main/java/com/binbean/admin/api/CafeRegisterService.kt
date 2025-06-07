@@ -17,6 +17,6 @@ interface CafeRegisterService {
         @Header("Authorization") token: String,
         @Part("cafe") cafe: RequestBody,
         @Part("floorPlan") floorPlan: RequestBody,
-        @Part cafeImg: List<MultipartBody.Part>
+        @Part cafeImg: List<MultipartBody.Part>? = null
     ): Response<ResponseBody>
 }

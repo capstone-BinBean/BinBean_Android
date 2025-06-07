@@ -43,4 +43,6 @@
     <string name="my_cafe">나의 카페</string>
     <string name="store_number">매장번호</string>
     <string name="modify">수정</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

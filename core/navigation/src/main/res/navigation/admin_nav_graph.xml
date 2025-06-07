@@ -29,6 +29,14 @@
     </fragment>
 
     <fragment
+        android:id="@+id/navi_modification"
+        android:name="com.binbean.register.AdminModifyFragment" >
+        <action
+            android:id="@+id/action_registration_to_basic"
+            app:destination="@id/register_basic" />
+    </fragment>
+
+    <fragment
         android:id="@+id/register_basic"
         android:name="com.binbean.register.RegisterBasicFragment" >
         <action

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.binbean.admin.dto.CafeRegisterRequest
 import com.binbean.admin.dto.FloorWrapper
+import com.binbean.admin.model.DayTime
 import com.binbean.admin.repositoryImpl.CafeRegisterRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -81,10 +82,6 @@ class CafeRegisterViewModel @Inject constructor(
             val request = request.value ?: return@launch
             val images = imageUris.value.orEmpty()
             val floors = _floorList.value.orEmpty()
-
-            if (images.isEmpty()) {
-                return@launch
-            }
 
             cafeRepository.registerCafe(context, request, images, floors)
         }
