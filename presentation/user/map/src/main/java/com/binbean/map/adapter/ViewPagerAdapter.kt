@@ -2,10 +2,10 @@ package com.binbean.map.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.binbean.review.CafeReviewFragment
 import com.binbean.domain.cafe.Cafe
 import com.binbean.domain.cafe.CafeDetail
 import com.binbean.map.CafeDetailedInfoFragment
+import com.binbean.review.CafeReviewFragment
 
 class ViewPagerAdapter(
     fragment: Fragment,

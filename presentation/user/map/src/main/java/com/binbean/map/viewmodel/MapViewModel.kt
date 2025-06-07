@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.binbean.domain.cafe.Cafe
 import com.binbean.domain.cafe.CafeDetail
+import com.binbean.domain.cafe.ServerCafe
 import com.binbean.domain.cafe.usecase.GetCafeDetailUseCase
 import com.binbean.domain.cafe.usecase.SearchCafesInBoundsUseCase
 import com.binbean.domain.cafe.usecase.SearchServerCafesInBoundsUseCase
-import com.binbean.domain.cafe.ServerCafe
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

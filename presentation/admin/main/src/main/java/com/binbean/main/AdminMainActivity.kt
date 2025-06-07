@@ -13,8 +13,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.binbean.main.databinding.ActivityAdminMainBinding
 import com.binbean.navigation.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class AdminMainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAdminMainBinding
     private val INDICATOR_WIDTH_RATIO = 0.7
