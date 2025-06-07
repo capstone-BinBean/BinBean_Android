@@ -6,6 +6,7 @@ import android.util.Log
 import com.binbean.user.BuildConfig
 import com.binbean.user.api.DetectService
 import com.binbean.user.dto.DetectRequest
+import com.binbean.user.dto.DetectResponse
 import com.binbean.util.uriToMultipartPart
 import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -17,30 +18,36 @@ class DetectRepositoryImpl @Inject constructor(
 ) {
     private val token = "Bearer ${BuildConfig.USER_API_TOKEN}"
 
-    suspend fun detect(context: Context, floorNumber: Int, request: DetectRequest, imageUri: Uri) {
+    suspend fun detect(context: Context, floorNumber: Int, request: DetectRequest, imageUri: Uri): DetectResponse? {
         val gson = Gson()
         val jsonFloor = gson.toJson(request)
             .toRequestBody("application/json".toMediaTypeOrNull())
-        val imagePart = uriToMultipartPart(context, imageUri, "Image", 0)
+        val jsonFNumber = floorNumber.toString()
+            .toRequestBody("application/json".toMediaTypeOrNull())
+        val imagePart = uriToMultipartPart(context, imageUri, "image", 0)
 
         Log.d(TAG, imagePart.toString())
-        try {
+        return try {
             val response = detectService.detect(
                 token = token,
-                floorNumber = floorNumber,
+                floorNumber = jsonFNumber,
                 floorList = jsonFloor,
                 image = imagePart
             )
             if (response.isSuccessful) {
+                val body = response.body()
                 Log.d(
                     TAG,
                     "통신 성공: HTTP ${response.code()} - ${response.body()?.toString() ?: "No body"}"
                 )
+                body
             } else {
                 Log.e(TAG, "통신 실패: HTTP ${response.code()} - ${response.errorBody()?.string()}")
+                null
             }
         } catch (e: Exception) {
             Log.e(TAG, "예외 발생: ${e.message}")
+            null
         }
     }
 

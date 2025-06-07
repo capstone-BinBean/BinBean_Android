@@ -17,7 +17,7 @@ interface DetectService {
     @POST("/api/cctv/detect")
     suspend fun detect(
         @Header("Authorization") token: String,
-        @Query("floorNumber") floorNumber: Int,
+        @Part("floorNumber") floorNumber: RequestBody,
         @Part("floorList") floorList: RequestBody,
         @Part image: MultipartBody.Part?
     ): Response<DetectResponse>

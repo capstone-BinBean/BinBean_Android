@@ -21,11 +21,11 @@ import com.binbean.domain.cafe.FloorPlanResponse
 import com.binbean.domain.cafe.ObjectItem
 import com.binbean.domain.cafe.PositionDto
 import com.binbean.register.databinding.FragmentRegisterDrawingBinding
+import com.binbean.ui.CanvasView
 import com.binbean.register.drawing.ObjectListAdapter
 import com.binbean.register.drawing.RecyclerViewDecoration
 import org.json.JSONArray
 import org.json.JSONObject
-import com.binbean.ui.CanvasView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
