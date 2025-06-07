@@ -40,7 +40,7 @@ class RegisterHoursFragment : Fragment() {
             makeWeekTimeList()
             Log.d(TAG, weekTimeList.joinToString(","))
             viewModel.setWeekTimes(weekTimeList)
-            viewModel.registerCafe(requireContext())
+            // viewModel.registerCafe(requireContext())
             val action = RegisterHoursFragmentDirections.actionRegistrationToDrawing()
             findNavController().navigate(action)
         }
