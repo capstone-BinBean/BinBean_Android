@@ -1,5 +1,7 @@
 package com.binbean.map
 
+import android.R
+import android.net.Uri
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.activity.addCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import com.binbean.domain.cafe.Cafe
 import com.binbean.domain.cafe.FloorPlanResponse
 import com.binbean.map.databinding.FragmentCafeDrawingBinding
@@ -23,11 +25,17 @@ class CafeDrawingFragment : Fragment() {
     private var cafe: Cafe? = null
     private var cafeId: Int? = null
 
+    // 갤러리를 여는 함수
+    private val getImage =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            uri?.let {
+                viewModel.detect(requireContext(), uri)
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         cafe = arguments?.getSerializable("cafe") as? Cafe
-        cafeId = arguments?.getInt("cafeId", -1)?.takeIf { it > 0 }
     }
 
     override fun onCreateView(
@@ -50,6 +58,7 @@ class CafeDrawingFragment : Fragment() {
             observeServerCafeData()
             observeServerFloorPlanData()
         }
+        setClickListeners()
     }
 
     private fun observeServerCafeData() {
@@ -103,6 +112,12 @@ class CafeDrawingFragment : Fragment() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+    }
+
+    private fun setClickListeners() {
+        binding.btnRefresh.setOnClickListener {
+            getImage.launch("image/*")
         }
     }
 }
