@@ -39,7 +39,12 @@ class CafeRegisterRepositoryImpl @Inject constructor(
     /**
      * 카페를 등록하는 함수
      */
-    suspend fun registerCafe(context: Context, request: CafeRegisterRequest, imageUris: List<Uri>) {
+    suspend fun registerCafe(
+        context: Context,
+        request: CafeRegisterRequest,
+        imageUris: List<Uri>,
+        floorList: List<FloorWrapper>)
+    {
         val gson = Gson()
         val jsonCafe = gson.toJson(request)
             .toRequestBody("application/json".toMediaTypeOrNull())

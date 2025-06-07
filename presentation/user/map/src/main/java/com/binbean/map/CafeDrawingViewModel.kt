@@ -70,6 +70,7 @@ class CafeDrawingViewModel @Inject constructor(
             try {
                 val plans = getFloorPlanUseCase(floorPlanId)
                 _floorPlans.value = plans
+                Log.d("CafeDrawingVM", plans.toString())
             } catch (e: Exception) {
                 Log.e("CafeDrawingVM", "도면 조회 실패", e)
             }

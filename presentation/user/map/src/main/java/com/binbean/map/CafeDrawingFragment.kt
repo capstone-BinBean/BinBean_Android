@@ -36,6 +36,7 @@ class CafeDrawingFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         cafe = arguments?.getSerializable("cafe") as? Cafe
+        cafeId = arguments?.getInt("cafeId", -1)?.takeIf { it > 0 }
     }
 
     override fun onCreateView(

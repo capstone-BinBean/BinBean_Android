@@ -13,7 +13,10 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.binbean.admin.dto.FloorDetail
+import com.binbean.admin.dto.FloorWrapper
 import com.binbean.domain.cafe.FloorPlanResponse
 import com.binbean.domain.cafe.ObjectItem
 import com.binbean.domain.cafe.PositionDto
@@ -23,9 +26,12 @@ import com.binbean.register.drawing.ObjectListAdapter
 import com.binbean.register.drawing.RecyclerViewDecoration
 import org.json.JSONArray
 import org.json.JSONObject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RegisterDrawingFragment : Fragment() {
     private lateinit var binding: FragmentRegisterDrawingBinding
+    private val viewModel: CafeRegisterViewModel by activityViewModels()
 
     private val floorViews = mutableMapOf<Int, com.binbean.ui.CanvasView>()
     private var currentFloor = 1
@@ -49,10 +55,12 @@ class RegisterDrawingFragment : Fragment() {
         setupFloorControl()
 
         binding.btnSubmit.setOnClickListener {
-            val resultJson = extractFloorDataToJson(currentFloor)
-            Log.d("FloorPlanJson", resultJson.toString(2))
+            val floorWrappers = floorViews.keys.map { floorNumber ->
+                extractFloorDataToDto(floorNumber)
+            }
+            viewModel.setFloorList(floorWrappers)
+            viewModel.registerCafe(requireContext())
         }
-
     }
 
     private fun setupObjectRecyclerView() {
@@ -149,25 +157,20 @@ class RegisterDrawingFragment : Fragment() {
         }
     }
 
-    private fun extractFloorDataToJson(floor: Int): JSONObject {
-        val canvasView = floorViews[floor] ?: return JSONObject()
+    private fun extractFloorDataToDto(floor: Int): FloorWrapper {
+        val canvasView = floorViews[floor] ?: return FloorWrapper(
+            floorList = FloorDetail(emptyList(), emptyList(), emptyList(), emptyList(), emptyList(), emptyList()),
+            floorNumber = floor,
+            maxSeats = 0
+        )
 
-        val floorList = canvasView.extractObjectsForSave()
+        val floorDetail = canvasView.extractObjectsForSave()
 
-        val floorListJson = JSONObject().apply {
-            put("borderPosition", toJsonArray(floorList.borderPosition))
-            put("seatPosition", toJsonArray(floorList.seatPosition))
-            put("doorPosition", toJsonArray(floorList.doorPosition))
-            put("counterPosition", toJsonArray(floorList.counterPosition))
-            put("toiletPosition", toJsonArray(floorList.toiletPosition))
-            put("windowPosition", toJsonArray(floorList.windowPosition))
-        }
-
-        return JSONObject().apply {
-            put("floorList", floorListJson)
-            put("floorNumber", floor)
-            put("maxSeats", floorList.seatPosition.size)
-        }
+        return FloorWrapper(
+            floorList = floorDetail,
+            floorNumber = floor,
+            maxSeats = floorDetail.seatPosition.size
+        )
     }
 
     private fun toJsonArray(positions: List<PositionDto>): JSONArray {
