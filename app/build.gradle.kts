@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId = "com.binbean.binbean_android"
-        minSdk = 26
+        minSdk = 28
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -29,6 +29,12 @@ android {
             abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
             abiFilters.add("armeabi-v7a")
             abiFilters.add("arm64-v8a")
+        }
+    }
+
+    packaging {
+        resources {
+            excludes += "META-INF/gradle/incremental.annotation.processors"
         }
     }
 
@@ -67,7 +73,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation("com.kakao.sdk:v2-all:2.21.0")
+    implementation(libs.kakao.sdk.all)
     implementation("com.kakao.maps.open:android:2.12.8")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

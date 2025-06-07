@@ -14,6 +14,8 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import com.binbean.admin.dto.FloorDetail
+import com.binbean.admin.dto.Position
 import com.binbean.domain.cafe.FloorListDto
 import com.binbean.domain.cafe.FloorPlanResponse
 import com.binbean.domain.cafe.PositionDto
@@ -276,20 +278,20 @@ class CanvasView @JvmOverloads constructor(
         ObjectType.TABLE -> R.drawable.obj_table
     }
 
-    fun extractObjectsForSave(): FloorListDto {
-        val seatList = mutableListOf<PositionDto>()
-        val doorList = mutableListOf<PositionDto>()
-        val toiletList = mutableListOf<PositionDto>()
-        val windowList = mutableListOf<PositionDto>()
-        val counterList = mutableListOf<PositionDto>()
-        val tableList = mutableListOf<PositionDto>()
+    fun extractObjectsForSave(): FloorDetail {
+        val seatList = mutableListOf<Position>()
+        val doorList = mutableListOf<Position>()
+        val toiletList = mutableListOf<Position>()
+        val windowList = mutableListOf<Position>()
+        val counterList = mutableListOf<Position>()
+        val tableList = mutableListOf<Position>()
 
         for (i in 0 until childCount) {
             val view = getChildAt(i) as? ImageView ?: continue
             val type = view.tag as? CanvasView.ObjectType ?: continue
-            val x = (view.x + view.width / 2f) / gridSize
-            val y = (view.y + view.height / 2f) / gridSize
-            val pos = PositionDto(x, y)
+            val x = ((view.x + view.width / 2f) / gridSize).toInt()
+            val y = ((view.y + view.height / 2f) / gridSize).toInt()
+            val pos = Position(x, y)
 
             when (type) {
                 ObjectType.SEAT -> seatList.add(pos)
@@ -298,11 +300,10 @@ class CanvasView @JvmOverloads constructor(
                 ObjectType.COUNTER -> counterList.add(pos)
                 ObjectType.WINDOW -> windowList.add(pos)
                 ObjectType.TABLE -> tableList.add(pos)
-
             }
         }
 
-        return FloorListDto(
+        return FloorDetail(
             borderPosition = listOf(),
             seatPosition = seatList,
             doorPosition = doorList,

@@ -7,6 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -45,7 +46,10 @@ object RetrofitModule {
     @Singleton
     @ServiceApi
     fun provideServiceOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder().build()
+        return OkHttpClient.Builder().connectTimeout(30, TimeUnit.SECONDS) // 연결 타임아웃 (기본 10초)
+            .readTimeout(30, TimeUnit.SECONDS)    // 응답 타임아웃 (기본 10초)
+            .writeTimeout(30, TimeUnit.SECONDS)   // 업로드 타임아웃 (파일 전송에 중요)build()
+            .build()
     }
 
     @Provides
