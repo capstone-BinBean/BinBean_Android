@@ -8,7 +8,6 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.util.Log
 import android.view.GestureDetector
-import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -17,7 +16,6 @@ import androidx.core.content.ContextCompat
 import com.binbean.admin.dto.FloorDetail
 import com.binbean.admin.dto.Position
 import com.binbean.domain.cafe.FloorListDto
-import com.binbean.domain.cafe.FloorPlanResponse
 import com.binbean.domain.cafe.PositionDto
 
 class CanvasView @JvmOverloads constructor(

@@ -1,16 +1,15 @@
 package com.binbean.map
 
-import android.R
 import android.net.Uri
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.binbean.domain.cafe.Cafe
 import com.binbean.domain.cafe.FloorPlanResponse
 import com.binbean.map.databinding.FragmentCafeDrawingBinding

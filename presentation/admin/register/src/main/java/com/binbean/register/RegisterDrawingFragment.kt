@@ -3,13 +3,10 @@ package com.binbean.register
 import android.os.Bundle
 import android.util.Log
 import android.view.DragEvent
-import android.view.GestureDetector
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -17,16 +14,15 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binbean.admin.dto.FloorDetail
 import com.binbean.admin.dto.FloorWrapper
-import com.binbean.domain.cafe.FloorPlanResponse
 import com.binbean.domain.cafe.ObjectItem
 import com.binbean.domain.cafe.PositionDto
 import com.binbean.register.databinding.FragmentRegisterDrawingBinding
 import com.binbean.register.drawing.ObjectListAdapter
 import com.binbean.register.drawing.RecyclerViewDecoration
-import org.json.JSONArray
-import org.json.JSONObject
 import com.binbean.ui.CanvasView
 import dagger.hilt.android.AndroidEntryPoint
+import org.json.JSONArray
+import org.json.JSONObject
 
 @AndroidEntryPoint
 class RegisterDrawingFragment : Fragment() {

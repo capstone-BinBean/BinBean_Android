@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import com.binbean.bookmark.BookMarkFragment
 import com.binbean.container.databinding.ActivityUserMainBinding
 import com.binbean.map.CafeDrawingFragment
-import com.binbean.map.MapFragment
 import com.binbean.mypage.MyInfoFragment
 import dagger.hilt.android.AndroidEntryPoint
 
