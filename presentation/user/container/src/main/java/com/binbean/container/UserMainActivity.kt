@@ -32,7 +32,7 @@ class UserMainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             val index = when (item.itemId) {
                 R.id.fragment_home -> {
-                    switchToFragment(CafeDrawingFragment())
+                    switchToFragment(MapFragment())
                     0
                 }
                 R.id.fragment_favorite -> {

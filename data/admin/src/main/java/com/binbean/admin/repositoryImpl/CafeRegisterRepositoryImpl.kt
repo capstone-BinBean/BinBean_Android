@@ -21,20 +21,20 @@ class CafeRegisterRepositoryImpl @Inject constructor(
     private val token = "Bearer ${BuildConfig.ADMIN_API_TOKEN}"
 
     // 더미 도면
-    val floorList: List<FloorWrapper> = listOf(
-        FloorWrapper(
-            floorList = FloorDetail(
-                borderPosition = listOf(Position(0, 0), Position(10, 0)),
-                seatPosition = listOf(Position(2, 3), Position(3, 3)),
-                doorPosition = listOf(Position(0, 5)),
-                counterPosition = listOf(Position(5, 1)),
-                toiletPosition = listOf(Position(8, 6)),
-                windowPosition = listOf(Position(1, 0))
-            ),
-            floorNumber = 1,
-            maxSeats = 20
-        )
-    )
+//    val floorList: List<FloorWrapper> = listOf(
+//        FloorWrapper(
+//            floorList = FloorDetail(
+//                borderPosition = listOf(Position(0, 0), Position(10, 0)),
+//                seatPosition = listOf(Position(2, 3), Position(3, 3)),
+//                doorPosition = listOf(Position(0, 5)),
+//                counterPosition = listOf(Position(5, 1)),
+//                toiletPosition = listOf(Position(8, 6)),
+//                windowPosition = listOf(Position(1, 0))
+//            ),
+//            floorNumber = 1,
+//            maxSeats = 20
+//        )
+//    )
 
     /**
      * 카페를 등록하는 함수
