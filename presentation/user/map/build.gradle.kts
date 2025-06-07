@@ -38,6 +38,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":data:user"))
     implementation(project(":core:retrofit"))
     implementation(project(":domain"))
     implementation(project(":core:ui"))

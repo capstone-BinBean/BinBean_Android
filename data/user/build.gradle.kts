@@ -1,7 +1,16 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     kotlin("kapt")
+}
+
+val localProperties = Properties().apply {
+    FileInputStream(rootProject.file("local.properties")).use {
+        load(it)
+    }
 }
 
 android {
@@ -13,6 +22,12 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        buildConfigField(
+            "String",
+            "USER_API_TOKEN",
+            "\"${localProperties.getProperty("USER_API_TOKEN")}\""
+        )
     }
 
     buildTypes {
@@ -31,6 +46,9 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -48,5 +66,4 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.gson)
     implementation(libs.retrofit.converter)
-    implementation("com.squareup.okhttp3:okhttp:4.10.0")
 }

@@ -1,24 +1,7 @@
 package com.binbean.login
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.binbean.login.state.AppLoginState
-import com.binbean.login.model.AuthenticationResult
-import com.binbean.login.model.KakaoAuthData
-import com.binbean.login.usecase.AuthenticateWithServerUseCase
-import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.common.model.AuthError
-import com.kakao.sdk.common.model.AuthErrorCause
-import com.kakao.sdk.common.model.ClientError
-import com.kakao.sdk.common.model.ClientErrorCause
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel

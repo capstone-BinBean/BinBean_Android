@@ -20,6 +20,7 @@ class CafeRegisterRepositoryImpl @Inject constructor(
 ) {
     private val token = "Bearer ${BuildConfig.ADMIN_API_TOKEN}"
 
+    // 더미 도면
     val floorList: List<FloorWrapper> = listOf(
         FloorWrapper(
             floorList = FloorDetail(

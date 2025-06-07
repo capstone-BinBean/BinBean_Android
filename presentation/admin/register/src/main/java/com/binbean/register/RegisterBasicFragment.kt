@@ -17,7 +17,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binbean.admin.dto.CafeRegisterRequest
-import com.binbean.domain.cafe.Cafe
 import com.binbean.register.databinding.FragmentRegisterBasicBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -69,7 +68,7 @@ class RegisterBasicFragment : Fragment() {
             chargerAvailable = binding.radioCharging.getSelectedTagValueAsInt(),
             kidsAvailable = binding.radioKids.getSelectedTagValueAsInt(),
             petAvailable = binding.radioPets.getSelectedTagValueAsInt(),
-            cafeDescription = binding.cafeAddiInfo.text.toString()
+            cafeDescription = binding.editAddiInfo.text.toString()
         )
     }
 
@@ -91,7 +90,7 @@ class RegisterBasicFragment : Fragment() {
         binding.registerButton.setOnClickListener {
             makeBasicRequest()
             Log.d(TAG, baseRequest.toString())
-            viewModel.initRequest(baseRequest)
+            viewModel.setRequest(baseRequest)
             viewModel.setImageUris(photoList)
             val action = RegisterBasicFragmentDirections.actionRegistrationToHours()
             findNavController().navigate(action)

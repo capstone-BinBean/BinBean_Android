@@ -21,14 +21,23 @@ class CafeRegisterViewModel @Inject constructor(
     private val _imageUris = MutableLiveData<List<Uri>>()
     val imageUris: LiveData<List<Uri>> = _imageUris
 
-    fun initRequest(baseData: CafeRegisterRequest) {
+    /**
+     * 카페 기본정보를 세팅하는 함수
+     */
+    fun setRequest(baseData: CafeRegisterRequest) {
         _request.value = baseData
     }
 
+    /**
+     * 카페 등록 사진 세팅하는 함수
+     */
     fun setImageUris(photos: List<Uri>) {
         _imageUris.postValue(photos)
     }
 
+    /**
+     * 사용자가 설정한 요일들을 매핑하는 함수
+     */
     fun setWeekTimes(weekTimes: List<DayTime>) {
         val base = _request.value ?: return
         _request.value = base.copy(
@@ -49,11 +58,24 @@ class CafeRegisterViewModel @Inject constructor(
         )
     }
 
+    /**
+     * 카페 기본정보 리퀘스트 반환 함수
+     */
     fun getFinalRequest(): CafeRegisterRequest? = _request.value
 
+    /**
+     * 카페 등록 함수
+     */
     fun registerCafe(context: Context) {
         viewModelScope.launch {
-            request.value?.let { cafeRepository.registerCafe(context, it, imageUris.value!!) }
+            val request = request.value ?: return@launch
+            val images = imageUris.value.orEmpty()
+
+            if (images.isEmpty()) {
+                return@launch
+            }
+
+            cafeRepository.registerCafe(context, request, images)
         }
     }
 }
