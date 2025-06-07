@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.binbean.admin.dto.CafeRegisterRequest
+import com.binbean.admin.dto.FloorWrapper
 import com.binbean.admin.repositoryImpl.CafeRegisterRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -20,6 +21,8 @@ class CafeRegisterViewModel @Inject constructor(
     val request: LiveData<CafeRegisterRequest> = _request
     private val _imageUris = MutableLiveData<List<Uri>>()
     val imageUris: LiveData<List<Uri>> = _imageUris
+    private val _floorList = MutableLiveData<List<FloorWrapper>>()
+    val floorList: LiveData<List<FloorWrapper>> = _floorList
 
     /**
      * 카페 기본정보를 세팅하는 함수
@@ -59,6 +62,13 @@ class CafeRegisterViewModel @Inject constructor(
     }
 
     /**
+     * 카페 도면 정보 세팅하는 함수
+     */
+    fun setFloorList(floors: List<FloorWrapper>) {
+        _floorList.value = floors
+    }
+
+    /**
      * 카페 기본정보 리퀘스트 반환 함수
      */
     fun getFinalRequest(): CafeRegisterRequest? = _request.value
@@ -70,12 +80,13 @@ class CafeRegisterViewModel @Inject constructor(
         viewModelScope.launch {
             val request = request.value ?: return@launch
             val images = imageUris.value.orEmpty()
+            val floors = _floorList.value.orEmpty()
 
             if (images.isEmpty()) {
                 return@launch
             }
 
-            cafeRepository.registerCafe(context, request, images)
+            cafeRepository.registerCafe(context, request, images, floors)
         }
     }
 }
