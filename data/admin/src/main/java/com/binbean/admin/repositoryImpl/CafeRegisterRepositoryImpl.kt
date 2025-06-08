@@ -3,19 +3,12 @@ package com.binbean.admin.repositoryImpl
 import android.content.Context
 import android.net.Uri
 import android.util.Log
-import com.binbean.admin.BuildConfig
-import com.binbean.admin.api.CafeRegisterService
+import androidx.core.content.edit
 import com.binbean.admin.datasource.CafeRegisterRemoteDataSource
 import com.binbean.admin.dto.CafeRegisterRequest
-import com.binbean.admin.dto.FloorDetail
 import com.binbean.admin.dto.FloorWrapper
-import com.binbean.admin.dto.Position
-import com.binbean.util.uriListToMultipartParts
-import com.google.gson.Gson
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
+import com.binbean.domain.cafe.CafeDetail
 import javax.inject.Inject
-import androidx.core.content.edit
 
 class CafeRegisterRepositoryImpl @Inject constructor(
     private val cafeRegisterRemoteDataSource: CafeRegisterRemoteDataSource
@@ -47,6 +40,10 @@ class CafeRegisterRepositoryImpl @Inject constructor(
                 false
             }
         )
+    }
+
+    suspend fun getCafeDetail(cafeId: Int): CafeDetail {
+        return cafeRegisterRemoteDataSource.getCafeDetail(cafeId)
     }
 
     companion object {

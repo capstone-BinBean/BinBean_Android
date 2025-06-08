@@ -28,4 +28,8 @@ class AdminMainViewModel @Inject constructor(
     fun getCafeId(): Int {
         return _cafeId.value
     }
+
+    companion object {
+        private const val TAG = "AdminMainViewModel"
+    }
 }

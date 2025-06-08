@@ -7,17 +7,13 @@ import com.binbean.admin.BuildConfig
 import com.binbean.admin.api.CafeRegisterService
 import com.binbean.admin.dto.CafeRegisterRequest
 import com.binbean.admin.dto.FloorWrapper
+import com.binbean.domain.cafe.CafeDetail
+import com.binbean.util.toJsonRequestBody
 import com.binbean.util.uriListToMultipartParts
-import com.google.gson.Gson
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Response
 import javax.inject.Inject
-import androidx.core.content.edit
-import com.binbean.util.toJsonRequestBody
 
 class CafeRegisterRemoteDataSource @Inject constructor(private val registerApi: CafeRegisterService) {
     private val token = "Bearer ${BuildConfig.ADMIN_API_TOKEN}"
@@ -59,6 +55,19 @@ class CafeRegisterRemoteDataSource @Inject constructor(private val registerApi: 
             val error = response.errorBody()?.string().orEmpty()
             Log.e(TAG, "등록 실패: HTTP ${response.code()} - $error")
             Result.failure(Exception("HTTP ${response.code()} - $error"))
+        }
+    }
+
+    suspend fun getCafeDetail(cafeId: Int): CafeDetail {
+        val response = registerApi.getCafeDetail(
+            token = token,
+            cafeId = cafeId
+        )
+        if (response.isSuccessful) {
+            return response.body() ?: throw Exception("응답 본문 없음")
+        } else {
+            val error = response.errorBody()?.string()
+            throw Exception("상세 조회 실패: ${response.code()} - $error")
         }
     }
 

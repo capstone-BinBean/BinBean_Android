@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.binbean.bookmark.BookMarkFragment
 import com.binbean.container.databinding.ActivityUserMainBinding
 import com.binbean.map.CafeDrawingFragment
+import com.binbean.map.MapFragment
 import com.binbean.mypage.MyInfoFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,7 +32,7 @@ class UserMainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             val index = when (item.itemId) {
                 R.id.fragment_home -> {
-                    switchToFragment(CafeDrawingFragment())
+                    switchToFragment(MapFragment())
                     0
                 }
                 R.id.fragment_favorite -> {
