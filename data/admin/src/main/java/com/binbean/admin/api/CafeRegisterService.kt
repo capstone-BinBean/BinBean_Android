@@ -9,6 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 
@@ -19,6 +20,14 @@ interface CafeRegisterService {
         @Header("Authorization") token: String,
         @Path("cafeId") cafeId: Int
     ): Response<CafeDetail>
+
+    @Multipart
+    @PUT("/api/cafes/registration")
+    suspend fun modifyCafe(
+        @Header("Authorization") token: String,
+        @Part("cafe") cafe: RequestBody,
+        @Part cafeImg: List<MultipartBody.Part>? = null
+    ): Response<ResponseBody>
 
     @Multipart
     @POST("/api/cafes/registration")
