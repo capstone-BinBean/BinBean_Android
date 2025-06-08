@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.binbean.admin.dto.CafeRegisterRequest
 import com.binbean.admin.dto.FloorWrapper
+import com.binbean.admin.model.DayTime
+import com.binbean.admin.model.PhotoItem
 import com.binbean.admin.repositoryImpl.CafeRegisterRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -19,10 +21,21 @@ class CafeRegisterViewModel @Inject constructor(
 ) : ViewModel() {
     private val _request = MutableLiveData<CafeRegisterRequest>()
     val request: LiveData<CafeRegisterRequest> = _request
-    private val _imageUris = MutableLiveData<List<Uri>>()
-    val imageUris: LiveData<List<Uri>> = _imageUris
+    private val _imageItems = MutableLiveData<List<PhotoItem>>()
+    val imageItems: LiveData<List<PhotoItem>> = this._imageItems
     private val _floorList = MutableLiveData<List<FloorWrapper>>()
     val floorList: LiveData<List<FloorWrapper>> = _floorList
+
+    fun setLocalImages(uris: List<Uri>) {
+        val current = this._imageItems.value.orEmpty().filterIsInstance<PhotoItem.Remote>()
+        this._imageItems.value = current + uris.map { PhotoItem.Local(it) }
+    }
+
+    fun setRemoteImages(urls: List<String>) {
+        val current = this._imageItems.value.orEmpty().filterIsInstance<PhotoItem.Local>()
+        this._imageItems.value = urls.map { PhotoItem.Remote(it) } + current
+    }
+
 
     /**
      * 카페 기본정보를 세팅하는 함수
@@ -34,8 +47,8 @@ class CafeRegisterViewModel @Inject constructor(
     /**
      * 카페 등록 사진 세팅하는 함수
      */
-    fun setImageUris(photos: List<Uri>) {
-        _imageUris.postValue(photos)
+    fun setImageList(photos: List<PhotoItem>) {
+        _imageItems.value = photos
     }
 
     /**
@@ -78,13 +91,9 @@ class CafeRegisterViewModel @Inject constructor(
      */
     fun registerCafe(context: Context) {
         viewModelScope.launch {
-            val request = request.value ?: return@launch
-            val images = imageUris.value.orEmpty()
+            val request = _request.value
+            val images = _imageItems.value.orEmpty().filterIsInstance<PhotoItem.Local>().map { it.uri }
             val floors = _floorList.value.orEmpty()
-
-            if (images.isEmpty()) {
-                return@launch
-            }
 
             cafeRepository.registerCafe(context, request, images, floors)
         }
