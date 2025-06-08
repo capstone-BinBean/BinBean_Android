@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
     implementation(project(":presentation:user:map"))
     implementation(project(":presentation:user:review"))
     implementation(project(":domain:admin"))
