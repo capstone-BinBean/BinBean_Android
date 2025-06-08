@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.binbean.domain.cafe.Cafe
 import com.binbean.domain.cafe.CafeDetail
 import com.binbean.domain.cafe.CafeInfoImgItem
 import com.binbean.map.adapter.CafeInfoImgAdapter
@@ -34,6 +33,7 @@ class AdminModifyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.shimmerLayout.startShimmer()
         initAdapter()
         observeCafeInfoImg()
         observeServerCafeData()
@@ -84,6 +84,10 @@ class AdminModifyFragment : Fragment() {
                 adapter.submitList(it.cafeImgUrl.map { img -> CafeInfoImgItem(img.url) })
 
                 setupViewPager(detail)
+
+                binding.shimmerLayout.stopShimmer()
+                binding.shimmerLayout.visibility = View.GONE
+                binding.contentLayout.visibility = View.VISIBLE
             }
         }
     }
