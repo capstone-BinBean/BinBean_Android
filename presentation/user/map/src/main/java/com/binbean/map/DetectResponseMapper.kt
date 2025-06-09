@@ -9,7 +9,7 @@ import com.binbean.user.dto.PositionF
 fun PositionF.toDto(): PositionDto = PositionDto(x, y)
 
 // List<PositionF> → List<PositionDto>
-fun List<PositionF>.toDtoList(): List<PositionDto> = map { it.toDto() }
+fun List<PositionF>?.toDtoList(): List<PositionDto> = this?.map { it.toDto() } ?: emptyList()
 
 // FloorList → FloorListDto
 fun FloorList.toDto(): FloorListDto = FloorListDto(
