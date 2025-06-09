@@ -11,7 +11,8 @@ data class FloorList(
     val doorPosition: List<PositionF>,
     val counterPosition: List<PositionF>,
     val toiletPosition: List<PositionF>,
-    val windowPosition: List<PositionF>
+    val windowPosition: List<PositionF>,
+    val tablePosition: List<PositionF>
 )
 
 data class CurrentSeats(

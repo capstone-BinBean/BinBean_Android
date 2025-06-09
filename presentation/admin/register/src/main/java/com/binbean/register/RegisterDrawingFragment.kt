@@ -1,5 +1,6 @@
 package com.binbean.register
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.DragEvent
@@ -14,6 +15,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.binbean.admin.dto.FloorDetail
 import com.binbean.admin.dto.FloorWrapper
@@ -27,6 +30,7 @@ import com.binbean.register.drawing.RecyclerViewDecoration
 import org.json.JSONArray
 import org.json.JSONObject
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RegisterDrawingFragment : Fragment() {
@@ -59,7 +63,25 @@ class RegisterDrawingFragment : Fragment() {
                 extractFloorDataToDto(floorNumber)
             }
             viewModel.setFloorList(floorWrappers)
-            viewModel.registerCafe(requireContext())
+
+            lifecycleScope.launch {
+                val cafeId = viewModel.registerCafe(requireContext())
+
+                if (cafeId != null) {
+                    Toast.makeText(requireContext(), "카페 등록이 완료되었습니다!", Toast.LENGTH_SHORT).show()
+
+                    val bundle = Bundle().apply {
+                        putInt("cafeId", cafeId)
+                    }
+                    findNavController().navigate(
+                        com.binbean.navigation.R.id.action_register_drawing_to_register_success,
+                        bundle
+                    )
+                } else {
+                    Toast.makeText(requireContext(), "카페 등록에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
         }
     }
 
@@ -159,7 +181,7 @@ class RegisterDrawingFragment : Fragment() {
 
     private fun extractFloorDataToDto(floor: Int): FloorWrapper {
         val canvasView = floorViews[floor] ?: return FloorWrapper(
-            floorList = FloorDetail(emptyList(), emptyList(), emptyList(), emptyList(), emptyList(), emptyList()),
+            floorList = FloorDetail(emptyList(), emptyList(), emptyList(), emptyList(), emptyList(), emptyList(), emptyList()),
             floorNumber = floor,
             maxSeats = 0
         )

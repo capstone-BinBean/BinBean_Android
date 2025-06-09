@@ -17,7 +17,8 @@ data class FloorDetail(
     val doorPosition: List<Position>,
     val counterPosition: List<Position>,
     val toiletPosition: List<Position>,
-    val windowPosition: List<Position>
+    val windowPosition: List<Position>,
+    val tablePosition: List<Position>
 )
 
 data class CafeRegisterRequest(
@@ -31,18 +32,18 @@ data class CafeRegisterRequest(
     val kidsAvailable: Int,
     val petAvailable: Int,
     val cafeDescription: String,
-    val monday_start: String? = null,
-    val monday_end: String? = null,
-    val tuesday_start: String? = null,
-    val tuesday_end: String? = null,
-    val wednesday_start: String? = null,
-    val wednesday_end: String? = null,
-    val thursday_start: String? = null,
-    val thursday_end: String? = null,
-    val friday_start: String? = null,
-    val friday_end: String? = null,
-    val saturday_start: String? = null,
-    val saturday_end: String? = null,
-    val sunday_start: String? = null,
-    val sunday_end: String? = null
+    val mondayStart: String? = null,
+    val mondayEnd: String? = null,
+    val tuesdayStart: String? = null,
+    val tuesdayEnd: String? = null,
+    val wednesdayStart: String? = null,
+    val wednesdayEnd: String? = null,
+    val thursdayStart: String? = null,
+    val thursdayEnd: String? = null,
+    val fridayStart: String? = null,
+    val fridayEnd: String? = null,
+    val saturdayStart: String? = null,
+    val saturdayEnd: String? = null,
+    val sundayStart: String? = null,
+    val sundayEnd: String? = null
 )

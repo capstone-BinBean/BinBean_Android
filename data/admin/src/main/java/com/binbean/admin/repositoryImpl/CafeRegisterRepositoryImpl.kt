@@ -38,7 +38,7 @@ class CafeRegisterRepositoryImpl @Inject constructor(
         request: CafeRegisterRequest,
         imageUris: List<Uri>,
         floorList: List<FloorWrapper>
-    ): Boolean {
+    ): Int? {
         val result =
             cafeRegisterRemoteDataSource.registerCafe(context, request, imageUris, floorList)
 
@@ -49,11 +49,11 @@ class CafeRegisterRepositoryImpl @Inject constructor(
                         putInt("cafeId", cafeId)
                     }
                 Log.d(TAG, "pref 등록 성공: $cafeId")
-                true
+                cafeId
             },
             onFailure = {
                 Log.w(TAG, "pref 등록 실패. ${it.message}")
-                false
+                null
             }
         )
     }

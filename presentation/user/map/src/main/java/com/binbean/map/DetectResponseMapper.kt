@@ -18,5 +18,6 @@ fun FloorList.toDto(): FloorListDto = FloorListDto(
     doorPosition = doorPosition.toDtoList(),
     counterPosition = counterPosition.toDtoList(),
     toiletPosition = toiletPosition.toDtoList(),
-    windowPosition = windowPosition.toDtoList()
+    windowPosition = windowPosition.toDtoList(),
+    tablePosition = tablePosition.toDtoList()
 )

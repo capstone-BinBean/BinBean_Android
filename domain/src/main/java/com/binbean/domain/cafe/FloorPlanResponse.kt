@@ -14,7 +14,8 @@ data class FloorListDto(
     val doorPosition: List<PositionDto>,
     val counterPosition: List<PositionDto>,
     val toiletPosition: List<PositionDto>,
-    val windowPosition: List<PositionDto>
+    val windowPosition: List<PositionDto>,
+    val tablePosition: List<PositionDto>
 ): Serializable
 
 data class CurrentSeats(

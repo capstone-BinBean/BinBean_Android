@@ -39,7 +39,7 @@ interface CafeRetrofitServerService {
         @Body reviewRequest: ReviewPostRequest
     ): Response<Unit>
 
-    @GET("/api/cafes/floor-plan/{floorPlanId}")
+    @GET("/api/cafes/{floorPlanId}/floor-plan")
     suspend fun getFloorPlan(
         @Header("Authorization") token: String,
         @Path("floorPlanId") floorPlanId: Int

@@ -84,10 +84,23 @@
         android:id="@+id/register_drawing"
         android:name="com.binbean.register.RegisterDrawingFragment">
 
+        <action
+            android:id="@+id/action_register_drawing_to_register_success"
+            app:destination="@id/register_success" />
+
         <argument
             android:name="isRegistered"
             android:defaultValue="false"
             app:argType="boolean" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/register_success"
+        android:name="com.binbean.register.RegisterSuccessFragment" >
+        <argument
+            android:name="cafeId"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </fragment>
 
     <fragment

@@ -125,6 +125,7 @@ class CanvasView @JvmOverloads constructor(
         data.counterPosition.forEach { objectList.add(Object(it.x, it.y, ObjectType.COUNTER)) }
         data.toiletPosition.forEach { objectList.add(Object(it.x, it.y, ObjectType.TOILET)) }
         data.windowPosition.forEach { objectList.add(Object(it.x, it.y, ObjectType.WINDOW)) }
+        data.tablePosition.forEach { objectList.add(Object(it.x, it.y, ObjectType.TABLE)) }
 
         invalidate()
 
@@ -307,7 +308,8 @@ class CanvasView @JvmOverloads constructor(
             doorPosition = doorList,
             counterPosition = counterList,
             toiletPosition = toiletList,
-            windowPosition = windowList
+            windowPosition = windowList,
+            tablePosition = tableList
         )
     }
 }
